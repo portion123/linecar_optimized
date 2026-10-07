@@ -279,10 +279,10 @@
   "only_new_protection_stop": true
  },
  {
-  "run": "MIX|37003|+",
-  "first_divergent_frame": 1363,
-  "cand_frames": 1364,
-  "ref_frames": 1377,
+  "run": "MIX|37006|-",
+  "first_divergent_frame": 569,
+  "cand_frames": 570,
+  "ref_frames": 589,
   "cand_state": 8,
   "cand_stop_reason": 18,
   "only_new_protection_stop": true
@@ -306,24 +306,6 @@
   "only_new_protection_stop": true
  },
  {
-  "run": "MIX|37011|+",
-  "first_divergent_frame": 2871,
-  "cand_frames": 2872,
-  "ref_frames": 2913,
-  "cand_state": 8,
-  "cand_stop_reason": 18,
-  "only_new_protection_stop": true
- },
- {
-  "run": "MIX|37011|-",
-  "first_divergent_frame": 1806,
-  "cand_frames": 1807,
-  "ref_frames": 1815,
-  "cand_state": 8,
-  "cand_stop_reason": 18,
-  "only_new_protection_stop": true
- },
- {
   "run": "MIX|37020|+",
   "first_divergent_frame": 1357,
   "cand_frames": 1358,
@@ -342,10 +324,10 @@
   "only_new_protection_stop": true
  },
  {
-  "run": "MIX|37029|+",
-  "first_divergent_frame": 562,
-  "cand_frames": 563,
-  "ref_frames": 583,
+  "run": "MIX|37028|+",
+  "first_divergent_frame": 1325,
+  "cand_frames": 1326,
+  "ref_frames": 1343,
   "cand_state": 8,
   "cand_stop_reason": 18,
   "only_new_protection_stop": true

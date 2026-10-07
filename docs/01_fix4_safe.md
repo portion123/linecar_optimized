@@ -26,12 +26,12 @@ FIX4_SAFE 相对 FIX4（baselines/fix4，实车可跑圈）只增加硬约束要
 比较字段：时间、状态、PWM、mask、方向、运行标志、扫描侧、左右目标/命令 RPM、误差、角度、滤波转速、推进距离/目标
 （排除只有观测意义的停车原因/尝试数等字段）。
 
-* 659/698 run **逐帧完全相同**；
-* 其余 39 run：**每一个都与 FIX4 逐帧相同，直到 FIX4_SAFE 因新保护停车的那一帧**（`sim/equiv.py`，证据
+* 661/698 run **逐帧完全相同**（场景构造修正后）；
+* 其余 37 run：**每一个都与 FIX4 逐帧相同，直到 FIX4_SAFE 因新保护停车的那一帧**（`sim/equiv.py`，证据
   `golden/fix4_safe_vs_fix4_equivalence.json`）：
   * APPROACH 偏航 >15°（原因 9）：28 run，其中 13 个是 FIX4 原本“通过”的
     （GEO loaded_square ±1、FMX L1 方形 5 个、FRD L2 1 个、DYN 31009+、LOW8 32005−/32007±/32024+）；
-  * Recovery 累计转角 300°（原因 18）：11 run，全部是 FIX4 原本就失败的 MIX。
+  * Recovery 累计转角 300°（原因 18）：9 run，全部是 FIX4 原本就失败的 MIX。
 
 ## 3. 这 13 个“FIX4 通过但超出 15° 推进偏航预算”的 run
 
