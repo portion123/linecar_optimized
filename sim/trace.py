@@ -46,3 +46,15 @@ if __name__ == '__main__':
         frames = [f for f in frames if f[-1].state in want]
     show(frames, a.t0, a.t1, a.every)
     ctl.close()
+
+def worst_track(frames, plant_maker):
+    """Return tick of max front error while state==1 (uses a fresh plant only for geometry)."""
+    plant, _ = plant_maker()
+    best = (0, None)
+    for f in frames:
+        tick, x, y, h = f[0], f[1], f[2], f[3]
+        if f[-1].state != 1: continue
+        fx, fy = x + 0.175 * math.cos(h), y + 0.175 * math.sin(h)
+        d = plant.track.metric_distance(fx, fy) if hasattr(plant, 'track') else plant.nearest_track(fx, fy)[0]
+        if d > best[0]: best = (d, tick)
+    return best

@@ -105,8 +105,19 @@ class Track:
     strips: list
     corners: int                 # number of turn features per lap (corners + arcs)
     corner_pieces: list = field(default_factory=list)  # piece index AFTER each sharp corner
+    stub_lines: list = field(default_factory=list)     # (ax, ay, bx, by): tape over-run centre lines
     def mirrored(self):
-        return Track(self.path.mirrored(), [s.mirrored() for s in self.strips], self.corners, list(self.corner_pieces))
+        return Track(self.path.mirrored(), [s.mirrored() for s in self.strips], self.corners, list(self.corner_pieces),
+                     [(ax, -ay, bx, -by) for ax, ay, bx, by in self.stub_lines])
+    def metric_distance(self, x, y):
+        """Lateral-error metric: distance to the tape centre line, where a corner over-run
+        stub IS tape (metric correction 2026-10-07, see docs/assumptions.md section 8)."""
+        d = self.path.nearest(x, y)[0]
+        for ax, ay, bx, by in self.stub_lines:
+            dx, dy = bx - ax, by - ay; L2 = dx * dx + dy * dy
+            t = max(0.0, min(1.0, ((x - ax) * dx + (y - ay) * dy) / L2))
+            d = min(d, math.hypot(x - ax - t * dx, y - ay - t * dy))
+        return d
 
 def polygon_track(vertices, w=0.010, stubs=None, gaps=None, arcs=None):
     """Closed polygon (CCW => left turns). stubs[i]: over-run length past vertex i (m).
@@ -127,7 +138,7 @@ def polygon_track(vertices, w=0.010, stubs=None, gaps=None, arcs=None):
             pts.append(('arc', a, b, c, R, math.atan2(a[1] - c[1], a[0] - c[0]), turn))
         else:
             pts.append(('v', p1))
-    pieces, strips, corner_pieces = [], [], []
+    pieces, strips, corner_pieces, stub_lines = [], [], [], []
     for i in range(n):
         cur, nxt = pts[i], pts[(i + 1) % n]
         start = cur[2] if cur[0] == 'arc' else cur[1]
@@ -148,7 +159,10 @@ def polygon_track(vertices, w=0.010, stubs=None, gaps=None, arcs=None):
             strips.append(LineStrip(start[0] + ux * s0, start[1] + uy * s0, start[0] + ux * gs, start[1] + uy * gs, w, ext0, 0.0))
             s0, ext0 = gs + gl, 0.0
         strips.append(LineStrip(start[0] + ux * s0, start[1] + uy * s0, end[0], end[1], w, ext0, e1))
-    return Track(Path(pieces), strips, n, corner_pieces)
+        if nxt[0] == 'v' and stubs[(i + 1) % n] > 0:
+            st = stubs[(i + 1) % n]
+            stub_lines.append((end[0], end[1], end[0] + ux * st, end[1] + uy * st))
+    return Track(Path(pieces), strips, n, corner_pieces, stub_lines)
 
 # ---------------- motors ----------------
 @dataclass
@@ -232,7 +246,7 @@ class WorldPlant:
         return mask
     def front_error(self):
         c, s = math.cos(self.heading), math.sin(self.heading)
-        return self.track.path.nearest(self.x + self.front * c, self.y + self.front * s)
+        return (self.track.metric_distance(self.x + self.front * c, self.y + self.front * s),)
     def advance(self, lpwm, rpwm, dt=0.02):
         old = [w.rpm for w in self.wheels]
         spin = (lpwm > 0 > rpwm) or (lpwm < 0 < rpwm)

@@ -49,6 +49,31 @@ static uint32_t recovery_started;
 static uint8_t recovering;
 static uint32_t width_learn_ms;
 static uint8_t width_candidate;
+#if TRACK_CORNER_BAND_ENABLE
+static int8_t band_vote; /* ≥5 路单侧横带的方向票，±4 饱和 */
+#endif
+#if TRACK_CORNER_CAPTURE_ENABLE
+static uint8_t capture_samples, capture_active;
+static float capture_error;
+#endif
+#if TRACK_WHITE_GAP_ENABLE
+static uint8_t gap_active;
+static float gap_mm;
+/* 第一帧全白时判断是否像白缝；之后按行进距离/时间给有界缓冲，返回1=本周期继续直行。 */
+static uint8_t WhiteGap(uint32_t elapsed_lost,float forward_mm)
+{
+    if(elapsed_lost==0U) return 0;
+    if(!gap_active) return 0;
+    if(forward_mm>0.0f) gap_mm+=forward_mm;
+    if(gap_mm<TRACK_GAP_MAX_MM && elapsed_lost<TRACK_GAP_MAX_MS) return 1;
+    gap_active=0; return 0;
+}
+#endif
+#if TRACK_STABLE_RESUME_ENABLE
+static uint8_t resume_slow;
+static uint32_t resume_started, resume_stable_ms;
+static float resume_stable_mm;
+#endif
 /* FIX4_SAFE：停车原因、推进偏航、失线恢复会话。只读控制量并决定是否停车。 */
 static TrackStopReason stop_reason;
 static float approach_yaw;
@@ -132,6 +157,9 @@ static void ClearWide(void)
 {
     wide_active=wide_strong=wide_peak_count=0; wide_ms=0; wide_dir=0; wide_travel_mm=wide_last_mm=0.0f;
     wide_center_ms=wide_tail_ms=wide_gap_ms=0; wide_center_mm=0.0f;
+#if TRACK_CORNER_BAND_ENABLE
+    band_vote=0;
+#endif
 }
 /* 只保存已运动且未明显超速时的正向负载补偿，不保存误差和微分。
  * 正反转均按速度大小控制，补偿也按大小使用；手动停车会全部清空。
@@ -211,6 +239,15 @@ static void ResetRuntime(void)
     width_learn_ms=0; width_candidate=0;
     corner_armed=1; normal_line_width=2; ResetPID();
     approach_yaw=0.0f; recovery_active=recovery_attempts=0;
+#if TRACK_WHITE_GAP_ENABLE
+    gap_active=0; gap_mm=0.0f;
+#endif
+#if TRACK_CORNER_CAPTURE_ENABLE
+    capture_samples=capture_active=0; capture_error=0.0f;
+#endif
+#if TRACK_STABLE_RESUME_ENABLE
+    resume_slow=0; resume_started=resume_stable_ms=0; resume_stable_mm=0.0f;
+#endif
     recovery_start_ms=recovery_stable_ms=0;
     recovery_angle=recovery_distance=recovery_stable_mm=0.0f;
 }
@@ -340,11 +377,16 @@ static void DriveTargets(uint32_t elapsed,float dt)
 static uint8_t ObserveWide(uint32_t now,uint32_t elapsed,uint8_t count,float forward_mm)
 {
 #if TRACK_ENABLE_CORNERS
-    uint8_t broad;
+    uint8_t broad,band=sensor_mask;
     if(!corner_armed || elapsed>2U*TRACK_PERIOD_MS) { ClearWide(); return 0; }
-    broad=count>=4 && count>=normal_line_width+2U && Contiguous(sensor_mask) &&
-          (sensor_mask&0x81U) && (sensor_mask&0x18U);
-    if(sensor_mask==0xFFU) broad=1;
+#if TRACK_CORNER_BAND_ENABLE
+    /* 横带判断只填补单个探头漏读（两侧都黑的孤立白位），只用于横带证据；循线误差仍用原读数。 */
+    band=(uint8_t)(sensor_mask|((sensor_mask<<1)&(sensor_mask>>1)));
+    count=Bits(band);
+#endif
+    broad=count>=4 && count>=normal_line_width+2U && Contiguous(band) &&
+          (band&0x81U) && (band&0x18U);
+    if(band==0xFFU) broad=1;
     if(wide_active && forward_mm>0.0f) wide_travel_mm+=forward_mm;
     if(broad) {
         edge_ms=0; edge_dir=0; /* 宽带打断边缘连续计时，不能跨宽带凑满600ms。 */
@@ -354,8 +396,17 @@ static uint8_t ObserveWide(uint32_t now,uint32_t elapsed,uint8_t count,float for
         wide_center_ms=wide_tail_ms=0; wide_center_mm=0.0f;
         if(count>=6) wide_strong=1;
         /* 单侧扩展才有左右线索；八路全黑不能强行推断方向。 */
-        if((sensor_mask&0x01U) && !(sensor_mask&0x80U)) wide_dir=-1;
-        else if((sensor_mask&0x80U) && !(sensor_mask&0x01U)) wide_dir=1;
+        if((band&0x01U) && !(band&0x80U)) wide_dir=-1;
+        else if((band&0x80U) && !(band&0x01U)) wide_dir=1;
+#if TRACK_CORNER_BAND_ENABLE
+        /* ≥5 路单侧横带每帧投一票；两票同向即锁定方向并按强横带直行，不再被 PD 拉偏。 */
+        if(count>=CORNER_MIN_ADVANCE_PROBES && ((band&0x01U)!=0)!=((band&0x80U)!=0)) {
+            band_vote=(int8_t)Limit((float)band_vote+((band&0x01U) ? -1.0f : 1.0f),-4.0f,4.0f);
+        }
+        if(band_vote>=CORNER_BAND_VOTES || band_vote<=-CORNER_BAND_VOTES) {
+            wide_strong=1; wide_dir=band_vote>0 ? 1 : -1;
+        }
+#endif
         lost_ms=0;
         if(wide_strong) {
             state=CAR_WIDE; PID_Reset(&line_pid);
@@ -383,6 +434,13 @@ static uint8_t ObserveWide(uint32_t now,uint32_t elapsed,uint8_t count,float for
             wide_dir=tail_dir; wide_last_seen=now; wide_last_mm=wide_travel_mm;
         }
     }
+#if TRACK_CORNER_BAND_ENABLE
+    /* 已确认角点：残段按横带后的行进距离保留；线继续超过 40 mm（T/十字）或长时间不动才清除。 */
+    if(wide_active && wide_strong) {
+        if(wide_travel_mm-wide_last_mm>CORNER_TAIL_MAX_MM ||
+           (uint32_t)(now-wide_last_seen)>CORNER_TAIL_MAX_MS) ClearWide();
+    } else
+#endif
     if(wide_active && (uint32_t)(now-wide_last_seen)>CORNER_MEMORY_MS) ClearWide();
 #else
     (void)now; (void)elapsed; (void)count; (void)forward_mm;
@@ -477,6 +535,12 @@ static void BeginScan(uint32_t now,int8_t direction,uint8_t is_corner)
     phase_started=now; turn_angle=0.0f; sweep_number=1; center_samples=0; lost_ms=0;
     side_candidate=0; side_ms=0;
     edge_ms=0; edge_dir=0;
+#if TRACK_CORNER_CAPTURE_ENABLE
+    capture_samples=capture_active=0; capture_error=0.0f;
+#endif
+#if TRACK_STABLE_RESUME_ENABLE
+    resume_slow=0;
+#endif
 }
 /* 有线贴边接管：保留两轮速度环，内轮停车、外轮缓慢推进，避免停车后反扫。 */
 static void BeginEdgeAlign(uint32_t now,int8_t direction)
@@ -489,14 +553,82 @@ static void BeginEdgeAlign(uint32_t now,int8_t direction)
     left_target=direction>0 ? TRACK_EDGE_PIVOT_RPM : 0.0f;
     right_target=direction<0 ? TRACK_EDGE_PIVOT_RPM : 0.0f;
 }
+#if TRACK_STABLE_RESUME_ENABLE
+static void ResumeSlowBegin(uint32_t now) { resume_slow=1; resume_started=now; resume_stable_ms=0; resume_stable_mm=0.0f; }
+#endif
 /* 普通救线接回低速循迹时不清空速度积分、不重复刹停和助推。 */
 static void ResumeLine(uint32_t now,uint32_t elapsed,float dt,float error)
 {
     state=CAR_RUN; edge_align_active=0; recovering=1; recovery_started=now;
+#if TRACK_STABLE_RESUME_ENABLE
+    ResumeSlowBegin(now);
+#endif
     PID_Reset(&line_pid); last_error=error; error_filtered=0.0f;
     lost_ms=0; edge_ms=0; edge_dir=0;
     FollowLine(now,error,dt,TRACK_RECOVERY_RPM); DriveTargets(elapsed,dt);
 }
+#if TRACK_STABLE_RESUME_ENABLE
+/* 稳定条件只决定何时解除 42 RPM 限速；控制仍是原 PD 和速度 PI。 */
+static void ResumeSlowStep(uint32_t now,uint32_t elapsed,uint8_t count,float error,float forward_mm)
+{
+    if(!resume_slow) return;
+    if(count && count<=normal_line_width+1U && Contiguous(sensor_mask) && Abs(error)<=TRACK_RESUME_STABLE_ERROR && forward_mm>0.0f) {
+        resume_stable_ms+=elapsed; resume_stable_mm+=forward_mm;
+    } else { resume_stable_ms=0; resume_stable_mm=0.0f; }
+    if((resume_stable_ms>=TRACK_RESUME_STABLE_MS && resume_stable_mm>=TRACK_RESUME_STABLE_MM) ||
+       (uint32_t)(now-resume_started)>=TRACK_RESUME_MAX_MS) resume_slow=0;
+}
+#endif
+#if TRACK_CORNER_CAPTURE_ENABLE
+/* 可信下一条线：撤掉原地强转，状态记为 EXIT（低速接线段），不停车、不清速度 PI、不重新助推。 */
+static void StartCapture(uint32_t now,uint32_t elapsed,float dt,float error)
+{
+    state=CAR_EXIT; capture_active=1; phase_started=now; edge_align_active=0;
+    PID_Reset(&line_pid); last_error=error; error_filtered=0.0f;
+    lost_ms=0; edge_ms=0; edge_dir=0; center_samples=0;
+    last_turn_dir=corner_dir; centered_ms=0; rearm_mm=0.0f;
+    FollowLine(now,error,dt,TRACK_RECOVERY_RPM); DriveTargets(elapsed,dt);
+}
+/* 低速接线：原 PD + 42 RPM 限速。两帧居中（FIX4 原接线条件）或 1 s 上限后连续交给 RUN。
+ * 白帧沿用 RUN 的 80 ms 缓冲和按最后偏差选方向的有限搜索，单帧白不会触发搜索。 */
+static void CaptureLine(uint32_t now,uint32_t elapsed,float dt,uint8_t count,float error,float forward_mm)
+{
+    float largest,scale;
+    (void)forward_mm; /* 仅 TRACK_WHITE_GAP_ENABLE 使用 */
+    if(count) {
+        lost_ms=0;
+#if TRACK_WHITE_GAP_ENABLE
+        gap_active=0;
+#endif
+        if(Centered(count,error)) ++center_samples; else center_samples=0;
+        FollowLine(now,error,dt,TRACK_RECOVERY_RPM);
+        if(center_samples>=CORNER_CENTER_SAMPLES || (uint32_t)(now-phase_started)>=CORNER_CAPTURE_MAX_MS) {
+            capture_active=0; state=CAR_RUN; recovering=1; recovery_started=now;
+#if TRACK_STABLE_RESUME_ENABLE
+            ResumeSlowBegin(now);
+#endif
+        }
+    } else {
+        lost_ms+=elapsed;
+#if TRACK_WHITE_GAP_ENABLE
+        /* 接线段已两帧确认出线存在：随后的白帧先按白缝处理，保持上一 PD 命令前进越过（有界）。 */
+        if(lost_ms==elapsed) { gap_active=1; gap_mm=0.0f; }
+        if(WhiteGap(lost_ms,forward_mm)) { DriveTargets(elapsed,dt); return; }
+#endif
+        if(lost_ms>=TRACK_LOST_GRACE_MS) {
+            capture_active=0;
+            BeginScan(now,last_error>=3.0f ? 1 : (last_error<=-3.0f ? -1 :
+                      (turn_hint && (uint32_t)(now-hint_seen)<=TRACK_TURN_HINT_MS ? turn_hint :
+                      (last_turn_dir ? last_turn_dir : CORNER_DEFAULT_DIR))),0);
+            return;
+        }
+        largest=Abs(left_target)>Abs(right_target) ? Abs(left_target) : Abs(right_target);
+        scale=largest>TRACK_BEND_MIN_RPM ? TRACK_BEND_MIN_RPM/largest : 1.0f;
+        left_target*=scale; right_target*=scale; steering_urgent=1;
+    }
+    DriveTargets(elapsed,dt);
+}
+#endif
 /* 步骤 5：有限角度扫描。第一侧找不到就扫另一侧，仍找不到则停车。
  * 反向时不清零转角，否则无法判断是否扫到原朝向的另一侧。
  */
@@ -526,6 +658,20 @@ static void Scan(uint32_t now,uint32_t elapsed,float dt,uint8_t count,float erro
     if((uint32_t)(now-phase_started)>=timeout) {
         Halt(CAR_LOST_STOP,is_corner ? TRACK_STOP_CORNER_TIME : TRACK_STOP_SEARCH_TIME); return;
     }
+#if TRACK_CORNER_CAPTURE_ENABLE
+    if(is_corner) {
+        /* 可信下一条线：≥55°、连续窄线、两帧位置一致。立即交给原 PD 低速接线，不等居中。
+         * 回扫时用相对原航向的绝对转角：第一侧已扫过的 55～105° 出线可在回程接住（旧线在 180° 附近，不会误认）。 */
+        float seen=sweep_number>=2 ? Abs(turn_angle) : progress;
+        uint8_t credible=seen>=min_angle && count && count<=normal_line_width+1U && Contiguous(sensor_mask);
+        if(credible && capture_samples && Abs(error-capture_error)<=CORNER_CAPTURE_JUMP) ++capture_samples;
+        else capture_samples=credible ? 1U : 0U;
+        capture_error=error;
+        if(capture_samples>=CORNER_CAPTURE_SAMPLES) {
+            StartCapture(now,elapsed,dt,error); return;
+        }
+    }
+#endif
     if(Centered(count,error) && progress>=min_angle) ++center_samples; else center_samples=0;
     if(center_samples>=CORNER_CENTER_SAMPLES) {
         if(!is_corner) { ResumeLine(now,elapsed,dt,error); return; }
@@ -540,6 +686,9 @@ static void Scan(uint32_t now,uint32_t elapsed,float dt,uint8_t count,float erro
     }
     /* 中间探头开始看到线时放慢旋转，给中心连续确认留时间。 */
     if(count && count<=5 && !(sensor_mask&0x81U) && progress>=min_angle) rpm=CORNER_ALIGN_RPM;
+#if TRACK_CORNER_CAPTURE_ENABLE
+    if(is_corner && sweep_number>=2 && count && count<=5 && !(sensor_mask&0x81U) && Abs(turn_angle)>=min_angle) rpm=CORNER_ALIGN_RPM;
+#endif
     left_target=corner_dir*rpm; right_target=-corner_dir*rpm; DriveTargets(elapsed,dt);
 }
 /* 步骤 6：一轮控制先测速度，再决定阶段，最后生成 PWM。 */
@@ -597,14 +746,23 @@ static void Control(uint32_t now,uint32_t elapsed)
     if(state==CAR_CORNER || state==CAR_SEARCH) {
         turn_angle+=(right_mm-left_mm)/AXLE_TRACK_MM; Scan(now,elapsed,dt,count,error); return;
     }
+#if TRACK_CORNER_CAPTURE_ENABLE
+    if(state==CAR_EXIT && capture_active) { CaptureLine(now,elapsed,dt,count,error,forward_mm); return; }
+#endif
     if(state==CAR_EXIT) {
         SetPWM(0,0);
         if((uint32_t)(now-phase_started)<CORNER_SETTLE_MS) return;
         if(!count) { BeginScan(now,-corner_dir,0); return; }
         ResetPID(); state=CAR_RUN; last_error=error_filtered=error;
+#if TRACK_STABLE_RESUME_ENABLE
+        ResumeSlowBegin(now);
+#endif
     }
     ResolveSide(elapsed,&error);
     if(recovering && (uint32_t)(now-recovery_started)>=TRACK_RECOVERY_SOFT_MS) recovering=0;
+#if TRACK_STABLE_RESUME_ENABLE
+    ResumeSlowStep(now,elapsed,count,error,forward_mm);
+#endif
     /* 离开上一角点 50 mm 且窄线稳定可见后重新识别；弯道不必强求正中两路。 */
     if(!corner_armed) {
         if(forward_mm>0.0f) rearm_mm+=forward_mm;
@@ -624,12 +782,19 @@ static void Control(uint32_t now,uint32_t elapsed)
     if(ObserveWide(now,elapsed,count,forward_mm)) { DriveTargets(elapsed,dt); return; }
     if(count) {
         lost_ms=0;
+#if TRACK_WHITE_GAP_ENABLE
+        gap_active=0;
+#endif
         /* 一帧中线不能抹去侧向角点。恢复正常线需连续时间和实际前行距离确认。 */
         if(wide_active) {
             if(Centered(count,error) && count<=normal_line_width) {
                 wide_center_ms+=elapsed;
                 if(forward_mm>0.0f) wide_center_mm+=forward_mm;
-                if(wide_center_ms>=CORNER_CLEAR_CENTER_MS && wide_center_mm>=CORNER_CLEAR_TRAVEL_MM) ClearWide();
+                if(wide_center_ms>=CORNER_CLEAR_CENTER_MS && wide_center_mm>=CORNER_CLEAR_TRAVEL_MM
+#if TRACK_CORNER_BAND_ENABLE
+                   && (!wide_strong || wide_travel_mm-wide_last_mm>CORNER_TAIL_MAX_MM) /* 居中残段≠线继续 */
+#endif
+                   ) ClearWide();
             } else { wide_center_ms=0; wide_center_mm=0.0f; }
             /* 弱宽区逐渐缩到侧边窄线，属于连续弯道；不再套用前置距离的直角推进。 */
             if(wide_active && !wide_strong && count<=normal_line_width+1U && Abs(error)>=4.0f) {
@@ -647,6 +812,11 @@ static void Control(uint32_t now,uint32_t elapsed)
            wide_ms>=CORNER_CONFIRM_MS && lost_ms>=CORNER_LOST_CONFIRM_MS) {
             BeginApproach(now); DriveTargets(elapsed,dt); return;
         }
+#if TRACK_WHITE_GAP_ENABLE
+        /* 宽线候选存在时不当白缝（直角推进优先）。 */
+        if(lost_ms==elapsed) { gap_active=!wide_active && Abs(last_error)<=TRACK_GAP_CENTER_ERROR; gap_mm=0.0f; }
+        if(WhiteGap(lost_ms,forward_mm)) { DriveTargets(elapsed,dt); return; }
+#endif
         if(lost_ms<TRACK_LOST_GRACE_MS) {
             /* 漏读一两帧时先低速缓冲，不立刻原地转向。 */
             if(wide_active && wide_peak_count>=CORNER_MIN_ADVANCE_PROBES && wide_ms>=CORNER_CONFIRM_MS)
@@ -680,7 +850,11 @@ static void Control(uint32_t now,uint32_t elapsed)
         /* 关闭直角识别时，全黑只作横条低速直行；不据此认定终点。 */
         PID_Reset(&line_pid); left_target=right_target=TRACK_BEND_MIN_RPM;
     } else {
-        FollowLine(now,error,dt,recovering ? TRACK_RECOVERY_RPM :
+        FollowLine(now,error,dt,recovering
+#if TRACK_STABLE_RESUME_ENABLE
+                   || resume_slow
+#endif
+                   ? TRACK_RECOVERY_RPM :
                    (wide_active || side_candidate ? CORNER_APPROACH_RPM : TRACK_BASE_RPM));
     }
     DriveTargets(elapsed,dt);

@@ -148,6 +148,39 @@
 #endif
 #define TRACK_APPROACH_YAW_KP          40.0f /* RPM/rad，单轮补偿；15°约 10.5 RPM */
 #define TRACK_APPROACH_YAW_MAX_RPM     10.0f /* 单轮补偿上限，左右差最多 20 RPM */
+/* 直角横带锁定：≥5 路连续、含中心、只触一侧边缘的横带两票同向 = 可靠直角，锁定方向并停止 PD 偏转；
+ * 已确认角点的尾部（胶带越过角点的残段）按行进距离保留，不再被 200 ms 记忆/100 ms 居中规则提前清除。 */
+#ifndef TRACK_CORNER_BAND_ENABLE
+#define TRACK_CORNER_BAND_ENABLE        0
+#endif
+#define CORNER_BAND_VOTES               2 /* 同侧横带帧票数 */
+#define CORNER_TAIL_MAX_MM             40.0f /* 横带后仍见窄线超过此距离 = 线继续（T/十字），清除角点 */
+#define CORNER_TAIL_MAX_MS            600U /* 车几乎不动时的时间上限 */
+/* 直角可信接线：转角 ≥55° 后连续两帧见到连续窄线（位置跳变 ≤3）即撤掉原地强转，
+ * 不等两帧居中、不整车 PWM=0/清 PI/80 ms 停顿；直接走 FIX4 原有 ResumeLine（原 PD + 42 RPM 限速 + 速度 PI 连续）。 */
+#ifndef TRACK_CORNER_CAPTURE_ENABLE
+#define TRACK_CORNER_CAPTURE_ENABLE     0
+#endif
+#define CORNER_CAPTURE_SAMPLES          2U
+#define CORNER_CAPTURE_JUMP             3.0f /* 相邻帧线位置变化上限（探头位置单位） */
+#define CORNER_CAPTURE_MAX_MS        1000U /* 低速接线段上限，到时直接交给 RUN（不新增停车） */
+/* 稳定后恢复高速：接线后 42 RPM 限速不再按固定 400 ms 解除，而是窄线 |E|≤2 连续 200 ms 且前进 20 mm；
+ * 最长 1000 ms。贴边对线的 400 ms 抑制保持 FIX4 原样。 */
+#ifndef TRACK_STABLE_RESUME_ENABLE
+#define TRACK_STABLE_RESUME_ENABLE      0
+#endif
+#define TRACK_RESUME_STABLE_ERROR       2.0f
+#define TRACK_RESUME_STABLE_MS        200U
+#define TRACK_RESUME_STABLE_MM         20.0f
+#define TRACK_RESUME_MAX_MS          1000U
+/* 白缝缓冲：RUN 中丢线前线在中心（|E|≤1.5），或直角接线段已两帧确认出线后，白帧多半是胶带接缝/白缝；保持当前命令按行进距离越过，
+ * 25 mm 或 400 ms 内回线即继续；否则才进入 FIX4 原 80 ms 缓冲和有限搜索。角点横带判断优先。 */
+#ifndef TRACK_WHITE_GAP_ENABLE
+#define TRACK_WHITE_GAP_ENABLE          0
+#endif
+#define TRACK_GAP_CENTER_ERROR          3.0f /* 线在 ±3 内消失而未经过边缘探头 = 断线/白缝，非弯道离线 */
+#define TRACK_GAP_MAX_MM               25.0f
+#define TRACK_GAP_MAX_MS              400U
 #define TRACK_OLED_ENABLED             1
 #define FORWARD_PWM                   30 /* KEY5 人工直行检查 */
 #define KEY_DEBOUNCE_MS               20U

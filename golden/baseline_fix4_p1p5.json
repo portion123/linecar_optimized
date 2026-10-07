@@ -1,5 +1,5 @@
 {
-"note": "baseline fix4_p1p5, full matrix (after MIX start-gap construction fix), frozen before any candidate",
+"note": "baseline fix4_p1p5, full matrix (after MIX start-gap fix and stub metric correction), frozen before any candidate default",
 "runs": {
 "ANG|36000|+": {
 "approach_entries": 7,
@@ -12786,7 +12786,7 @@
 "frames": 3365,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 31.93,
+"max_track_err_mm": 21.03,
 "overshoot_deg": [
 -0.3,
 -1.0,
@@ -12796,7 +12796,7 @@
 -0.9
 ],
 "passed": true,
-"rms_track_err_mm": 5.94,
+"rms_track_err_mm": 5.74,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -12821,13 +12821,13 @@
 "frames": 3277,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 37.13,
+"max_track_err_mm": 27.19,
 "overshoot_deg": [
 -0.7,
 -0.7
 ],
-"passed": false,
-"rms_track_err_mm": 7.15,
+"passed": true,
+"rms_track_err_mm": 6.76,
 "search_entries": 4,
 "search_max_deg": 61.9,
 "search_time_s": 4.9,
@@ -12873,14 +12873,14 @@
 "frames": 1789,
 "laps": 0.98,
 "max_pwm": 20,
-"max_track_err_mm": 18.41,
+"max_track_err_mm": 16.59,
 "overshoot_deg": [
 1.2,
 -1.2,
 -1.3
 ],
 "passed": false,
-"rms_track_err_mm": 5.97,
+"rms_track_err_mm": 5.95,
 "search_entries": 1,
 "search_max_deg": 62.0,
 "search_time_s": 2.66,
@@ -12902,14 +12902,14 @@
 "frames": 3345,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 32.94,
+"max_track_err_mm": 20.09,
 "overshoot_deg": [
 -3.2,
 2.1,
 -0.3
 ],
 "passed": true,
-"rms_track_err_mm": 6.39,
+"rms_track_err_mm": 6.26,
 "search_entries": 3,
 "search_max_deg": 28.9,
 "search_time_s": 2.2,
@@ -12931,7 +12931,7 @@
 "frames": 3448,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 30.07,
+"max_track_err_mm": 19.96,
 "overshoot_deg": [
 -0.9,
 -0.5,
@@ -12940,7 +12940,7 @@
 -0.3
 ],
 "passed": true,
-"rms_track_err_mm": 6.44,
+"rms_track_err_mm": 6.41,
 "search_entries": 1,
 "search_max_deg": 24.7,
 "search_time_s": 0.86,
@@ -12964,7 +12964,7 @@
 "frames": 3467,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 30.76,
+"max_track_err_mm": 25.21,
 "overshoot_deg": [
 -2.1,
 0.1,
@@ -12972,7 +12972,7 @@
 -0.6
 ],
 "passed": true,
-"rms_track_err_mm": 6.48,
+"rms_track_err_mm": 6.31,
 "search_entries": 3,
 "search_max_deg": 62.7,
 "search_time_s": 3.32,
@@ -13016,7 +13016,7 @@
 "frames": 3304,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 22.19,
+"max_track_err_mm": 18.49,
 "overshoot_deg": [
 -1.0,
 -0.7,
@@ -13026,7 +13026,7 @@
 0.5
 ],
 "passed": true,
-"rms_track_err_mm": 4.52,
+"rms_track_err_mm": 4.45,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -13128,7 +13128,7 @@
 "frames": 2176,
 "laps": 1.242,
 "max_pwm": 20,
-"max_track_err_mm": 22.1,
+"max_track_err_mm": 18.31,
 "overshoot_deg": [
 -1.0,
 -0.0,
@@ -13136,7 +13136,7 @@
 -1.2
 ],
 "passed": false,
-"rms_track_err_mm": 5.1,
+"rms_track_err_mm": 5.01,
 "search_entries": 1,
 "search_max_deg": 61.9,
 "search_time_s": 2.66,
@@ -13159,7 +13159,7 @@
 "frames": 3345,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 23.37,
+"max_track_err_mm": 18.59,
 "overshoot_deg": [
 0.3,
 -0.7,
@@ -13169,7 +13169,7 @@
 -0.4
 ],
 "passed": true,
-"rms_track_err_mm": 5.38,
+"rms_track_err_mm": 5.36,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -13230,7 +13230,7 @@
 1.5
 ],
 "passed": false,
-"rms_track_err_mm": 5.48,
+"rms_track_err_mm": 5.47,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -13280,13 +13280,13 @@
 "frames": 1795,
 "laps": 0.982,
 "max_pwm": 20,
-"max_track_err_mm": 29.74,
+"max_track_err_mm": 19.54,
 "overshoot_deg": [
 -1.9,
 -0.4
 ],
 "passed": false,
-"rms_track_err_mm": 5.63,
+"rms_track_err_mm": 5.57,
 "search_entries": 2,
 "search_max_deg": 62.4,
 "search_time_s": 3.32,
@@ -13332,7 +13332,7 @@
 "frames": 3280,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 36.26,
+"max_track_err_mm": 27.55,
 "overshoot_deg": [
 1.0,
 -0.9,
@@ -13340,8 +13340,8 @@
 -1.0,
 0.3
 ],
-"passed": false,
-"rms_track_err_mm": 5.89,
+"passed": true,
+"rms_track_err_mm": 5.66,
 "search_entries": 2,
 "search_max_deg": 36.4,
 "search_time_s": 0.86,
@@ -13401,7 +13401,7 @@
 0.9
 ],
 "passed": true,
-"rms_track_err_mm": 6.91,
+"rms_track_err_mm": 6.89,
 "search_entries": 3,
 "search_max_deg": 63.0,
 "search_time_s": 3.08,
@@ -13467,7 +13467,7 @@
 "frames": 3048,
 "laps": 1.744,
 "max_pwm": 22,
-"max_track_err_mm": 24.59,
+"max_track_err_mm": 23.91,
 "overshoot_deg": [
 -0.2,
 -1.3,
@@ -13476,7 +13476,7 @@
 0.4
 ],
 "passed": false,
-"rms_track_err_mm": 6.06,
+"rms_track_err_mm": 6.03,
 "search_entries": 2,
 "search_max_deg": 62.1,
 "search_time_s": 2.86,
@@ -13500,7 +13500,7 @@
 "frames": 3464,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 31.14,
+"max_track_err_mm": 17.65,
 "overshoot_deg": [
 -1.9,
 -1.0,
@@ -13510,7 +13510,7 @@
 -0.0
 ],
 "passed": true,
-"rms_track_err_mm": 5.98,
+"rms_track_err_mm": 5.93,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -13535,7 +13535,7 @@
 "frames": 2601,
 "laps": 1.533,
 "max_pwm": 20,
-"max_track_err_mm": 18.89,
+"max_track_err_mm": 16.43,
 "overshoot_deg": [
 -1.6,
 -1.1,
@@ -13666,10 +13666,10 @@
 "frames": 1088,
 "laps": 0.553,
 "max_pwm": 22,
-"max_track_err_mm": 31.76,
+"max_track_err_mm": 23.3,
 "overshoot_deg": [],
 "passed": false,
-"rms_track_err_mm": 7.08,
+"rms_track_err_mm": 6.93,
 "search_entries": 2,
 "search_max_deg": 61.6,
 "search_time_s": 5.8,
@@ -13687,14 +13687,14 @@
 "frames": 2652,
 "laps": 1.549,
 "max_pwm": 20,
-"max_track_err_mm": 28.05,
+"max_track_err_mm": 19.08,
 "overshoot_deg": [
 0.9,
 -0.7,
 -0.6
 ],
 "passed": false,
-"rms_track_err_mm": 6.3,
+"rms_track_err_mm": 6.21,
 "search_entries": 2,
 "search_max_deg": 62.5,
 "search_time_s": 3.46,
@@ -13716,7 +13716,7 @@
 "frames": 3475,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 26.67,
+"max_track_err_mm": 25.99,
 "overshoot_deg": [
 -2.0,
 -1.3,
@@ -13725,7 +13725,7 @@
 -1.5
 ],
 "passed": true,
-"rms_track_err_mm": 6.17,
+"rms_track_err_mm": 6.14,
 "search_entries": 2,
 "search_max_deg": 62.1,
 "search_time_s": 2.76,
@@ -13780,7 +13780,7 @@
 -0.7
 ],
 "passed": false,
-"rms_track_err_mm": 6.96,
+"rms_track_err_mm": 6.93,
 "search_entries": 2,
 "search_max_deg": 61.4,
 "search_time_s": 2.82,
@@ -13810,7 +13810,7 @@
 -0.0
 ],
 "passed": false,
-"rms_track_err_mm": 5.69,
+"rms_track_err_mm": 5.65,
 "search_entries": 2,
 "search_max_deg": 61.9,
 "search_time_s": 4.4,
@@ -13834,7 +13834,7 @@
 "frames": 3482,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 30.32,
+"max_track_err_mm": 24.41,
 "overshoot_deg": [
 -2.4,
 -0.1,
@@ -13843,7 +13843,7 @@
 0.4
 ],
 "passed": true,
-"rms_track_err_mm": 6.15,
+"rms_track_err_mm": 6.06,
 "search_entries": 3,
 "search_max_deg": 62.1,
 "search_time_s": 3.32,
@@ -13867,13 +13867,13 @@
 "frames": 1370,
 "laps": 0.74,
 "max_pwm": 22,
-"max_track_err_mm": 20.77,
+"max_track_err_mm": 18.18,
 "overshoot_deg": [
 -2.8,
 -2.0
 ],
 "passed": false,
-"rms_track_err_mm": 4.83,
+"rms_track_err_mm": 4.82,
 "search_entries": 1,
 "search_max_deg": 61.6,
 "search_time_s": 2.68,
@@ -13894,12 +13894,12 @@
 "frames": 1450,
 "laps": 0.741,
 "max_pwm": 22,
-"max_track_err_mm": 25.75,
+"max_track_err_mm": 24.31,
 "overshoot_deg": [
 -1.0
 ],
 "passed": false,
-"rms_track_err_mm": 7.15,
+"rms_track_err_mm": 7.14,
 "search_entries": 2,
 "search_max_deg": 61.8,
 "search_time_s": 5.38,
@@ -13919,12 +13919,12 @@
 "frames": 1400,
 "laps": 0.714,
 "max_pwm": 20,
-"max_track_err_mm": 23.09,
+"max_track_err_mm": 18.23,
 "overshoot_deg": [
 0.2
 ],
 "passed": false,
-"rms_track_err_mm": 6.48,
+"rms_track_err_mm": 6.41,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -13945,13 +13945,13 @@
 "frames": 1774,
 "laps": 0.974,
 "max_pwm": 20,
-"max_track_err_mm": 31.39,
+"max_track_err_mm": 21.37,
 "overshoot_deg": [
 -1.1,
 -0.4
 ],
 "passed": false,
-"rms_track_err_mm": 5.81,
+"rms_track_err_mm": 5.71,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -14085,14 +14085,14 @@
 "frames": 3347,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 34.48,
+"max_track_err_mm": 23.64,
 "overshoot_deg": [
 -0.6,
 -0.5,
 -0.4
 ],
 "passed": true,
-"rms_track_err_mm": 5.94,
+"rms_track_err_mm": 5.69,
 "search_entries": 3,
 "search_max_deg": 30.0,
 "search_time_s": 1.86,
@@ -14114,12 +14114,12 @@
 "frames": 1483,
 "laps": 0.725,
 "max_pwm": 20,
-"max_track_err_mm": 27.91,
+"max_track_err_mm": 24.92,
 "overshoot_deg": [
 -0.6
 ],
 "passed": false,
-"rms_track_err_mm": 7.04,
+"rms_track_err_mm": 6.86,
 "search_entries": 3,
 "search_max_deg": 61.9,
 "search_time_s": 5.76,
@@ -14149,7 +14149,7 @@
 -2.0
 ],
 "passed": false,
-"rms_track_err_mm": 4.93,
+"rms_track_err_mm": 4.91,
 "search_entries": 2,
 "search_max_deg": 62.5,
 "search_time_s": 2.78,
@@ -14174,7 +14174,7 @@
 "frames": 3480,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 31.51,
+"max_track_err_mm": 18.72,
 "overshoot_deg": [
 1.7,
 -0.9,
@@ -14183,7 +14183,7 @@
 -1.3
 ],
 "passed": true,
-"rms_track_err_mm": 6.54,
+"rms_track_err_mm": 6.43,
 "search_entries": 1,
 "search_max_deg": 62.7,
 "search_time_s": 2.36,
@@ -14207,7 +14207,7 @@
 "frames": 3412,
 "laps": 2.101,
 "max_pwm": 22,
-"max_track_err_mm": 36.77,
+"max_track_err_mm": 21.87,
 "overshoot_deg": [
 -1.7,
 -0.4,
@@ -14215,8 +14215,8 @@
 -0.6,
 1.0
 ],
-"passed": false,
-"rms_track_err_mm": 6.09,
+"passed": true,
+"rms_track_err_mm": 5.8,
 "search_entries": 2,
 "search_max_deg": 45.9,
 "search_time_s": 1.64,
@@ -14240,7 +14240,7 @@
 "frames": 3517,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 31.92,
+"max_track_err_mm": 26.09,
 "overshoot_deg": [
 0.1,
 -0.8,
@@ -14249,7 +14249,7 @@
 1.9
 ],
 "passed": true,
-"rms_track_err_mm": 7.16,
+"rms_track_err_mm": 7.09,
 "search_entries": 2,
 "search_max_deg": 62.7,
 "search_time_s": 2.8,
@@ -14273,12 +14273,12 @@
 "frames": 1175,
 "laps": 0.673,
 "max_pwm": 20,
-"max_track_err_mm": 26.32,
+"max_track_err_mm": 19.46,
 "overshoot_deg": [
 -2.2
 ],
 "passed": false,
-"rms_track_err_mm": 4.8,
+"rms_track_err_mm": 4.62,
 "search_entries": 1,
 "search_max_deg": 61.8,
 "search_time_s": 2.76,
@@ -14323,7 +14323,7 @@
 "frames": 3450,
 "laps": 2.1,
 "max_pwm": 22,
-"max_track_err_mm": 30.77,
+"max_track_err_mm": 26.54,
 "overshoot_deg": [
 -2.3,
 0.2,
@@ -14332,7 +14332,7 @@
 0.6
 ],
 "passed": true,
-"rms_track_err_mm": 6.31,
+"rms_track_err_mm": 6.06,
 "search_entries": 2,
 "search_max_deg": 36.4,
 "search_time_s": 1.28,
@@ -14356,7 +14356,7 @@
 "frames": 3413,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 29.88,
+"max_track_err_mm": 20.09,
 "overshoot_deg": [
 -0.9,
 -2.4,
@@ -14366,7 +14366,7 @@
 -1.1
 ],
 "passed": true,
-"rms_track_err_mm": 5.56,
+"rms_track_err_mm": 5.45,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -14421,7 +14421,7 @@
 1.1
 ],
 "passed": false,
-"rms_track_err_mm": 6.41,
+"rms_track_err_mm": 6.36,
 "search_entries": 2,
 "search_max_deg": 1.9,
 "search_time_s": 0.36,
@@ -14442,12 +14442,12 @@
 "frames": 1158,
 "laps": 0.515,
 "max_pwm": 20,
-"max_track_err_mm": 26.87,
+"max_track_err_mm": 22.99,
 "overshoot_deg": [
 -0.2
 ],
 "passed": false,
-"rms_track_err_mm": 7.07,
+"rms_track_err_mm": 6.99,
 "search_entries": 3,
 "search_max_deg": 62.7,
 "search_time_s": 6.92,
@@ -16805,7 +16805,7 @@
 4.2
 ],
 "passed": true,
-"rms_track_err_mm": 5.28,
+"rms_track_err_mm": 5.25,
 "search_entries": 3,
 "search_max_deg": 35.7,
 "search_time_s": 1.82,
@@ -16829,7 +16829,7 @@
 "frames": 3609,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 41.43,
+"max_track_err_mm": 21.61,
 "overshoot_deg": [
 5.2,
 5.3,
@@ -16837,8 +16837,8 @@
 6.0,
 6.0
 ],
-"passed": false,
-"rms_track_err_mm": 6.59,
+"passed": true,
+"rms_track_err_mm": 6.09,
 "search_entries": 3,
 "search_max_deg": 65.4,
 "search_time_s": 3.86,
@@ -16871,7 +16871,7 @@
 5.0
 ],
 "passed": true,
-"rms_track_err_mm": 4.98,
+"rms_track_err_mm": 4.97,
 "search_entries": 3,
 "search_max_deg": 36.1,
 "search_time_s": 1.82,
@@ -16895,15 +16895,15 @@
 "frames": 3577,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 40.37,
+"max_track_err_mm": 21.42,
 "overshoot_deg": [
 5.4,
 5.9,
 5.5,
 5.9
 ],
-"passed": false,
-"rms_track_err_mm": 7.29,
+"passed": true,
+"rms_track_err_mm": 6.57,
 "search_entries": 4,
 "search_max_deg": 64.0,
 "search_time_s": 4.66,
@@ -16926,15 +16926,15 @@
 "frames": 3421,
 "laps": 2.101,
 "max_pwm": 18,
-"max_track_err_mm": 40.68,
+"max_track_err_mm": 21.2,
 "overshoot_deg": [
 3.4,
 4.2,
 4.3,
 4.2
 ],
-"passed": false,
-"rms_track_err_mm": 6.11,
+"passed": true,
+"rms_track_err_mm": 5.95,
 "search_entries": 4,
 "search_max_deg": 36.1,
 "search_time_s": 2.48,
@@ -16957,15 +16957,15 @@
 "frames": 3630,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 40.44,
+"max_track_err_mm": 23.33,
 "overshoot_deg": [
 5.5,
 6.6,
 5.1,
 5.7
 ],
-"passed": false,
-"rms_track_err_mm": 6.82,
+"passed": true,
+"rms_track_err_mm": 6.39,
 "search_entries": 4,
 "search_max_deg": 64.7,
 "search_time_s": 6.08,
@@ -16988,7 +16988,7 @@
 "frames": 3543,
 "laps": 2.1,
 "max_pwm": 18,
-"max_track_err_mm": 39.69,
+"max_track_err_mm": 24.11,
 "overshoot_deg": [
 4.7,
 5.3,
@@ -16997,8 +16997,8 @@
 4.9,
 4.3
 ],
-"passed": false,
-"rms_track_err_mm": 5.48,
+"passed": true,
+"rms_track_err_mm": 5.28,
 "search_entries": 2,
 "search_max_deg": 35.2,
 "search_time_s": 1.22,
@@ -17023,15 +17023,15 @@
 "frames": 3598,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 39.92,
+"max_track_err_mm": 27.11,
 "overshoot_deg": [
 4.4,
 5.3,
 5.2,
 4.0
 ],
-"passed": false,
-"rms_track_err_mm": 7.08,
+"passed": true,
+"rms_track_err_mm": 6.76,
 "search_entries": 4,
 "search_max_deg": 65.4,
 "search_time_s": 5.8,
@@ -17064,7 +17064,7 @@
 4.3
 ],
 "passed": true,
-"rms_track_err_mm": 5.19,
+"rms_track_err_mm": 5.17,
 "search_entries": 2,
 "search_max_deg": 35.6,
 "search_time_s": 1.22,
@@ -17089,7 +17089,7 @@
 "frames": 3541,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 37.95,
+"max_track_err_mm": 23.34,
 "overshoot_deg": [
 5.9,
 5.4,
@@ -17097,8 +17097,8 @@
 5.4,
 6.5
 ],
-"passed": false,
-"rms_track_err_mm": 7.06,
+"passed": true,
+"rms_track_err_mm": 6.61,
 "search_entries": 3,
 "search_max_deg": 36.9,
 "search_time_s": 2.04,
@@ -17122,15 +17122,15 @@
 "frames": 3604,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 38.29,
+"max_track_err_mm": 30.97,
 "overshoot_deg": [
 4.1,
 5.4,
 4.4,
 4.7
 ],
-"passed": false,
-"rms_track_err_mm": 6.35,
+"passed": true,
+"rms_track_err_mm": 6.27,
 "search_entries": 4,
 "search_max_deg": 64.5,
 "search_time_s": 5.8,
@@ -17153,15 +17153,15 @@
 "frames": 3806,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 38.72,
+"max_track_err_mm": 25.3,
 "overshoot_deg": [
 5.8,
 6.5,
 7.1,
 5.8
 ],
-"passed": false,
-"rms_track_err_mm": 7.46,
+"passed": true,
+"rms_track_err_mm": 7.04,
 "search_entries": 4,
 "search_max_deg": 65.4,
 "search_time_s": 9.28,
@@ -17235,7 +17235,7 @@
 6.1
 ],
 "passed": true,
-"rms_track_err_mm": 5.13,
+"rms_track_err_mm": 5.11,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -17270,7 +17270,7 @@
 6.5
 ],
 "passed": true,
-"rms_track_err_mm": 5.94,
+"rms_track_err_mm": 5.93,
 "search_entries": 4,
 "search_max_deg": 64.4,
 "search_time_s": 3.78,
@@ -17293,7 +17293,7 @@
 "frames": 3542,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 36.77,
+"max_track_err_mm": 24.04,
 "overshoot_deg": [
 4.2,
 5.2,
@@ -17302,8 +17302,8 @@
 5.0,
 5.1
 ],
-"passed": false,
-"rms_track_err_mm": 5.55,
+"passed": true,
+"rms_track_err_mm": 5.44,
 "search_entries": 2,
 "search_max_deg": 36.6,
 "search_time_s": 1.32,
@@ -17367,7 +17367,7 @@
 "frames": 3671,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 31.35,
+"max_track_err_mm": 27.92,
 "overshoot_deg": [
 7.0,
 6.4,
@@ -17377,7 +17377,7 @@
 5.6
 ],
 "passed": true,
-"rms_track_err_mm": 6.26,
+"rms_track_err_mm": 6.02,
 "search_entries": 2,
 "search_max_deg": 65.0,
 "search_time_s": 2.88,
@@ -17402,7 +17402,7 @@
 "frames": 3515,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 39.97,
+"max_track_err_mm": 23.52,
 "overshoot_deg": [
 3.7,
 4.8,
@@ -17411,8 +17411,8 @@
 3.4,
 3.9
 ],
-"passed": false,
-"rms_track_err_mm": 5.42,
+"passed": true,
+"rms_track_err_mm": 5.14,
 "search_entries": 2,
 "search_max_deg": 36.3,
 "search_time_s": 1.22,
@@ -17437,7 +17437,7 @@
 "frames": 3689,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 39.06,
+"max_track_err_mm": 21.68,
 "overshoot_deg": [
 7.0,
 6.6,
@@ -17446,8 +17446,8 @@
 6.1,
 6.1
 ],
-"passed": false,
-"rms_track_err_mm": 6.89,
+"passed": true,
+"rms_track_err_mm": 6.44,
 "search_entries": 2,
 "search_max_deg": 65.4,
 "search_time_s": 3.14,
@@ -17472,15 +17472,15 @@
 "frames": 3495,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 37.42,
+"max_track_err_mm": 23.52,
 "overshoot_deg": [
 5.4,
 5.1,
 5.2,
 5.5
 ],
-"passed": false,
-"rms_track_err_mm": 5.93,
+"passed": true,
+"rms_track_err_mm": 5.78,
 "search_entries": 4,
 "search_max_deg": 64.3,
 "search_time_s": 4.2,
@@ -17503,13 +17503,13 @@
 "frames": 3529,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 41.09,
+"max_track_err_mm": 22.75,
 "overshoot_deg": [
 5.6,
 4.8
 ],
-"passed": false,
-"rms_track_err_mm": 8.16,
+"passed": true,
+"rms_track_err_mm": 7.58,
 "search_entries": 6,
 "search_max_deg": 64.9,
 "search_time_s": 7.56,
@@ -17541,7 +17541,7 @@
 3.6
 ],
 "passed": true,
-"rms_track_err_mm": 5.01,
+"rms_track_err_mm": 5.0,
 "search_entries": 1,
 "search_max_deg": 64.6,
 "search_time_s": 2.18,
@@ -17579,7 +17579,7 @@
 6.2
 ],
 "passed": true,
-"rms_track_err_mm": 5.47,
+"rms_track_err_mm": 5.38,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -17606,7 +17606,7 @@
 "frames": 3629,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 28.36,
+"max_track_err_mm": 20.15,
 "overshoot_deg": [
 3.8,
 5.1,
@@ -17618,7 +17618,7 @@
 5.2
 ],
 "passed": true,
-"rms_track_err_mm": 3.86,
+"rms_track_err_mm": 3.82,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -17645,7 +17645,7 @@
 "frames": 3655,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 34.37,
+"max_track_err_mm": 24.34,
 "overshoot_deg": [
 5.5,
 5.6,
@@ -17655,7 +17655,7 @@
 5.5
 ],
 "passed": true,
-"rms_track_err_mm": 6.66,
+"rms_track_err_mm": 6.32,
 "search_entries": 2,
 "search_max_deg": 64.9,
 "search_time_s": 2.92,
@@ -17692,7 +17692,7 @@
 4.7
 ],
 "passed": true,
-"rms_track_err_mm": 3.97,
+"rms_track_err_mm": 3.96,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -17719,7 +17719,7 @@
 "frames": 3711,
 "laps": 2.1,
 "max_pwm": 18,
-"max_track_err_mm": 35.05,
+"max_track_err_mm": 25.69,
 "overshoot_deg": [
 5.0,
 4.6,
@@ -17728,8 +17728,8 @@
 4.4,
 5.3
 ],
-"passed": false,
-"rms_track_err_mm": 6.14,
+"passed": true,
+"rms_track_err_mm": 5.95,
 "search_entries": 2,
 "search_max_deg": 65.1,
 "search_time_s": 4.64,
@@ -17793,7 +17793,7 @@
 "frames": 3707,
 "laps": 2.101,
 "max_pwm": 18,
-"max_track_err_mm": 29.3,
+"max_track_err_mm": 26.82,
 "overshoot_deg": [
 4.8,
 5.3,
@@ -17803,7 +17803,7 @@
 4.9
 ],
 "passed": true,
-"rms_track_err_mm": 6.34,
+"rms_track_err_mm": 6.18,
 "search_entries": 2,
 "search_max_deg": 64.5,
 "search_time_s": 4.5,
@@ -17828,7 +17828,7 @@
 "frames": 3590,
 "laps": 2.1,
 "max_pwm": 18,
-"max_track_err_mm": 36.71,
+"max_track_err_mm": 20.72,
 "overshoot_deg": [
 4.0,
 5.2,
@@ -17838,8 +17838,8 @@
 4.5,
 4.1
 ],
-"passed": false,
-"rms_track_err_mm": 5.16,
+"passed": true,
+"rms_track_err_mm": 5.04,
 "search_entries": 1,
 "search_max_deg": 35.4,
 "search_time_s": 0.6,
@@ -17865,7 +17865,7 @@
 "frames": 3686,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 33.75,
+"max_track_err_mm": 24.37,
 "overshoot_deg": [
 4.2,
 3.9,
@@ -17875,7 +17875,7 @@
 5.3
 ],
 "passed": true,
-"rms_track_err_mm": 6.28,
+"rms_track_err_mm": 6.1,
 "search_entries": 2,
 "search_max_deg": 64.7,
 "search_time_s": 4.34,
@@ -17910,7 +17910,7 @@
 3.5
 ],
 "passed": true,
-"rms_track_err_mm": 4.9,
+"rms_track_err_mm": 4.89,
 "search_entries": 2,
 "search_max_deg": 35.4,
 "search_time_s": 1.24,
@@ -17935,7 +17935,7 @@
 "frames": 3617,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 38.41,
+"max_track_err_mm": 21.31,
 "overshoot_deg": [
 6.5,
 6.7,
@@ -17944,8 +17944,8 @@
 5.7,
 6.3
 ],
-"passed": false,
-"rms_track_err_mm": 6.33,
+"passed": true,
+"rms_track_err_mm": 6.06,
 "search_entries": 2,
 "search_max_deg": 40.5,
 "search_time_s": 1.44,
@@ -17980,7 +17980,7 @@
 4.3
 ],
 "passed": true,
-"rms_track_err_mm": 5.04,
+"rms_track_err_mm": 5.03,
 "search_entries": 2,
 "search_max_deg": 37.0,
 "search_time_s": 1.24,
@@ -18015,7 +18015,7 @@
 5.1
 ],
 "passed": true,
-"rms_track_err_mm": 5.98,
+"rms_track_err_mm": 5.96,
 "search_entries": 2,
 "search_max_deg": 38.2,
 "search_time_s": 1.4,
@@ -18040,7 +18040,7 @@
 "frames": 3542,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 38.57,
+"max_track_err_mm": 23.64,
 "overshoot_deg": [
 4.7,
 5.3,
@@ -18049,8 +18049,8 @@
 4.6,
 4.7
 ],
-"passed": false,
-"rms_track_err_mm": 5.32,
+"passed": true,
+"rms_track_err_mm": 5.16,
 "search_entries": 2,
 "search_max_deg": 34.5,
 "search_time_s": 1.22,
@@ -18075,15 +18075,15 @@
 "frames": 3627,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 38.31,
+"max_track_err_mm": 24.23,
 "overshoot_deg": [
 4.9,
 5.6,
 4.7,
 5.3
 ],
-"passed": false,
-"rms_track_err_mm": 7.33,
+"passed": true,
+"rms_track_err_mm": 6.94,
 "search_entries": 4,
 "search_max_deg": 65.2,
 "search_time_s": 6.08,
@@ -18118,7 +18118,7 @@
 4.6
 ],
 "passed": true,
-"rms_track_err_mm": 4.02,
+"rms_track_err_mm": 4.01,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -18145,7 +18145,7 @@
 "frames": 3714,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 32.3,
+"max_track_err_mm": 19.83,
 "overshoot_deg": [
 5.3,
 5.7,
@@ -18155,7 +18155,7 @@
 4.9
 ],
 "passed": true,
-"rms_track_err_mm": 6.82,
+"rms_track_err_mm": 6.59,
 "search_entries": 2,
 "search_max_deg": 64.2,
 "search_time_s": 4.4,
@@ -18190,7 +18190,7 @@
 3.6
 ],
 "passed": true,
-"rms_track_err_mm": 4.81,
+"rms_track_err_mm": 4.8,
 "search_entries": 2,
 "search_max_deg": 36.1,
 "search_time_s": 1.24,
@@ -18215,7 +18215,7 @@
 "frames": 3679,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 41.46,
+"max_track_err_mm": 22.98,
 "overshoot_deg": [
 6.5,
 6.1,
@@ -18224,8 +18224,8 @@
 6.0,
 4.8
 ],
-"passed": false,
-"rms_track_err_mm": 6.05,
+"passed": true,
+"rms_track_err_mm": 5.61,
 "search_entries": 2,
 "search_max_deg": 64.4,
 "search_time_s": 3.18,
@@ -18250,13 +18250,13 @@
 "frames": 3510,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 40.07,
+"max_track_err_mm": 26.21,
 "overshoot_deg": [
 3.8,
 4.7
 ],
-"passed": false,
-"rms_track_err_mm": 7.03,
+"passed": true,
+"rms_track_err_mm": 6.63,
 "search_entries": 6,
 "search_max_deg": 64.7,
 "search_time_s": 7.34,
@@ -18277,13 +18277,13 @@
 "frames": 3790,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 39.69,
+"max_track_err_mm": 22.87,
 "overshoot_deg": [
 6.4,
 5.4
 ],
-"passed": false,
-"rms_track_err_mm": 7.73,
+"passed": true,
+"rms_track_err_mm": 7.07,
 "search_entries": 6,
 "search_max_deg": 65.4,
 "search_time_s": 12.56,
@@ -18304,12 +18304,12 @@
 "frames": 3661,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 39.86,
+"max_track_err_mm": 30.52,
 "overshoot_deg": [
 4.8
 ],
-"passed": false,
-"rms_track_err_mm": 8.27,
+"passed": true,
+"rms_track_err_mm": 8.0,
 "search_entries": 7,
 "search_max_deg": 64.5,
 "search_time_s": 12.54,
@@ -18329,10 +18329,10 @@
 "frames": 3498,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 40.95,
+"max_track_err_mm": 26.27,
 "overshoot_deg": [],
-"passed": false,
-"rms_track_err_mm": 9.25,
+"passed": true,
+"rms_track_err_mm": 8.42,
 "search_entries": 8,
 "search_max_deg": 64.6,
 "search_time_s": 10.32,
@@ -18350,7 +18350,7 @@
 "frames": 3669,
 "laps": 2.1,
 "max_pwm": 18,
-"max_track_err_mm": 26.65,
+"max_track_err_mm": 19.69,
 "overshoot_deg": [
 4.6,
 5.4,
@@ -18362,7 +18362,7 @@
 4.3
 ],
 "passed": true,
-"rms_track_err_mm": 4.34,
+"rms_track_err_mm": 4.31,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -18389,7 +18389,7 @@
 "frames": 3557,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 25.56,
+"max_track_err_mm": 20.32,
 "overshoot_deg": [
 4.8,
 5.0,
@@ -18399,7 +18399,7 @@
 6.0
 ],
 "passed": true,
-"rms_track_err_mm": 5.58,
+"rms_track_err_mm": 5.53,
 "search_entries": 2,
 "search_max_deg": 37.6,
 "search_time_s": 1.36,
@@ -18424,12 +18424,12 @@
 "frames": 3734,
 "laps": 2.101,
 "max_pwm": 20,
-"max_track_err_mm": 41.2,
+"max_track_err_mm": 30.14,
 "overshoot_deg": [
 4.5
 ],
-"passed": false,
-"rms_track_err_mm": 8.47,
+"passed": true,
+"rms_track_err_mm": 8.21,
 "search_entries": 7,
 "search_max_deg": 65.8,
 "search_time_s": 13.86,
@@ -18449,10 +18449,10 @@
 "frames": 3405,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 41.76,
+"max_track_err_mm": 22.31,
 "overshoot_deg": [],
-"passed": false,
-"rms_track_err_mm": 9.09,
+"passed": true,
+"rms_track_err_mm": 8.05,
 "search_entries": 8,
 "search_max_deg": 65.2,
 "search_time_s": 8.86,
@@ -18470,7 +18470,7 @@
 "frames": 3664,
 "laps": 2.1,
 "max_pwm": 18,
-"max_track_err_mm": 32.14,
+"max_track_err_mm": 20.49,
 "overshoot_deg": [
 4.9,
 4.7,
@@ -18482,7 +18482,7 @@
 3.9
 ],
 "passed": true,
-"rms_track_err_mm": 4.96,
+"rms_track_err_mm": 4.88,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -18509,7 +18509,7 @@
 "frames": 3604,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 38.06,
+"max_track_err_mm": 20.79,
 "overshoot_deg": [
 6.4,
 6.5,
@@ -18518,8 +18518,8 @@
 5.5,
 5.7
 ],
-"passed": false,
-"rms_track_err_mm": 6.71,
+"passed": true,
+"rms_track_err_mm": 6.19,
 "search_entries": 2,
 "search_max_deg": 40.8,
 "search_time_s": 1.52,
@@ -18544,7 +18544,7 @@
 "frames": 3482,
 "laps": 2.1,
 "max_pwm": 18,
-"max_track_err_mm": 40.74,
+"max_track_err_mm": 22.61,
 "overshoot_deg": [
 4.4,
 5.2,
@@ -18552,8 +18552,8 @@
 3.9,
 4.6
 ],
-"passed": false,
-"rms_track_err_mm": 5.9,
+"passed": true,
+"rms_track_err_mm": 5.64,
 "search_entries": 3,
 "search_max_deg": 36.8,
 "search_time_s": 1.88,
@@ -18577,15 +18577,15 @@
 "frames": 3673,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 39.73,
+"max_track_err_mm": 25.56,
 "overshoot_deg": [
 3.8,
 4.4,
 5.5,
 4.7
 ],
-"passed": false,
-"rms_track_err_mm": 7.57,
+"passed": true,
+"rms_track_err_mm": 7.13,
 "search_entries": 4,
 "search_max_deg": 64.6,
 "search_time_s": 7.32,
@@ -18647,7 +18647,7 @@
 "frames": 3702,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 21.28,
+"max_track_err_mm": 20.96,
 "overshoot_deg": [
 6.5,
 6.2,
@@ -18659,7 +18659,7 @@
 6.0
 ],
 "passed": true,
-"rms_track_err_mm": 5.37,
+"rms_track_err_mm": 5.34,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -18686,7 +18686,7 @@
 "frames": 3613,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 38.92,
+"max_track_err_mm": 19.21,
 "overshoot_deg": [
 4.4,
 4.3,
@@ -18695,8 +18695,8 @@
 5.0,
 5.3
 ],
-"passed": false,
-"rms_track_err_mm": 5.75,
+"passed": true,
+"rms_track_err_mm": 5.51,
 "search_entries": 2,
 "search_max_deg": 64.5,
 "search_time_s": 2.98,
@@ -18731,7 +18731,7 @@
 6.3
 ],
 "passed": true,
-"rms_track_err_mm": 6.15,
+"rms_track_err_mm": 6.11,
 "search_entries": 2,
 "search_max_deg": 34.8,
 "search_time_s": 1.28,
@@ -18756,7 +18756,7 @@
 "frames": 3632,
 "laps": 2.1,
 "max_pwm": 20,
-"max_track_err_mm": 21.05,
+"max_track_err_mm": 20.25,
 "overshoot_deg": [
 3.5,
 2.6,
@@ -18768,7 +18768,7 @@
 5.0
 ],
 "passed": true,
-"rms_track_err_mm": 3.32,
+"rms_track_err_mm": 3.31,
 "search_entries": 0,
 "search_max_deg": 0.0,
 "search_time_s": 0.0,
@@ -18795,7 +18795,7 @@
 "frames": 3771,
 "laps": 2.1,
 "max_pwm": 18,
-"max_track_err_mm": 34.31,
+"max_track_err_mm": 21.54,
 "overshoot_deg": [
 5.5,
 5.6,
@@ -18804,7 +18804,7 @@
 4.8
 ],
 "passed": true,
-"rms_track_err_mm": 6.69,
+"rms_track_err_mm": 6.42,
 "search_entries": 3,
 "search_max_deg": 64.9,
 "search_time_s": 6.88,

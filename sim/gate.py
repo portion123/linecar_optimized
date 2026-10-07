@@ -47,13 +47,15 @@ def main():
     leg, fam = summarize.summary(a.cand)
     out['legacy'] = leg; out['families'] = fam
     print('legacy', leg)
-    print(f"{'fam':7s} pass  stop srch wsrch turns  ov50 ov95  wd50 wd95 trkMaxMax rms50")
+    print(f"{'fam':7s} pass  stop srch turns  ov50 ov95  wd50 wd95 trkMax rms50 | strRms flips strPk | stopFr pwmStep crn_s")
     for k, v in fam.items():
-        print(f"{k:7s} {v['pass']:2d}/{v['n']} {v['stops']:4d} {v['search']:4d} {v['white_search']:5d} {v['turns']:5d} "
-              f"{v['ov_p50']:5} {v['ov_p95']:4} {v['wd_p50']!s:5} {v['wd_p95']!s:5} {v['trk_max_max']:9} {v['rms_p50']}")
-    tot = {s: sum(v[s] for v in fam.values()) for s in ('pass', 'stops', 'search', 'white_search', 'turns')}
+        print(f"{k:7s} {v['pass']:2d}/{v['n']} {v['stops']:4d} {v['search']:4d} {v['turns']:5d} "
+              f"{v['ov_p50']:5} {v['ov_p95']:4} {v['wd_p50']!s:5} {v['wd_p95']!s:5} {v['trk_max_max']:6} {v['rms_p50']:5} | "
+              f"{v['straight_rms_p50']:6} {v['straight_flips']:5} {v['straight_peak_max']:5} | {v['stop_frames']:6} {v['pwm_step_max']:7} {v['corner_s_p50']}")
+    tot = {s: sum(v[s] for v in fam.values()) for s in ('pass', 'stops', 'search', 'white_search', 'turns', 'straight_flips', 'stop_frames')}
     plus = sum(v['pass'] for k, v in fam.items() if k.endswith('+')); minus = sum(v['pass'] for k, v in fam.items() if k.endswith('-'))
-    print(f"families total: pass {tot['pass']}  stops {tot['stops']}  SEARCH {tot['search']} (after white {tot['white_search']})  mirror +{plus} / -{minus}")
+    print(f"families total: pass {tot['pass']}  stops {tot['stops']}  SEARCH {tot['search']} (after white {tot['white_search']})  "
+          f"straight flips {tot['straight_flips']}  stop-frames {tot['stop_frames']}  mirror +{plus} / -{minus}")
     out['family_totals'] = tot; out['mirror'] = {'+': plus, '-': minus}
     if a.json: Path(a.json).write_text(json.dumps(out, indent=1))
     blocking = bool(lost_fix4) or (a.ref and bool(out['lost_vs_ref'])) or (a.off and not out['off_equivalence'])

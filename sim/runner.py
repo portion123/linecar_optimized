@@ -24,9 +24,11 @@ def episode(ctl, family, seed_index, side, keep=False):
     lpwm, rpwm = r.left_pwm, r.right_pwm
     m = dict(search_entries=0, search_time_s=0.0, search_max_deg=0.0, turn_entries=0, approach_entries=0,
              exit_entries=0, align_entries=0, edge_entries=0, max_track_err_mm=0.0, sq_err=0.0, n_err=0,
-             withdraw_ms=[], overshoot_deg=[], max_pwm=0, white_search=0)
+             withdraw_ms=[], overshoot_deg=[], max_pwm=0, white_search=0,
+             straight_flips=0, sq_straight=0.0, n_straight=0, straight_peak_mm=0.0, stop_frames=0, max_pwm_step=0, corner_time_s=[])
     lpwm, rpwm = r.left_pwm, r.right_pwm
     prev_state = r.state; credible_t = None; turn_dir = 0
+    flip_sign = 0; corner_t0 = None; plp, prp = lpwm, rpwm
     corner = None   # [outgoing heading, turn sign, max overshoot deg] from APPROACH/TURN entry until TRACK
     for k in range(1, F.MAX_S * 50 + 1):
         tick = k * 20
@@ -65,6 +67,27 @@ def episode(ctl, family, seed_index, side, keep=False):
         if corner is not None and st in TURN_STATES + (15, 16, 17, 2):
             rel = (plant.heading - corner[0] + math.pi) % (2 * math.pi) - math.pi
             corner[2] = max(corner[2], math.degrees(rel) * corner[1])
+        # ---- smoothness / steadiness observations (not pass criteria) ----
+        if r.running and lpwm == 0 and rpwm == 0: m['stop_frames'] += 1
+        m['max_pwm_step'] = max(m['max_pwm_step'], abs(lpwm - plp), abs(rpwm - prp)); plp, prp = lpwm, rpwm
+        if st in (14, 11, 16, 2) and corner_t0 is None: corner_t0 = tick
+        if st == 1 and corner_t0 is not None and prev_state != 1:
+            m['corner_time_s'].append(round((tick - corner_t0) / 1000, 2)); corner_t0 = None
+        if square:
+            along = plant.nearest_track()[1] % plant.config.side_m
+            in_straight = st == 1 and .25 <= along <= .65
+        else:
+            _, along_s, idx, _ = plant.track.path.nearest(plant.x, plant.y)
+            pc = plant.track.path.pieces[idx]
+            if pc[0] == 'L':
+                Lp = math.hypot(pc[3] - pc[1], pc[4] - pc[2]); s_in = along_s - plant.track.path.starts[idx]
+                in_straight = st == 1 and s_in >= .25 and Lp - s_in >= .35
+            else: in_straight = False
+        corr = (r.left_target - r.right_target) * .5
+        sgn = 1 if corr > 1e-6 else -1 if corr < -1e-6 else 0
+        if in_straight and sgn:
+            m['straight_flips'] += bool(flip_sign and sgn != flip_sign); flip_sign = sgn
+        elif not in_straight: flip_sign = 0
         if square:
             fx = plant.x + plant.config.front_offset_m * math.cos(plant.heading)
             fy = plant.y + plant.config.front_offset_m * math.sin(plant.heading)
@@ -73,6 +96,8 @@ def episode(ctl, family, seed_index, side, keep=False):
             err = plant.front_error()[0]
         if st == 1:
             m['max_track_err_mm'] = max(m['max_track_err_mm'], err * 1000); m['sq_err'] += err * err; m['n_err'] += 1
+        if in_straight:
+            m['sq_straight'] += err * err; m['n_straight'] += 1; m['straight_peak_mm'] = max(m['straight_peak_mm'], err * 1000)
         if st == 2:
             m['search_time_s'] += .02; m['search_max_deg'] = max(m['search_max_deg'], abs(math.degrees(r.angle)))
         if st in TURN_STATES:
@@ -96,6 +121,8 @@ def episode(ctl, family, seed_index, side, keep=False):
            'time_s': round(k * .02, 2), 'laps': round(laps, 3),
            'rms_track_err_mm': round(math.sqrt(m.pop('sq_err') / max(1, m.pop('n_err'))) * 1000, 2),
            'frames': k + 1, 'sha256': h.hexdigest(), 'core256': hc.hexdigest()}
+    m['straight_rms_mm'] = round(math.sqrt(m.pop('sq_straight') / max(1, m.pop('n_straight'))) * 1000, 2)
+    m['straight_peak_mm'] = round(m['straight_peak_mm'], 2)
     m['max_track_err_mm'] = round(m['max_track_err_mm'], 2); m['search_time_s'] = round(m['search_time_s'], 2)
     m['search_max_deg'] = round(m['search_max_deg'], 1)
     res.update(m)

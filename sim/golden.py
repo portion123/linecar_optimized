@@ -11,7 +11,8 @@ from pathlib import Path
 
 KEEP = ('passed', 'sha256', 'core256', 'frames', 'end_state', 'stop_reason', 'search_entries', 'search_time_s',
         'turn_entries', 'approach_entries', 'max_track_err_mm', 'rms_track_err_mm', 'overshoot_deg',
-        'withdraw_ms', 'white_search', 'search_max_deg', 'time_s', 'laps', 'max_pwm', 'state')
+        'withdraw_ms', 'white_search', 'search_max_deg', 'time_s', 'laps', 'max_pwm', 'state',
+        'straight_flips', 'straight_rms_mm', 'straight_peak_mm', 'stop_frames', 'max_pwm_step', 'corner_time_s')
 
 def runs(result):
     out = {}

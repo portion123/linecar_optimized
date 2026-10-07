@@ -20,7 +20,13 @@ def summary(path):
                   'wd_p50': pct(wd, .5), 'wd_p95': pct(wd, .95),
                   'trk_max_p50': round(pct([r['max_track_err_mm'] for r in rs], .5), 1),
                   'trk_max_max': round(max(r['max_track_err_mm'] for r in rs), 1),
-                  'rms_p50': round(pct([r['rms_track_err_mm'] for r in rs], .5), 2)}
+                  'rms_p50': round(pct([r['rms_track_err_mm'] for r in rs], .5), 2),
+                  'straight_rms_p50': round(pct([r.get('straight_rms_mm', float('nan')) for r in rs], .5), 2),
+                  'straight_flips': sum(r.get('straight_flips', 0) for r in rs),
+                  'straight_peak_max': round(max(r.get('straight_peak_mm', 0) for r in rs), 1),
+                  'stop_frames': sum(r.get('stop_frames', 0) for r in rs),
+                  'pwm_step_max': max(r.get('max_pwm_step', 0) for r in rs),
+                  'corner_s_p50': round(pct([x for r in rs for x in r.get('corner_time_s', [])], .5), 2)}
     leg = {s: f"{sum(x['passed'] for x in v)}/{len(v)}" for s, v in d['legacy'].items()}
     return leg, out
 
