@@ -7,6 +7,12 @@ FIELDS = ('now state left_pwm right_pwm mask dir stop_reason running mode attemp
           'approach goal aux0 aux1').split()
 Record = namedtuple('Record', FIELDS)
 _REC = struct.Struct('<IBbbBbBBBBBBB12f')
+
+def core_bytes(raw):
+    """Control-output fields shared by every variant: now,state,pwm,mask,dir,running,sweep,
+    targets,commands,error,angle,filtered RPM,approach,goal.  Excludes observation-only
+    fields (stop_reason, mode, attempts, phase, flags, aux0, aux1)."""
+    return raw[0:9] + raw[10:11] + raw[13:14] + raw[16:56]
 assert _REC.size == 64
 
 class Controller:

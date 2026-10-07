@@ -118,7 +118,19 @@
 #define TRACK_SEARCH_SCAN_RAD          1.0471976f /* 每侧相对原方向最多 60° */
 #define TRACK_SEARCH_MAX_MS        10000U /* 44mm轮/133mm轮距，覆盖两侧扫描及起转时间 */
 #define ENCODER_NO_PULSE_MS          700U
-#define ENCODER_REVERSE_MS           250U
+#define ENCODER_REVERSE_MS           250U /* 只累计“确有反向脉冲”的帧；零计数=待定，不加不清 */
+
+/* 8. FIX4_SAFE 安全层：只增加停车条件，不改变 FIX4 控制输出。数值为硬约束，不得放宽。 */
+#define CORNER_APPROACH_MAX_MM       200.0f /* 推进实际编码器距离上限 */
+#define CORNER_APPROACH_MAX_YAW_RAD    0.2617994f /* 推进累计偏航 15° */
+#define TRACK_RECOVERY_MAX_MS       12000U /* 一次失线恢复会话：从首个全白帧起计时 */
+#define TRACK_RECOVERY_MAX_ATTEMPTS     4U /* 会话内最多 4 次扫描/找线尝试 */
+#define TRACK_RECOVERY_MAX_ANGLE_RAD    5.2359878f /* 累计绝对转角 300° */
+#define TRACK_RECOVERY_MAX_DISTANCE_MM 700.0f /* 两轮绝对行程平均 700 mm */
+#define TRACK_RECOVERY_STABLE_MS      600U /* 正常循迹稳定 600 ms ... */
+#define TRACK_RECOVERY_STABLE_MM       30.0f /* ... 且前进 30 mm 才清除会话 */
+#define TRACK_RECOVERY_STABLE_ERROR     5.0f
+#define TRACK_CONTROL_MAX_GAP_MS       40U /* 调度间隔 >40 ms 直接锁定停车 */
 #define TRACK_OLED_ENABLED             1
 #define FORWARD_PWM                   30 /* KEY5 人工直行检查 */
 #define KEY_DEBOUNCE_MS               20U

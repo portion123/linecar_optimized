@@ -16,7 +16,7 @@
 typedef enum {
     CAR_READY=0, CAR_RUN=1, CAR_SEARCH=2, CAR_NO_LINE=4, CAR_LOST_STOP=8,
     CAR_ENCODER_FAULT=9, CAR_FORWARD=10, CAR_CORNER=11, CAR_WIDE=12,
-    CAR_APPROACH=14, CAR_EXIT=15
+    CAR_APPROACH=14, CAR_EXIT=15, CAR_CONTROL_FAULT=18
 } CarState;
 static CarState state=CAR_READY;
 static volatile uint32_t milliseconds;
@@ -49,6 +49,12 @@ static uint32_t recovery_started;
 static uint8_t recovering;
 static uint32_t width_learn_ms;
 static uint8_t width_candidate;
+/* FIX4_SAFE：停车原因、推进偏航、失线恢复会话。只读控制量并决定是否停车。 */
+static TrackStopReason stop_reason;
+static float approach_yaw;
+static uint8_t recovery_active, recovery_attempts;
+static uint32_t recovery_start_ms, recovery_stable_ms;
+static float recovery_angle, recovery_distance, recovery_stable_mm;
 
 uint32_t Track_Now(void) { return milliseconds; }
 /* 每 1 ms 只记时间。中断中不刷屏、不算 PID，避免耽误编码器。 */
@@ -160,7 +166,8 @@ uint8_t Track_IsRunning(void)
     return state==CAR_RUN || state==CAR_WIDE || state==CAR_SEARCH || state==CAR_FORWARD ||
            state==CAR_APPROACH || state==CAR_CORNER || state==CAR_EXIT;
 }
-void Track_Stop(void)
+uint8_t Track_GetStopReason(void) { return (uint8_t)stop_reason; }
+static void ResetRuntime(void)
 {
     SetPWM(0,0); state=CAR_READY; last_error=error_filtered=0.0f;
     load_compensation[0]=load_compensation[1]=0.0f;
@@ -172,21 +179,35 @@ void Track_Stop(void)
     edge_best_error=0.0f; recovery_started=0; recovering=0;
     width_learn_ms=0; width_candidate=0;
     corner_armed=1; normal_line_width=2; ResetPID();
+    approach_yaw=0.0f; recovery_active=recovery_attempts=0;
+    recovery_start_ms=recovery_stable_ms=0;
+    recovery_angle=recovery_distance=recovery_stable_mm=0.0f;
 }
-static void Halt(CarState reason) { Track_Stop(); state=reason; }
+/* 人工停车：运行中按键记为 USER；已因故障停车时保留首个原因。 */
+void Track_Stop(void)
+{
+    if(Track_IsRunning() && stop_reason==TRACK_STOP_NONE) stop_reason=TRACK_STOP_USER;
+    ResetRuntime();
+}
+/* 安全停车：撤 PWM、清控制记忆（与 FIX4 相同），只锁存第一个原因。 */
+static void Halt(CarState reason,TrackStopReason why)
+{
+    ResetRuntime(); state=reason;
+    if(stop_reason==TRACK_STOP_NONE) stop_reason=why;
+}
 /* KEY5 人工直行检查不依赖黑线和速度闭环，保留固定 30% PWM。
  * 计数在开始时清零，方便核对两轮实际向前时的编码器正负号。
  */
 void Track_StartForward(void)
 {
-    Track_Stop(); Encoder_Clear(1); Encoder_Clear(2);
+    ResetRuntime(); stop_reason=TRACK_STOP_NONE; Encoder_Clear(1); Encoder_Clear(2);
     left_rpm=right_rpm=0.0f; ResetPID(); left_total_counts=right_total_counts=0;
     last_control=Track_Now(); state=CAR_FORWARD; SetPWM(FORWARD_PWM,FORWARD_PWM);
 }
 void Track_Start(void)
 {
     float error; uint8_t count;
-    Track_Stop(); count=ReadLine(&error);
+    ResetRuntime(); stop_reason=TRACK_STOP_NONE; count=ReadLine(&error);
     if(!count) { state=CAR_NO_LINE; return; }
     if(Centered(count,error) && count>normal_line_width) normal_line_width=count;
     Encoder_Clear(1); Encoder_Clear(2); left_rpm=right_rpm=0.0f; ResetPID();
@@ -255,8 +276,10 @@ static uint8_t EncoderFault(uint8_t wheel,int16_t pulses,float rpm,float command
         no_pulse_ms[wheel]=reverse_ms[wheel]=0; return 0;
     }
     if(!pulses) no_pulse_ms[wheel]+=elapsed; else no_pulse_ms[wheel]=0;
-    if(rpm<-6.0f) reverse_ms[wheel]+=elapsed; else reverse_ms[wheel]=0;
-    return no_pulse_ms[wheel]>=ENCODER_NO_PULSE_MS || reverse_ms[wheel]>=ENCODER_REVERSE_MS;
+    /* 反向证据：有反向脉冲才累计；同向脉冲清零；零计数只是“待定”，既不证明反转也不清除。 */
+    if(rpm<-6.0f) reverse_ms[wheel]+=elapsed; else if(pulses) reverse_ms[wheel]=0;
+    if(no_pulse_ms[wheel]>=ENCODER_NO_PULSE_MS) return 1;
+    return reverse_ms[wheel]>=ENCODER_REVERSE_MS ? 2 : 0;
 }
 static void DriveTargets(uint32_t elapsed,float dt)
 {
@@ -352,6 +375,40 @@ static void FollowLine(uint32_t now,float error,float dt,float speed_cap)
     }
     left_target=base+correction; right_target=base-correction;
 }
+/* FIX4_SAFE 失线恢复会话：从首个全白帧/推进/扫描起，跨假恢复累计时间、尝试、转角和行程。
+ * 只在正常 RUN 中窄线稳定 600ms 且前进 30mm 才清除；任一预算到达即锁定停车。 */
+static void RecoveryBegin(uint32_t now)
+{
+    if(recovery_active) return;
+    recovery_active=1; recovery_start_ms=now; recovery_attempts=0;
+    recovery_angle=recovery_distance=recovery_stable_mm=0.0f; recovery_stable_ms=0;
+}
+static uint8_t RecoveryStep(uint32_t now,uint32_t elapsed,uint8_t count,float error,
+                            float left_mm,float right_mm,float forward_mm)
+{
+    if(!recovery_active) return 0;
+    recovery_angle+=Abs((right_mm-left_mm)/AXLE_TRACK_MM);
+    recovery_distance+=(Abs(left_mm)+Abs(right_mm))*0.5f;
+    if((uint32_t)(now-recovery_start_ms)>=TRACK_RECOVERY_MAX_MS) { Halt(CAR_LOST_STOP,TRACK_STOP_REC_TIME); return 1; }
+    if(recovery_angle>=TRACK_RECOVERY_MAX_ANGLE_RAD) { Halt(CAR_LOST_STOP,TRACK_STOP_REC_ANGLE); return 1; }
+    if(recovery_distance>=TRACK_RECOVERY_MAX_DISTANCE_MM) { Halt(CAR_LOST_STOP,TRACK_STOP_REC_DISTANCE); return 1; }
+    if(state==CAR_RUN && !wide_active && count && count<=normal_line_width+1U && Contiguous(sensor_mask) &&
+       Abs(error)<=TRACK_RECOVERY_STABLE_ERROR && forward_mm>0.0f) {
+        recovery_stable_ms+=elapsed; recovery_stable_mm+=forward_mm;
+        if(recovery_stable_ms>=TRACK_RECOVERY_STABLE_MS && recovery_stable_mm>=TRACK_RECOVERY_STABLE_MM) {
+            recovery_active=recovery_attempts=0; recovery_start_ms=recovery_stable_ms=0;
+            recovery_angle=recovery_distance=recovery_stable_mm=0.0f;
+        }
+    } else { recovery_stable_ms=0; recovery_stable_mm=0.0f; }
+    return 0;
+}
+/* 每次进入扫描/找线计一次尝试；第 5 次直接停车，不给新的局部预算。 */
+static uint8_t RecoveryAttempt(uint32_t now)
+{
+    RecoveryBegin(now);
+    if(recovery_attempts>=TRACK_RECOVERY_MAX_ATTEMPTS) { Halt(CAR_LOST_STOP,TRACK_STOP_REC_ATTEMPTS); return 0; }
+    ++recovery_attempts; return 1;
+}
 static void BeginApproach(uint32_t now)
 {
     float half_width=wide_last_mm*0.5f,after_wide=wide_travel_mm-wide_last_mm;
@@ -364,11 +421,13 @@ static void BeginApproach(uint32_t now)
     ClearWide(); corner_armed=0; centered_ms=0; rearm_mm=0.0f;
     side_candidate=0; side_ms=0;
     edge_ms=0; edge_dir=0;
-    approach_mm=0.0f; phase_started=now; state=CAR_APPROACH;
+    approach_mm=0.0f; approach_yaw=0.0f; phase_started=now; state=CAR_APPROACH;
+    RecoveryBegin(now);
     PID_Reset(&line_pid); left_target=right_target=CORNER_APPROACH_RPM;
 }
 static void BeginScan(uint32_t now,int8_t direction,uint8_t is_corner)
 {
+    if(!RecoveryAttempt(now)) return;
     ResetPID(); SetPWM(0,0); ClearWide(); state=is_corner==1 ? CAR_CORNER : CAR_SEARCH;
     edge_align_active=is_corner==2;
     corner_dir=direction ? direction : CORNER_DEFAULT_DIR;
@@ -379,6 +438,7 @@ static void BeginScan(uint32_t now,int8_t direction,uint8_t is_corner)
 /* 有线贴边接管：保留两轮速度环，内轮停车、外轮缓慢推进，避免停车后反扫。 */
 static void BeginEdgeAlign(uint32_t now,int8_t direction)
 {
+    if(!RecoveryAttempt(now)) return;
     ClearWide(); PID_Reset(&line_pid); state=CAR_SEARCH; edge_align_active=1;
     corner_dir=direction; phase_started=now; turn_angle=0.0f;
     sweep_number=1; center_samples=0; lost_ms=0; side_candidate=0; side_ms=0;
@@ -411,14 +471,18 @@ static void Scan(uint32_t now,uint32_t elapsed,float dt,uint8_t count,float erro
         if(Centered(count,error) || crossed) ++center_samples; else center_samples=0;
         if(center_samples>=CORNER_CENTER_SAMPLES) { ResumeLine(now,elapsed,dt,error); return; }
         if(progress>=TRACK_EDGE_ALIGN_LIMIT_RAD ||
-           (uint32_t)(now-phase_started)>=TRACK_EDGE_ALIGN_MAX_MS) { Halt(CAR_LOST_STOP); return; }
+           (uint32_t)(now-phase_started)>=TRACK_EDGE_ALIGN_MAX_MS) {
+            Halt(CAR_LOST_STOP,progress>=TRACK_EDGE_ALIGN_LIMIT_RAD ? TRACK_STOP_EDGE_ANGLE : TRACK_STOP_EDGE_TIME); return;
+        }
         rpm=count && Abs(error)<=3.0f ? CORNER_ALIGN_RPM : TRACK_EDGE_PIVOT_RPM;
         left_target=corner_dir>0 ? rpm : 0.0f;
         right_target=corner_dir<0 ? rpm : 0.0f;
         DriveTargets(elapsed,dt); return;
     }
     if((uint32_t)(now-phase_started)<CORNER_SETTLE_MS) { SetPWM(0,0); return; }
-    if((uint32_t)(now-phase_started)>=timeout) { Halt(CAR_LOST_STOP); return; }
+    if((uint32_t)(now-phase_started)>=timeout) {
+        Halt(CAR_LOST_STOP,is_corner ? TRACK_STOP_CORNER_TIME : TRACK_STOP_SEARCH_TIME); return;
+    }
     if(Centered(count,error) && progress>=min_angle) ++center_samples; else center_samples=0;
     if(center_samples>=CORNER_CENTER_SAMPLES) {
         if(!is_corner) { ResumeLine(now,elapsed,dt,error); return; }
@@ -427,7 +491,7 @@ static void Scan(uint32_t now,uint32_t elapsed,float dt,uint8_t count,float erro
         last_error=error_filtered=error; centered_ms=0; rearm_mm=0.0f; return;
     }
     if(progress>=max_angle) {
-        if(sweep_number>=2) { Halt(CAR_LOST_STOP); return; }
+        if(sweep_number>=2) { Halt(CAR_LOST_STOP,is_corner ? TRACK_STOP_CORNER_SIDES : TRACK_STOP_SEARCH_SIDES); return; }
         ++sweep_number; corner_dir=-corner_dir; center_samples=0;
         ResetPID(); SetPWM(0,0); return;
     }
@@ -440,7 +504,7 @@ static void Control(uint32_t now,uint32_t elapsed)
 {
     float error,dt,alpha,left_mm,right_mm,forward_mm,scale,largest;
     int16_t raw_left,raw_right,left_counts,right_counts;
-    uint8_t count;
+    uint8_t count,fault;
     Encoder_GetPair(&raw_left,&raw_right);
 #if DRIVE_PAIRS_SWAPPED
     left_counts=RIGHT_ENCODER_SIGN*raw_right; right_counts=LEFT_ENCODER_SIGN*raw_left;
@@ -461,17 +525,23 @@ static void Control(uint32_t now,uint32_t elapsed)
     count=ReadLine(&error);
     steering_urgent=0;
     if(!Track_IsRunning()) { SetPWM(0,0); return; }
-    if(elapsed>2U*TRACK_PERIOD_MS) { ResetPID(); ClearWide(); lost_ms=0; center_samples=0; }
-    if(EncoderFault(0,left_counts,left_rpm,left_command,left_pwm,elapsed) ||
-       EncoderFault(1,right_counts,right_rpm,right_command,right_pwm,elapsed)) { Halt(CAR_ENCODER_FAULT); return; }
+    /* FIX4_SAFE：FIX4 原来在间隔>40ms 时清记忆后继续；硬约束要求直接锁定停车。 */
+    if(elapsed>TRACK_CONTROL_MAX_GAP_MS) { Halt(CAR_CONTROL_FAULT,TRACK_STOP_CONTROL_GAP); return; }
+    fault=EncoderFault(0,left_counts,left_rpm,left_command,left_pwm,elapsed);
+    if(fault) { Halt(CAR_ENCODER_FAULT,fault==1 ? TRACK_STOP_ENC_NO_PULSE_L : TRACK_STOP_ENC_REVERSE_L); return; }
+    fault=EncoderFault(1,right_counts,right_rpm,right_command,right_pwm,elapsed);
+    if(fault) { Halt(CAR_ENCODER_FAULT,fault==1 ? TRACK_STOP_ENC_NO_PULSE_R : TRACK_STOP_ENC_REVERSE_R); return; }
     dt=(elapsed>2U*TRACK_PERIOD_MS ? TRACK_PERIOD_MS : elapsed)*0.001f;
     alpha=dt/(TRACK_RPM_FILTER_TAU+dt);
     left_filtered+=alpha*(left_rpm-left_filtered); right_filtered+=alpha*(right_rpm-right_filtered);
     /* 推进时探头允许全白。只按轮子距离推进，轮轴未到位绝不开始旋转。 */
+    if(RecoveryStep(now,elapsed,count,error,left_mm,right_mm,forward_mm)) return;
     if(state==CAR_APPROACH) {
-        approach_mm+=forward_mm;
+        approach_mm+=forward_mm; approach_yaw+=(right_mm-left_mm)/AXLE_TRACK_MM;
+        if(approach_mm>CORNER_APPROACH_MAX_MM) { Halt(CAR_LOST_STOP,TRACK_STOP_APPROACH_DIST); return; }
+        if(Abs(approach_yaw)>CORNER_APPROACH_MAX_YAW_RAD) { Halt(CAR_LOST_STOP,TRACK_STOP_APPROACH_YAW); return; }
         if(approach_mm>=approach_goal_mm) { BeginScan(now,corner_dir,1); return; }
-        if((uint32_t)(now-phase_started)>=CORNER_APPROACH_MAX_MS) { Halt(CAR_LOST_STOP); return; }
+        if((uint32_t)(now-phase_started)>=CORNER_APPROACH_MAX_MS) { Halt(CAR_LOST_STOP,TRACK_STOP_APPROACH_TIME); return; }
         left_target=right_target=CORNER_APPROACH_RPM; DriveTargets(elapsed,dt); return;
     }
     if(state==CAR_CORNER || state==CAR_SEARCH) {
@@ -522,7 +592,7 @@ static void Control(uint32_t now,uint32_t elapsed)
             state=CAR_WIDE; left_target=right_target=CORNER_APPROACH_RPM; DriveTargets(elapsed,dt); return;
         }
     } else {
-        lost_ms+=elapsed;
+        lost_ms+=elapsed; RecoveryBegin(now);
         if(wide_active && wide_peak_count>=CORNER_MIN_ADVANCE_PROBES &&
            wide_ms>=CORNER_CONFIRM_MS && lost_ms>=CORNER_LOST_CONFIRM_MS) {
             BeginApproach(now); DriveTargets(elapsed,dt); return;
@@ -586,7 +656,14 @@ static void Display(void)
             case CAR_CORNER: OLED_ShowString(1,1,corner_dir<0 ? "TURN LEFT       " : "TURN RIGHT      "); break;
             case CAR_EXIT: OLED_ShowString(1,1,"LINE REACQUIRED "); break;
             case CAR_FORWARD: OLED_ShowString(1,1,"FWD  K5:STOP    "); break;
+            case CAR_CONTROL_FAULT: OLED_ShowString(1,1,"TIME GAP! STOP  "); break;
             default: OLED_ShowString(1,1,"FIX4 K1:TRACK   "); break;
+        }
+        /* 停车后在右上角显示首个停车原因 Rnn（见 Track.h TrackStopReason）。 */
+        if(!Track_IsRunning() && stop_reason!=TRACK_STOP_NONE) {
+            OLED_ShowChar(1,14,'R');
+            OLED_ShowChar(1,15,(char)('0'+(uint8_t)stop_reason/10U));
+            OLED_ShowChar(1,16,(char)('0'+(uint8_t)stop_reason%10U));
         }
     } else if(row==1) {
         OLED_ShowString(2,1,state==CAR_FORWARD ? "IR:NOT USED     " : "IR:             ");

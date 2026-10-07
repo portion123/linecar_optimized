@@ -9,7 +9,7 @@ frame count, end state/stop reason and key metrics.  compare() reports
 import json, sys
 from pathlib import Path
 
-KEEP = ('passed', 'sha256', 'frames', 'end_state', 'stop_reason', 'search_entries', 'search_time_s',
+KEEP = ('passed', 'sha256', 'core256', 'frames', 'end_state', 'stop_reason', 'search_entries', 'search_time_s',
         'turn_entries', 'approach_entries', 'max_track_err_mm', 'rms_track_err_mm', 'overshoot_deg',
         'withdraw_ms', 'white_search', 'search_max_deg', 'time_s', 'laps', 'max_pwm', 'state')
 
@@ -41,6 +41,8 @@ def compare(ref, cand):
     lost = [k for k in keys if k in ref and k in cand and ref[k]['passed'] and not cand[k]['passed']]
     gained = [k for k in keys if k in ref and k in cand and not ref[k]['passed'] and cand[k]['passed']]
     same_hash = sum(1 for k in keys if k in ref and k in cand and ref[k].get('sha256') == cand[k].get('sha256'))
+    same_core = sum(1 for k in keys if k in ref and k in cand and ref[k].get('core256') and ref[k].get('core256') == cand[k].get('core256'))
+    core_diff = [k for k in keys if k in ref and k in cand and ref[k].get('core256') != cand[k].get('core256')]
     groups = {}
     for k in keys:
         if k not in ref or k not in cand: continue
@@ -50,11 +52,11 @@ def compare(ref, cand):
         g['ref_search'] += ref[k].get('search_entries', 0); g['cand_search'] += cand[k].get('search_entries', 0)
         g['ref_stop'] += ref[k].get('stop_reason', 0) not in (0, None); g['cand_stop'] += cand[k].get('stop_reason', 0) not in (0, None)
     return {'total': len(keys), 'missing': missing, 'lost_passes_BLOCKING': lost, 'gained_passes': gained,
-            'identical_frame_hash': same_hash, 'groups': groups}
+            'identical_frame_hash': same_hash, 'identical_core_hash': same_core, 'core_diff': core_diff, 'groups': groups}
 
 def report(ref_path, cand_path, show=20):
     c = compare(load(ref_path), load(cand_path))
-    print(f"runs {c['total']}  identical-frame-hash {c['identical_frame_hash']}  missing {len(c['missing'])}")
+    print(f"runs {c['total']}  identical-frame-hash {c['identical_frame_hash']}  identical-core-hash {c['identical_core_hash']}  missing {len(c['missing'])}")
     print(f"LOST passes (BLOCKING): {len(c['lost_passes_BLOCKING'])}  gained: {len(c['gained_passes'])}")
     for k in c['lost_passes_BLOCKING'][:show]: print('  LOST', k)
     for k in c['gained_passes'][:show]: print('  GAIN', k)

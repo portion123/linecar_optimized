@@ -1,6 +1,7 @@
 """Closed-loop episode runner + metrics shared by every variant."""
 import hashlib, math
 import families as F
+from ctl import core_bytes
 from track_model import SquarePlant
 
 TURN_STATES = (11, 16)
@@ -18,8 +19,8 @@ def edge_index_cw(edge):
 def episode(ctl, family, seed_index, side, keep=False):
     plant, meta = F.make(family, seed_index, side)
     square = isinstance(plant, SquarePlant)
-    h = hashlib.sha256(); frames = []
-    r = ctl.start(plant.sensor_mask() if square else plant.sensor_mask(clean=True)); h.update(ctl.raw)
+    h = hashlib.sha256(); hc = hashlib.sha256(); frames = []
+    r = ctl.start(plant.sensor_mask() if square else plant.sensor_mask(clean=True)); h.update(ctl.raw); hc.update(core_bytes(ctl.raw))
     lpwm, rpwm = r.left_pwm, r.right_pwm
     m = dict(search_entries=0, search_time_s=0.0, search_max_deg=0.0, turn_entries=0, approach_entries=0,
              exit_entries=0, align_entries=0, edge_entries=0, max_track_err_mm=0.0, sq_err=0.0, n_err=0,
@@ -35,7 +36,7 @@ def episode(ctl, family, seed_index, side, keep=False):
             plant.config.right_dead_pwm = meta['base_dead'][1] + delta[1]
         counts = plant.advance(lpwm, rpwm, .02)
         mask = plant.sensor_mask() ^ (meta['noise'][k - 1] if square else 0)
-        r = ctl.step(tick, counts[0], counts[1], mask); h.update(ctl.raw)
+        r = ctl.step(tick, counts[0], counts[1], mask); h.update(ctl.raw); hc.update(core_bytes(ctl.raw))
         lpwm, rpwm = r.left_pwm, r.right_pwm; st = r.state
         m['max_pwm'] = max(m['max_pwm'], abs(lpwm), abs(rpwm))
         if keep:
@@ -94,7 +95,7 @@ def episode(ctl, family, seed_index, side, keep=False):
            'end_state': st, 'stop_reason': r.stop_reason, 'running': bool(r.running),
            'time_s': round(k * .02, 2), 'laps': round(laps, 3),
            'rms_track_err_mm': round(math.sqrt(m.pop('sq_err') / max(1, m.pop('n_err'))) * 1000, 2),
-           'frames': k + 1, 'sha256': h.hexdigest()}
+           'frames': k + 1, 'sha256': h.hexdigest(), 'core256': hc.hexdigest()}
     m['max_track_err_mm'] = round(m['max_track_err_mm'], 2); m['search_time_s'] = round(m['search_time_s'], 2)
     m['search_max_deg'] = round(m['search_max_deg'], 1)
     res.update(m)

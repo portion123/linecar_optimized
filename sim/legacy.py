@@ -29,11 +29,13 @@ class CirclePlant(SquarePlant):
         y = self.y if y is None else y
         return abs(math.hypot(x, y) - self.radius), (math.atan2(y, x) % (2*math.pi))*self.radius, 0
 
+from ctl import core_bytes
+
 class Recorder:
     def __init__(self):
-        self.h = hashlib.sha256(); self.frames = 0; self.records = []; self.keep = False
+        self.h = hashlib.sha256(); self.core = hashlib.sha256(); self.frames = 0; self.records = []; self.keep = False
     def add(self, ctl, rec):
-        self.h.update(ctl.raw); self.frames += 1
+        self.h.update(ctl.raw); self.core.update(core_bytes(ctl.raw)); self.frames += 1
         if self.keep: self.records.append(rec)
 
 def geometry_case(ctl, label, plant, min_laps=1.1, max_seconds=180, require_corner_states=True, rec=None):
@@ -73,7 +75,7 @@ def geometry_case(ctl, label, plant, min_laps=1.1, max_seconds=180, require_corn
             'max_run_front_error_mm': round(max_front*1000, 2), 'max_all_front_error_mm': round(max_all*1000, 2),
             'rms_run_front_error_mm': round(math.sqrt(sq/max(1, n))*1000, 2),
             'search_total_time_s': round(search_time, 2), 'max_continuous_outer_run_ms': round(max_outer*1000),
-            'frames': rec.frames, 'sha256': rec.h.hexdigest()}
+            'frames': rec.frames, 'sha256': rec.h.hexdigest(), 'core256': rec.core.hexdigest()}
 
 def geo_cases():
     out = []
@@ -130,7 +132,7 @@ def fault_case(ctl, label, plant, dropout=0.0, seed=1, seconds=100, laps=1.1, re
         if plant.laps >= laps and plant.yaw_turns >= 1 and r.state == 1 and mask: break
     ok = plant.laps >= laps and plant.yaw_turns >= 1 and r.state == 1
     return {'case': label, 'passed': bool(ok), 'end_state': r.state, 'stop_reason': r.stop_reason,
-            'time_s': round(plant.time_s, 1), 'frames': rec.frames, 'sha256': rec.h.hexdigest()}
+            'time_s': round(plant.time_s, 1), 'frames': rec.frames, 'sha256': rec.h.hexdigest(), 'core256': rec.core.hexdigest()}
 
 def fmx_cases():
     out = []
@@ -196,7 +198,7 @@ def f5r_case(ctl, seed, rec=None):
     return {'case': f'random_seed_{seed}', 'seed': seed, 'passed': bool(passed), 'state': state,
             'stop_reason': r.stop_reason, 'time_s': round(plant.time_s, 2), 'laps': round(plant.laps, 3),
             'states_seen': sorted(states), 'max_run_front_error_mm': round(maximum_track*1000, 2),
-            'frames': rec.frames, 'sha256': rec.h.hexdigest()}
+            'frames': rec.frames, 'sha256': rec.h.hexdigest(), 'core256': rec.core.hexdigest()}
 
 def run_suite(ctl, suite):
     """Return list of result dicts for one original suite."""
