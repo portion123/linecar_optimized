@@ -585,7 +585,14 @@ static void Control(uint32_t now,uint32_t elapsed)
         if(Abs(approach_yaw)>CORNER_APPROACH_MAX_YAW_RAD) { Halt(CAR_LOST_STOP,TRACK_STOP_APPROACH_YAW); return; }
         if(approach_mm>=approach_goal_mm) { BeginScan(now,corner_dir,1); return; }
         if((uint32_t)(now-phase_started)>=CORNER_APPROACH_MAX_MS) { Halt(CAR_LOST_STOP,TRACK_STOP_APPROACH_TIME); return; }
-        left_target=right_target=CORNER_APPROACH_RPM; DriveTargets(elapsed,dt); return;
+#if TRACK_APPROACH_HOLD_ENABLE
+        /* 偏航为正=车头已左偏：左轮加、右轮减，有界，不改推进距离和 15° 停车界限。 */
+        scale=Limit(approach_yaw*TRACK_APPROACH_YAW_KP,-TRACK_APPROACH_YAW_MAX_RPM,TRACK_APPROACH_YAW_MAX_RPM);
+        left_target=CORNER_APPROACH_RPM+scale; right_target=CORNER_APPROACH_RPM-scale;
+#else
+        left_target=right_target=CORNER_APPROACH_RPM;
+#endif
+        DriveTargets(elapsed,dt); return;
     }
     if(state==CAR_CORNER || state==CAR_SEARCH) {
         turn_angle+=(right_mm-left_mm)/AXLE_TRACK_MM; Scan(now,elapsed,dt,count,error); return;

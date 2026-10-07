@@ -142,6 +142,12 @@
 #if TRACK_BLACKBOX_SIZE < 1 || TRACK_BLACKBOX_SIZE > 400
 #error TRACK_BLACKBOX_SIZE_out_of_range
 #endif
+/* 推进偏航保持：盲推进时用编码器累计偏航给左右目标有界差速（仍经速度 PI）。 */
+#ifndef TRACK_APPROACH_HOLD_ENABLE
+#define TRACK_APPROACH_HOLD_ENABLE      0
+#endif
+#define TRACK_APPROACH_YAW_KP          40.0f /* RPM/rad，单轮补偿；15°约 10.5 RPM */
+#define TRACK_APPROACH_YAW_MAX_RPM     10.0f /* 单轮补偿上限，左右差最多 20 RPM */
 #define TRACK_OLED_ENABLED             1
 #define FORWARD_PWM                   30 /* KEY5 人工直行检查 */
 #define KEY_DEBOUNCE_MS               20U
