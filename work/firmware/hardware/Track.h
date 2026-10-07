@@ -23,4 +23,16 @@ typedef enum {
     TRACK_STOP_REC_ANGLE=18, TRACK_STOP_REC_DISTANCE=19
 } TrackStopReason;
 uint8_t Track_GetStopReason(void); /* 返回 TrackStopReason */
+/* 黑匣子（TRACK_BLACKBOX_ENABLE）：每个控制周期一条，停车即冻结，下次 KEY1/KEY5 启动清除。
+ * error/RPM/角度放大 10 倍；phase 位：0 宽线候选 1 已确认角点 2 救线限速 3 恢复会话 4 贴边对线 */
+typedef struct {
+    uint32_t time_ms;
+    uint8_t state, sensors, phase, stop_reason;
+    int8_t left_pwm, right_pwm, corner_dir;
+    uint8_t recovery_attempts;
+    int16_t error10, left_target10, right_target10, left_command10, right_command10;
+    int16_t left_rpm10, right_rpm10, angle_deg10;
+} TrackTrace;
+uint16_t Track_GetTraceCount(void);
+uint8_t Track_GetTrace(uint16_t oldest_index,TrackTrace *sample); /* 0=最旧；越界返回0 */
 #endif

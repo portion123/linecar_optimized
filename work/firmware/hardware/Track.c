@@ -55,6 +55,11 @@ static float approach_yaw;
 static uint8_t recovery_active, recovery_attempts;
 static uint32_t recovery_start_ms, recovery_stable_ms;
 static float recovery_angle, recovery_distance, recovery_stable_mm;
+#if TRACK_BLACKBOX_ENABLE
+static TrackTrace trace_buffer[TRACK_BLACKBOX_SIZE];
+static uint16_t trace_next, trace_count;
+static uint8_t trace_frozen;
+#endif
 
 uint32_t Track_Now(void) { return milliseconds; }
 /* 每 1 ms 只记时间。中断中不刷屏、不算 PID，避免耽误编码器。 */
@@ -167,6 +172,32 @@ uint8_t Track_IsRunning(void)
            state==CAR_APPROACH || state==CAR_CORNER || state==CAR_EXIT;
 }
 uint8_t Track_GetStopReason(void) { return (uint8_t)stop_reason; }
+/* 黑匣子只读取控制量，不改变任何控制变量；关闭时接口返回空。 */
+static int16_t Trace10(float x)
+{
+    x*=10.0f;
+    if(x>32767.0f) x=32767.0f;
+    if(x<-32767.0f) x=-32767.0f;
+    return (int16_t)x;
+}
+uint16_t Track_GetTraceCount(void)
+{
+#if TRACK_BLACKBOX_ENABLE
+    return trace_count;
+#else
+    return 0;
+#endif
+}
+uint8_t Track_GetTrace(uint16_t oldest_index,TrackTrace *sample)
+{
+#if TRACK_BLACKBOX_ENABLE
+    if(!sample || oldest_index>=trace_count) return 0;
+    *sample=trace_buffer[(trace_next+TRACK_BLACKBOX_SIZE-trace_count+oldest_index)%TRACK_BLACKBOX_SIZE];
+    return 1;
+#else
+    (void)oldest_index; (void)sample; (void)Trace10; return 0;
+#endif
+}
 static void ResetRuntime(void)
 {
     SetPWM(0,0); state=CAR_READY; last_error=error_filtered=0.0f;
@@ -186,9 +217,15 @@ static void ResetRuntime(void)
 /* 人工停车：运行中按键记为 USER；已因故障停车时保留首个原因。 */
 void Track_Stop(void)
 {
+#if TRACK_BLACKBOX_ENABLE
+    if(Track_IsRunning()) trace_frozen=1; /* 控制周期外的人工停车：立即冻结 */
+#endif
     if(Track_IsRunning() && stop_reason==TRACK_STOP_NONE) stop_reason=TRACK_STOP_USER;
     ResetRuntime();
 }
+#if TRACK_BLACKBOX_ENABLE
+static void TraceRestart(void) { trace_next=trace_count=0; trace_frozen=0; }
+#endif
 /* 安全停车：撤 PWM、清控制记忆（与 FIX4 相同），只锁存第一个原因。 */
 static void Halt(CarState reason,TrackStopReason why)
 {
@@ -201,6 +238,9 @@ static void Halt(CarState reason,TrackStopReason why)
 void Track_StartForward(void)
 {
     ResetRuntime(); stop_reason=TRACK_STOP_NONE; Encoder_Clear(1); Encoder_Clear(2);
+#if TRACK_BLACKBOX_ENABLE
+    TraceRestart();
+#endif
     left_rpm=right_rpm=0.0f; ResetPID(); left_total_counts=right_total_counts=0;
     last_control=Track_Now(); state=CAR_FORWARD; SetPWM(FORWARD_PWM,FORWARD_PWM);
 }
@@ -208,6 +248,9 @@ void Track_Start(void)
 {
     float error; uint8_t count;
     ResetRuntime(); stop_reason=TRACK_STOP_NONE; count=ReadLine(&error);
+#if TRACK_BLACKBOX_ENABLE
+    TraceRestart();
+#endif
     if(!count) { state=CAR_NO_LINE; return; }
     if(Centered(count,error) && count>normal_line_width) normal_line_width=count;
     Encoder_Clear(1); Encoder_Clear(2); left_rpm=right_rpm=0.0f; ResetPID();
@@ -688,10 +731,37 @@ static void Display(void)
     }
 #endif
 }
+#if TRACK_BLACKBOX_ENABLE
+/* 控制周期结束后写一条；本周期内发生的停车也写入最后一条再冻结。 */
+static void TraceWrite(uint32_t now)
+{
+    TrackTrace *t=&trace_buffer[trace_next];
+    t->time_ms=now; t->state=(uint8_t)state; t->sensors=sensor_mask; t->stop_reason=(uint8_t)stop_reason;
+    t->phase=(uint8_t)(wide_active|(wide_strong<<1)|(recovering<<2)|(recovery_active<<3)|(edge_align_active<<4));
+    t->left_pwm=left_pwm; t->right_pwm=right_pwm; t->corner_dir=corner_dir; t->recovery_attempts=recovery_attempts;
+    t->error10=Trace10(last_error); t->left_target10=Trace10(left_target); t->right_target10=Trace10(right_target);
+    t->left_command10=Trace10(left_command); t->right_command10=Trace10(right_command);
+    t->left_rpm10=Trace10(left_filtered); t->right_rpm10=Trace10(right_filtered);
+    t->angle_deg10=Trace10(turn_angle*57.2957795f);
+    trace_next=(uint16_t)((trace_next+1U)%TRACK_BLACKBOX_SIZE);
+    if(trace_count<TRACK_BLACKBOX_SIZE) ++trace_count;
+}
+#endif
 void Track_Task(void)
 {
     uint32_t now=Track_Now(),elapsed=now-last_control;
-    if(elapsed>=TRACK_PERIOD_MS) { last_control=now; Control(now,elapsed); }
+    if(elapsed>=TRACK_PERIOD_MS) {
+#if TRACK_BLACKBOX_ENABLE
+        uint8_t was_running=Track_IsRunning();
+#endif
+        last_control=now; Control(now,elapsed);
+#if TRACK_BLACKBOX_ENABLE
+        if(was_running && !trace_frozen) {
+            TraceWrite(now);
+            if(!Track_IsRunning()) trace_frozen=1;
+        }
+#endif
+    }
     /* 刚执行控制之后才刷一行，四行约 240 ms 刷新完一遍。 */
     if(elapsed>=TRACK_PERIOD_MS && (uint32_t)(now-last_display)>=60U) { last_display=now; Display(); }
 }

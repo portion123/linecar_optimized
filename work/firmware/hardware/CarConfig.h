@@ -131,6 +131,17 @@
 #define TRACK_RECOVERY_STABLE_MM       30.0f /* ... 且前进 30 mm 才清除会话 */
 #define TRACK_RECOVERY_STABLE_ERROR     5.0f
 #define TRACK_CONTROL_MAX_GAP_MS       40U /* 调度间隔 >40 ms 直接锁定停车 */
+
+/* 9. 新增功能开关。全部为 0 时与 FIX4_SAFE（golden/fix4_safe.json）逐帧等价。
+ * 每个开关的保留/回退依据见 docs/09_final_report.md。
+ */
+#ifndef TRACK_BLACKBOX_ENABLE
+#define TRACK_BLACKBOX_ENABLE           1 /* RAM 黑匣子：只记录，不参与控制（逐帧验证无影响） */
+#endif
+#define TRACK_BLACKBOX_SIZE           200U /* 20 ms/条，200 条约 4 s，28 B/条 */
+#if TRACK_BLACKBOX_SIZE < 1 || TRACK_BLACKBOX_SIZE > 400
+#error TRACK_BLACKBOX_SIZE_out_of_range
+#endif
 #define TRACK_OLED_ENABLED             1
 #define FORWARD_PWM                   30 /* KEY5 人工直行检查 */
 #define KEY_DEBOUNCE_MS               20U
