@@ -1,0 +1,18 @@
+pressure_square_-1 {'time_s': 0.02, 'state': 1, 'mask': '0x18', 'x': 0.12, 'y': 1.0, 'heading_deg': 0.0, 'goal_mm': 0.0, 'angle_deg': 0.0}
+pressure_square_-1 {'time_s': 6.3, 'state': 12, 'mask': '0xf8', 'x': 0.8174, 'y': 1.0, 'heading_deg': 0.7, 'goal_mm': 0.0, 'angle_deg': 0.0}
+pressure_square_-1 {'time_s': 6.48, 'state': 14, 'mask': '0x0', 'x': 0.839, 'y': 1.0, 'heading_deg': -1.3, 'goal_mm': 162.1, 'angle_deg': 0.0}
+pressure_square_-1 {'time_s': 8.22, 'state': 11, 'mask': '0x0', 'x': 1.0017, 'y': 0.9953, 'heading_deg': -1.6, 'goal_mm': 162.1, 'angle_deg': 0.0}
+pressure_square_-1 {'time_s': 9.5, 'state': 16, 'mask': '0x0', 'x': 1.0659, 'y': 0.9704, 'heading_deg': -52.4, 'goal_mm': 162.1, 'angle_deg': -50.6}
+pressure_square_-1 {'time_s': 11.04, 'state': 2, 'mask': '0x60', 'x': 1.0734, 'y': 0.9432, 'heading_deg': -107.0, 'goal_mm': 162.1, 'angle_deg': 0.0}
+pressure_square_-1 {'time_s': 11.34, 'state': 17, 'mask': '0x18', 'x': 1.073, 'y': 0.942, 'heading_deg': -113.8, 'goal_mm': 162.1, 'angle_deg': -7.0}
+pressure_square_-1 {'time_s': 11.5, 'state': 15, 'mask': '0x18', 'x': 1.0726, 'y': 0.9412, 'heading_deg': -114.4, 'goal_mm': 162.1, 'angle_deg': -7.9}
+pressure_square_-1 {'time_s': 12.2, 'state': 1, 'mask': '0x8', 'x': 1.0509, 'y': 0.8884, 'heading_deg': -108.4, 'goal_mm': 162.1, 'angle_deg': -1.9}
+pressure_square_-1 {'time_s': 17.42, 'state': 12, 'mask': '0xf8', 'x': 0.999, 'y': 0.1848, 'heading_deg': -90.0, 'goal_mm': 162.1, 'angle_deg': -1.9}
+pressure_square_-1 {'time_s': 17.62, 'state': 14, 'mask': '0x0', 'x': 0.9985, 'y': 0.1602, 'heading_deg': -92.5, 'goal_mm': 160.76, 'angle_deg': -1.9}
+pressure_square_-1 {'time_s': 19.28, 'state': 11, 'mask': '0x0', 'x': 0.9913, 'y': -0.0014, 'heading_deg': -94.3, 'goal_mm': 160.76, 'angle_deg': 0.0}
+pressure_square_-1 {'time_s': 20.24, 'state': 16, 'mask': '0x0', 'x': 0.9803, 'y': -0.0441, 'heading_deg': -145.6, 'goal_mm': 160.76, 'angle_deg': -50.9}
+pressure_square_-1 {'time_s': 21.12, 'state': 17, 'mask': '0x18', 'x': 0.9789, 'y': -0.0438, 'heading_deg': -194.3, 'goal_mm': 160.76, 'angle_deg': -99.8}
+pressure_square_-1 {'time_s': 21.96, 'state': 2, 'mask': '0x0', 'x': 0.9495, 'y': -0.0288, 'heading_deg': -206.0, 'goal_mm': 160.76, 'angle_deg': 0.0}
+pressure_square_-1 {'time_s': 22.64, 'state': 8, 'mask': '0x0', 'x': 0.9287, 'y': -0.0178, 'heading_deg': -221.8, 'goal_mm': 160.76, 'angle_deg': -15.6}
+FAIL {"case": "pressure_square_-1", "time_s": 22.64, "laps": 0.488, "yaw_turns": 0.616, "state": 8, "mask": "0x0", "stop_reason": 9, "states_seen": [1, 2, 8, 11, 12, 14, 15, 16, 17], "corners_passed": 2, "max_run_front_error_mm": 13.64, "max_all_front_error_mm": 204.02, "rms_run_front_error_mm": 5.41, "max_search_front_error_mm": 95.96, "search_total_time_s": 0.98, "longest_search_all_white_ms": 580, "max_continuous_edge_run_ms": 0, "max_continuous_outer_run_ms": 0, "longest_all_white_ms": 4320, "required_corner_states": false, "passed": false}
+Final diagnostics: {'attempts': 2, 'session_age_ms': 5040, 'dir': 1, 'local_yaw_deg': -15.562155721956342, 'sweeps': 1, 'session_angle_deg': 150.80485317535707, 'session_distance_mm': 370.443115234375, 'pwm': (0, 0)}

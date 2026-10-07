@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+sim/bin/
+sim/results/
+work/firmware/tests/native/*.so
+work/firmware/Objects/
+work/firmware/Listings/
+build_arm/

@@ -1,0 +1,42 @@
+{
+  "baseline_git_commit": "89bafa2385fc0dfa512d89b6cce4209bab8fa6fc",
+  "gcc": "gcc (Debian 14.2.0-19) 14.2.0",
+  "build_flags": [
+    "-std=c99",
+    "-O2",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wdouble-promotion",
+    "-ffp-contract=off",
+    "-Werror"
+  ],
+  "forbidden_flags_absent": [
+    "-ffast-math",
+    "-march=native"
+  ],
+  "float_comparison_tolerance": 0,
+  "integer_enum_comparison": "exact",
+  "switches_for_all_off": [
+    "TRACK_TRACE_ENABLE",
+    "TRACK_SENSOR_FILTER_ENABLE",
+    "TRACK_NONLINEAR_FOLLOW_ENABLE",
+    "TRACK_ERROR_TREND_ENABLE",
+    "TRACK_ADAPTIVE_SPEED_ENABLE",
+    "TRACK_ERROR_PREDICT_ENABLE",
+    "TRACK_LOW_SPEED_ZONE_ENABLE",
+    "TRACK_TURN_CONTINUITY_ENABLE",
+    "TRACK_ALIGN_TREND_ENABLE"
+  ],
+  "exit_codes": {
+    "units": 0,
+    "geometry": 0,
+    "random": 0,
+    "build": 0
+  },
+  "golden_sha256": {
+    "units_golden.jsonl.gz": "33b7ec99b749bb4051e60ecb066b5b8afe2a682a60afcb09406f8ac8961f4218",
+    "geometry_golden.jsonl.gz": "67a944327cd0dcc674d5d6fdca6759a2653b97daa4acf5776fae117553e3e77b",
+    "random_golden.jsonl.gz": "487c6bf4a31b86a2bce2a626f1518c99bd37f534658a28c40e93c41f694b8145"
+  }
+}

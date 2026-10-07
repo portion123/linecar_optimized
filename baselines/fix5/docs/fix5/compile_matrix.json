@@ -1,0 +1,347 @@
+{
+  "compiler": "gcc (Debian 14.2.0-19) 14.2.0",
+  "flags": [
+    "-std=c99",
+    "-O2",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wdouble-promotion",
+    "-ffp-contract=off",
+    "-Werror",
+    "-DUSE_STDPERIPH_DRIVER",
+    "-DSTM32F10X_HD",
+    "-Itests/native",
+    "-Istart",
+    "-Ilibrary",
+    "-Iuser",
+    "-Ihardware",
+    "-Isystem"
+  ],
+  "variants": 12,
+  "checks": 24,
+  "passed": 24,
+  "switches": {
+    "all_off": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "stable_on": {
+      "TRACK_TRACE_ENABLE": 1,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 1,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 1
+    },
+    "all_features_on": {
+      "TRACK_TRACE_ENABLE": 1,
+      "TRACK_SENSOR_FILTER_ENABLE": 1,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 1,
+      "TRACK_ERROR_TREND_ENABLE": 1,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 1,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 1,
+      "TRACK_TURN_CONTINUITY_ENABLE": 1,
+      "TRACK_ALIGN_TREND_ENABLE": 1
+    },
+    "track_trace_enable": {
+      "TRACK_TRACE_ENABLE": 1,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "track_sensor_filter_enable": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 1,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "track_nonlinear_follow_enable": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 1,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "track_error_trend_enable": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 1,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "track_adaptive_speed_enable": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 1,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "track_error_predict_enable": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 1,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "track_low_speed_zone_enable": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 1,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "track_turn_continuity_enable": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 1,
+      "TRACK_ALIGN_TREND_ENABLE": 0
+    },
+    "track_align_trend_enable": {
+      "TRACK_TRACE_ENABLE": 0,
+      "TRACK_SENSOR_FILTER_ENABLE": 0,
+      "TRACK_NONLINEAR_FOLLOW_ENABLE": 0,
+      "TRACK_ERROR_TREND_ENABLE": 0,
+      "TRACK_ADAPTIVE_SPEED_ENABLE": 0,
+      "TRACK_ERROR_PREDICT_ENABLE": 0,
+      "TRACK_LOW_SPEED_ZONE_ENABLE": 0,
+      "TRACK_TURN_CONTINUITY_ENABLE": 0,
+      "TRACK_ALIGN_TREND_ENABLE": 1
+    }
+  },
+  "config_headers_sha256": {
+    "tests/native/fix5_matrix/all_off/CarConfig_override.h": "c1ae813dc6d89f2c851e4b92085ee9e5392d9eecb039f1d1b71256b0e402d344",
+    "tests/native/fix5_matrix/stable_on/CarConfig_override.h": "cbec3f5f6dacd635ffef71de5d5e35cebf3652e1faa0dc464fea5ca1d81f0416",
+    "tests/native/fix5_matrix/all_features_on/CarConfig_override.h": "6079e5126d800ff6bb48e7da4c1f67d915304b816bd13bdb6ff55a12ba5968dd",
+    "tests/native/fix5_matrix/track_trace_enable/CarConfig_override.h": "b695aecceba7259145d1e12f506dc6381f6538d9d51565aade81f1fb5e0ecd5d",
+    "tests/native/fix5_matrix/track_sensor_filter_enable/CarConfig_override.h": "1ae55fb577081f3291132304c21bbd1ffdc511e8dfa075843cf7decb332f2f5f",
+    "tests/native/fix5_matrix/track_nonlinear_follow_enable/CarConfig_override.h": "5893f8fd248ecc0a816edc23632bd1b261e7430397163dbfcb1843ea3d623c28",
+    "tests/native/fix5_matrix/track_error_trend_enable/CarConfig_override.h": "79d1f008e2ff27baf34ee5f8d52ee556548b6889900cfc7d826654364a3f1c43",
+    "tests/native/fix5_matrix/track_adaptive_speed_enable/CarConfig_override.h": "5117421592ff7d17892b37fab4b8857f50005a99e6290e53b97e03f327b580bd",
+    "tests/native/fix5_matrix/track_error_predict_enable/CarConfig_override.h": "a3b16ff45e483991198798c0fb3f8f7ff12a99bad8de80941cc479491bb44aee",
+    "tests/native/fix5_matrix/track_low_speed_zone_enable/CarConfig_override.h": "676cb6d5c05c4bbd20b1b1b898cca0e06398006b34d6b3a02e19b16a951210b6",
+    "tests/native/fix5_matrix/track_turn_continuity_enable/CarConfig_override.h": "47fccc9d1675d497cd4ee13ee033e0bd07f21e32486844a74ae4242c91cf8a58",
+    "tests/native/fix5_matrix/track_align_trend_enable/CarConfig_override.h": "c5306fc20f40a70eb8bb92db6043a7111de8b72a714406b8c2649be7e6b6c37f"
+  },
+  "forbidden_flags_absent": [
+    "-ffast-math",
+    "-march=native"
+  ],
+  "stm32_armcc": "NOT RUN",
+  "results": [
+    {
+      "variant": "all_off",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "all_off",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "stable_on",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "stable_on",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "all_features_on",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "all_features_on",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_trace_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_trace_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_sensor_filter_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_sensor_filter_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_nonlinear_follow_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_nonlinear_follow_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_error_trend_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_error_trend_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_adaptive_speed_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_adaptive_speed_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_error_predict_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_error_predict_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_low_speed_zone_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_low_speed_zone_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_turn_continuity_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_turn_continuity_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_align_trend_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_align_trend_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    }
+  ]
+}

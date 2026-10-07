@@ -1,0 +1,7 @@
+各阶段独立临时目录，以该提交自身的C源码和harness进行GCC host编译。
+仅编译；没有ARMCC链接或实车执行。
+PASS 015fa3a control: explicit motion modes, low speed feedback and signed encoder evidence
+PASS 0c3ece0 control: per phase RPM slopes and zero crossing on reversal
+PASS 6688777 track: confidence direction and continuous corner alignment states
+PASS df69916 recovery: bounded search stages and persistent recovery budgets
+PASS 3675b6e debug: buffered OLED, reviewable snapshots and safer bounded boost ramps

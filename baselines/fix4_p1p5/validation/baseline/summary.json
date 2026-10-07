@@ -1,0 +1,101 @@
+{
+  "regressions": {
+    "test_control.py": {
+      "passed": 20,
+      "total": 20,
+      "returncode": 0
+    },
+    "test_turn_regression.py": {
+      "passed": 21,
+      "total": 21,
+      "returncode": 0
+    },
+    "test_calibration.py": {
+      "passed": 12,
+      "total": 12,
+      "returncode": 0
+    }
+  },
+  "geometry": {
+    "passed": 34,
+    "total": 34,
+    "max_run_front_error_mm": 28.66,
+    "max_case": "loaded_square_-1"
+  },
+  "pressure": {
+    "passed": 6,
+    "total": 10,
+    "cases": [
+      {
+        "case": "pressure_circle_+1_radius200",
+        "passed": true,
+        "max_run_front_error_mm": 14.1,
+        "state": 1,
+        "laps": 1.1
+      },
+      {
+        "case": "pressure_circle_+1_radius250",
+        "passed": true,
+        "max_run_front_error_mm": 14.42,
+        "state": 1,
+        "laps": 1.102
+      },
+      {
+        "case": "pressure_circle_+1_radius300",
+        "passed": false,
+        "max_run_front_error_mm": 30.01,
+        "state": 1,
+        "laps": 1.101
+      },
+      {
+        "case": "pressure_circle_+1_radius350",
+        "passed": true,
+        "max_run_front_error_mm": 15.85,
+        "state": 1,
+        "laps": 1.101
+      },
+      {
+        "case": "pressure_square_+1",
+        "passed": true,
+        "max_run_front_error_mm": 25.21,
+        "state": 1,
+        "laps": 1.101
+      },
+      {
+        "case": "pressure_circle_-1_radius200",
+        "passed": true,
+        "max_run_front_error_mm": 14.11,
+        "state": 1,
+        "laps": 1.102
+      },
+      {
+        "case": "pressure_circle_-1_radius250",
+        "passed": true,
+        "max_run_front_error_mm": 14.7,
+        "state": 1,
+        "laps": 1.102
+      },
+      {
+        "case": "pressure_circle_-1_radius300",
+        "passed": false,
+        "max_run_front_error_mm": 25.62,
+        "state": 1,
+        "laps": 1.101
+      },
+      {
+        "case": "pressure_circle_-1_radius350",
+        "passed": false,
+        "max_run_front_error_mm": 27.92,
+        "state": 1,
+        "laps": 1.1
+      },
+      {
+        "case": "pressure_square_-1",
+        "passed": false,
+        "max_run_front_error_mm": 16.75,
+        "state": 8,
+        "laps": 0.248
+      }
+    ]
+  }
+}

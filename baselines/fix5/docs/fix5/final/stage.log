@@ -1,0 +1,3 @@
+geometry: exit=0
+random: exit=0
+{"pass": true, "standard": "34/34", "pressure": "9/10", "random": "27/30", "new_regressions": 0}

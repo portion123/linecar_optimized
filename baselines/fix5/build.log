@@ -1,0 +1,8 @@
+CURRENT SOURCE: host verification only
+STM32 ARMCC/arm-none-eabi-gcc firmware build: NOT RUN (toolchain unavailable)
+GCC native unit tests: 94/94 PASS; standard geometry: 34/34 PASS
+Stress geometry: 9/10 PASS, 1 FAIL (pressure_square_-1 stopped safely)
+GCC syntax: 18 Keil C units PASS; 63 project references exist
+Compile-only configuration variants: 6 PASS; stage snapshots: 5 PASS
+Current source hashes and complete logs: tests/verification_summary.json / tests/verification.txt
+Historical firmware/logs: docs/original_evidence; no current optimized HEX is supplied

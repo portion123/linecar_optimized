@@ -1,0 +1,181 @@
+{
+  "compiler": "gcc (Debian 14.2.0-19) 14.2.0",
+  "flags": [
+    "-std=c99",
+    "-O2",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wdouble-promotion",
+    "-ffp-contract=off",
+    "-Werror",
+    "-DUSE_STDPERIPH_DRIVER",
+    "-DSTM32F10X_HD",
+    "-Itests/native",
+    "-Istart",
+    "-Ilibrary",
+    "-Iuser",
+    "-Ihardware",
+    "-Isystem"
+  ],
+  "variants": 11,
+  "checks": 22,
+  "passed": 14,
+  "stm32_armcc": "NOT RUN",
+  "results": [
+    {
+      "variant": "all_off",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "all_off",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "stable_on",
+      "unit": "harness",
+      "passed": false,
+      "exit": 1,
+      "output": "In file included from tests/native/harness.c:189:\ntests/native/fix5_observers.inc: In function \u2018Fix5_Config\u2019:\ntests/native/fix5_observers.inc:47:21: error: \u2018TRACK_MIN_FOLLOW_BASE_RPM\u2019 undeclared (first use in this function); did you mean \u2018TRACK_ALIGN_BASE_RPM\u2019?\n   47 |     case 10: return TRACK_MIN_FOLLOW_BASE_RPM;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_ALIGN_BASE_RPM\ntests/native/fix5_observers.inc:47:21: note: each undeclared identifier is reported only once for each function it appears in\ntests/native/fix5_observers.inc:48:21: error: \u2018TRACK_ADAPTIVE_START_RPM\u2019 undeclared (first use in this function); did you mean \u2018TRACK_EXIT_START_RPM\u2019?\n   48 |     case 11: return TRACK_ADAPTIVE_START_RPM;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_EXIT_START_RPM\ntests/native/fix5_observers.inc:49:21: error: \u2018TRACK_BASE_RISE_RPM_PER_TICK\u2019 undeclared (first use in this function); did you mean \u2018TRACK_PWM_RISE_PER_TICK\u2019?\n   49 |     case 12: return TRACK_BASE_RISE_RPM_PER_TICK;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_PWM_RISE_PER_TICK\ntests/native/fix5_observers.inc:50:21: error: \u2018TRACK_BASE_FALL_RPM_PER_TICK\u2019 undeclared (first use in this function); did you mean \u2018TRACK_PWM_FALL_PER_TICK\u2019?\n   50 |     case 13: return TRACK_BASE_FALL_RPM_PER_TICK;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_PWM_FALL_PER_TICK\ntests/native/fix5_observers.inc:53:21: error: \u2018TRACK_CENTER_ZONE\u2019 undeclared (first use in this function); did you mean \u2018TRACK_CENTER_ERROR\u2019?\n   53 |     case 14: return TRACK_CENTER_ZONE;\n      |                     ^~~~~~~~~~~~~~~~~\n      |                     TRACK_CENTER_ERROR\ntests/native/fix5_observers.inc:54:21: error: \u2018TRACK_MEDIUM_ZONE\u2019 undeclared (first use in this function)\n   54 |     case 15: return TRACK_MEDIUM_ZONE;\n      |                     ^~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:57:21: error: \u2018TRACK_ERROR_RATE_LIMIT\u2019 undeclared (first use in this function)\n   57 |     case 16: return TRACK_ERROR_RATE_LIMIT;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:58:21: error: \u2018TRACK_ERROR_TREND_SAMPLES\u2019 undeclared (first use in this function); did you mean \u2018TRACK_ERROR_TREND_ENABLE\u2019?\n   58 |     case 17: return TRACK_ERROR_TREND_SAMPLES;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_ERROR_TREND_ENABLE\ntests/native/fix5_observers.inc:61:21: error: \u2018SPEED_VERY_LOW_RPM\u2019 undeclared (first use in this function)\n   61 |     case 18: return SPEED_VERY_LOW_RPM;\n      |                     ^~~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:62:21: error: \u2018SPEED_LOW_RPM\u2019 undeclared (first use in this function)\n   62 |     case 19: return SPEED_LOW_RPM;\n      |                     ^~~~~~~~~~~~~\ntests/native/fix5_observers.inc:65:21: error: \u2018TRACK_ALIGN_WORSEN_SAMPLES\u2019 undeclared (first use in this function); did you mean \u2018TRACK_ALIGN_TREND_ENABLE\u2019?\n   65 |     case 20: return TRACK_ALIGN_WORSEN_SAMPLES;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_ALIGN_TREND_ENABLE\ntests/native/fix5_observers.inc:66:21: error: \u2018TRACK_ALIGN_FLIP_WINDOW\u2019 undeclared (first use in this function)\n   66 |     case 21: return TRACK_ALIGN_FLIP_WINDOW;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:67:21: error: \u2018TRACK_ALIGN_FLIP_REQUIRED\u2019 undeclared (first use in this function)\n   67 |     case 22: return TRACK_ALIGN_FLIP_REQUIRED;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Majority\u2019:\ntests/native/fix5_observers.inc:119:10: error: implicit declaration of function \u2018MajorityMask\u2019 [-Wimplicit-function-declaration]\n  119 | { return MajorityMask((uint8_t)a,(uint8_t)b,(uint8_t)c); }\n      |          ^~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Position\u2019:\ntests/native/fix5_observers.inc:124:43: error: implicit declaration of function \u2018NonlinearError\u2019 [-Wimplicit-function-declaration]\n  124 | float Fix5_Position(float error) { return NonlinearError(error); }\n      |                                           ^~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:124:58: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  124 | float Fix5_Position(float error) { return NonlinearError(error); }\n      |                                                          ^~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_TrendReset\u2019:\ntests/native/fix5_observers.inc:127:37: error: implicit declaration of function \u2018TrendReset\u2019; did you mean \u2018Fix5_TrendReset\u2019? [-Wimplicit-function-declaration]\n  127 | void Fix5_TrendReset(float error) { TrendReset(error); }\n      |                                     ^~~~~~~~~~\n      |                                     Fix5_TrendReset\ntests/native/fix5_observers.inc:127:48: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  127 | void Fix5_TrendReset(float error) { TrendReset(error); }\n      |                                                ^~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_TrendPush\u2019:\ntests/native/fix5_observers.inc:129:3: error: implicit declaration of function \u2018TrendPush\u2019; did you mean \u2018Fix5_TrendPush\u2019? [-Wimplicit-function-declaration]\n  129 | { TrendPush(error,TRACK_PERIOD_MS*0.001f); return error_rate; }\n      |   ^~~~~~~~~\n      |   Fix5_TrendPush\ntests/native/fix5_observers.inc:129:13: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  129 | { TrendPush(error,TRACK_PERIOD_MS*0.001f); return error_rate; }\n      |             ^~~~~\ntests/native/fix5_observers.inc:129:34: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  129 | { TrendPush(error,TRACK_PERIOD_MS*0.001f); return error_rate; }\ntests/native/fix5_observers.inc: In function \u2018Fix5_Base\u2019:\ntests/native/fix5_observers.inc:133:32: error: \u2018adaptive_base_rpm\u2019 undeclared (first use in this function)\n  133 | float Fix5_Base(void) { return adaptive_base_rpm; }\n      |                                ^~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_SetBase\u2019:\ntests/native/fix5_observers.inc:134:33: error: \u2018adaptive_base_rpm\u2019 undeclared (first use in this function)\n  134 | void Fix5_SetBase(float base) { adaptive_base_rpm=base; }\n      |                                 ^~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Adaptive\u2019:\ntests/native/fix5_observers.inc:136:10: error: implicit declaration of function \u2018AdaptiveStep\u2019; did you mean \u2018Native_Step\u2019? [-Wimplicit-function-declaration]\n  136 | { return AdaptiveStep(error,rate,TRACK_BASE_RPM); }\n      |          ^~~~~~~~~~~~\n      |          Native_Step\ntests/native/fix5_observers.inc:136:23: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  136 | { return AdaptiveStep(error,rate,TRACK_BASE_RPM); }\n      |                       ^~~~~\ntests/native/fix5_observers.inc:136:29: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  136 | { return AdaptiveStep(error,rate,TRACK_BASE_RPM); }\n      |                             ^~~~\nIn file included from <command-line>:\n/workspace/linecar_optimized/tests/native/fix5_matrix/stable_on/CarConfig_override.h:73:39: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n   73 | #define TRACK_BASE_RPM                60.0f /* \u771f\u5b9eRPM\uff0c44mm\u8f6e\u7ea6138mm/s\uff1b\u65e7\u8ba1\u6570\u4e0b20\u7ea6\u7b49\u4e8e75~80 */\n      |                                       ^~~~~\ntests/native/fix5_observers.inc:136:34: note: in expansion of macro \u2018TRACK_BASE_RPM\u2019\n  136 | { return AdaptiveStep(error,rate,TRACK_BASE_RPM); }\n      |                                  ^~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Sync\u2019:\ntests/native/fix5_observers.inc:138:3: error: implicit declaration of function \u2018AdaptiveSync\u2019 [-Wimplicit-function-declaration]\n  138 | { AdaptiveSync((TrackMotionMode)mode,left,right,(uint8_t)explicit_base,base); }\n      |   ^~~~~~~~~~~~\ntests/native/fix5_observers.inc:138:38: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  138 | { AdaptiveSync((TrackMotionMode)mode,left,right,(uint8_t)explicit_base,base); }\n      |                                      ^~~~\ntests/native/fix5_observers.inc:138:43: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  138 | { AdaptiveSync((TrackMotionMode)mode,left,right,(uint8_t)explicit_base,base); }\n      |                                           ^~~~~\ntests/native/fix5_observers.inc:138:72: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  138 | { AdaptiveSync((TrackMotionMode)mode,left,right,(uint8_t)explicit_base,base); }\n      |                                                                        ^~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_LogicReset\u2019:\ntests/native/fix5_observers.inc:145:16: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  145 |     TrendReset(0.0f);\n      |                ^~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_LogicFollow\u2019:\ntests/native/fix5_observers.inc:152:15: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  152 |     TrendPush(error,TRACK_PERIOD_MS*0.001f);\n      |               ^~~~~\ntests/native/fix5_observers.inc:152:36: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  152 |     TrendPush(error,TRACK_PERIOD_MS*0.001f);\ntests/native/fix5_observers.inc: In function \u2018Fix5_Turn\u2019:\ntests/native/fix5_observers.inc:159:10: error: implicit declaration of function \u2018TurnRequested\u2019 [-Wimplicit-function-declaration]\n  159 | { return TurnRequested(degrees*0.01745329252f); }\n      |          ^~~~~~~~~~~~~\ntests/native/fix5_observers.inc:159:31: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  159 | { return TurnRequested(degrees*0.01745329252f); }\n      |                        ~~~~~~~^~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_AlignReset\u2019:\ntests/native/fix5_observers.inc:166:3: error: implicit declaration of function \u2018AlignEnhanceReset\u2019 [-Wimplicit-function-declaration]\n  166 | { AlignEnhanceReset(error); fix5_align_base=TRACK_ALIGN_BASE_RPM; fix5_align_gain=TRACK_ALIGN_KP; }\n      |   ^~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:166:21: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  166 | { AlignEnhanceReset(error); fix5_align_base=TRACK_ALIGN_BASE_RPM; fix5_align_gain=TRACK_ALIGN_KP; }\n      |                     ^~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_AlignFrame\u2019:\ntests/native/fix5_observers.inc:170:5: error: implicit declaration of function \u2018AlignEnhance\u2019 [-Wimplicit-function-declaration]\n  170 |     AlignEnhance(error,&fix5_align_base,&fix5_align_gain);\n      |     ^~~~~~~~~~~~\ntests/native/fix5_observers.inc:170:18: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  170 |     AlignEnhance(error,&fix5_align_base,&fix5_align_gain);\n      |                  ^~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Base\u2019:\ntests/native/fix5_observers.inc:133:51: error: control reaches end of non-void function [-Werror=return-type]\n  133 | float Fix5_Base(void) { return adaptive_base_rpm; }\n      |                                                   ^\ncc1: all warnings being treated as errors\n"
+    },
+    {
+      "variant": "stable_on",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_trace_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_trace_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_sensor_filter_enable",
+      "unit": "harness",
+      "passed": false,
+      "exit": 1,
+      "output": "In file included from tests/native/harness.c:189:\ntests/native/fix5_observers.inc: In function \u2018Fix5_Majority\u2019:\ntests/native/fix5_observers.inc:119:10: error: implicit declaration of function \u2018MajorityMask\u2019 [-Wimplicit-function-declaration]\n  119 | { return MajorityMask((uint8_t)a,(uint8_t)b,(uint8_t)c); }\n      |          ^~~~~~~~~~~~\n"
+    },
+    {
+      "variant": "track_sensor_filter_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_nonlinear_follow_enable",
+      "unit": "harness",
+      "passed": false,
+      "exit": 1,
+      "output": "In file included from tests/native/harness.c:189:\ntests/native/fix5_observers.inc: In function \u2018Fix5_Config\u2019:\ntests/native/fix5_observers.inc:53:21: error: \u2018TRACK_CENTER_ZONE\u2019 undeclared (first use in this function); did you mean \u2018TRACK_CENTER_ERROR\u2019?\n   53 |     case 14: return TRACK_CENTER_ZONE;\n      |                     ^~~~~~~~~~~~~~~~~\n      |                     TRACK_CENTER_ERROR\ntests/native/fix5_observers.inc:53:21: note: each undeclared identifier is reported only once for each function it appears in\ntests/native/fix5_observers.inc:54:21: error: \u2018TRACK_MEDIUM_ZONE\u2019 undeclared (first use in this function)\n   54 |     case 15: return TRACK_MEDIUM_ZONE;\n      |                     ^~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Position\u2019:\ntests/native/fix5_observers.inc:124:43: error: implicit declaration of function \u2018NonlinearError\u2019 [-Wimplicit-function-declaration]\n  124 | float Fix5_Position(float error) { return NonlinearError(error); }\n      |                                           ^~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:124:58: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  124 | float Fix5_Position(float error) { return NonlinearError(error); }\n      |                                                          ^~~~~\ncc1: all warnings being treated as errors\n"
+    },
+    {
+      "variant": "track_nonlinear_follow_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_error_trend_enable",
+      "unit": "harness",
+      "passed": false,
+      "exit": 1,
+      "output": "In file included from tests/native/harness.c:189:\ntests/native/fix5_observers.inc: In function \u2018Fix5_Config\u2019:\ntests/native/fix5_observers.inc:57:21: error: \u2018TRACK_ERROR_RATE_LIMIT\u2019 undeclared (first use in this function)\n   57 |     case 16: return TRACK_ERROR_RATE_LIMIT;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:57:21: note: each undeclared identifier is reported only once for each function it appears in\ntests/native/fix5_observers.inc:58:21: error: \u2018TRACK_ERROR_TREND_SAMPLES\u2019 undeclared (first use in this function); did you mean \u2018TRACK_ERROR_TREND_ENABLE\u2019?\n   58 |     case 17: return TRACK_ERROR_TREND_SAMPLES;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_ERROR_TREND_ENABLE\ntests/native/fix5_observers.inc: In function \u2018Fix5_TrendReset\u2019:\ntests/native/fix5_observers.inc:127:37: error: implicit declaration of function \u2018TrendReset\u2019; did you mean \u2018Fix5_TrendReset\u2019? [-Wimplicit-function-declaration]\n  127 | void Fix5_TrendReset(float error) { TrendReset(error); }\n      |                                     ^~~~~~~~~~\n      |                                     Fix5_TrendReset\ntests/native/fix5_observers.inc:127:48: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  127 | void Fix5_TrendReset(float error) { TrendReset(error); }\n      |                                                ^~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_TrendPush\u2019:\ntests/native/fix5_observers.inc:129:3: error: implicit declaration of function \u2018TrendPush\u2019; did you mean \u2018Fix5_TrendPush\u2019? [-Wimplicit-function-declaration]\n  129 | { TrendPush(error,TRACK_PERIOD_MS*0.001f); return error_rate; }\n      |   ^~~~~~~~~\n      |   Fix5_TrendPush\ntests/native/fix5_observers.inc:129:13: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  129 | { TrendPush(error,TRACK_PERIOD_MS*0.001f); return error_rate; }\n      |             ^~~~~\ntests/native/fix5_observers.inc:129:34: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  129 | { TrendPush(error,TRACK_PERIOD_MS*0.001f); return error_rate; }\ntests/native/fix5_observers.inc: In function \u2018Fix5_LogicReset\u2019:\ntests/native/fix5_observers.inc:145:16: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  145 |     TrendReset(0.0f);\n      |                ^~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_LogicFollow\u2019:\ntests/native/fix5_observers.inc:152:15: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  152 |     TrendPush(error,TRACK_PERIOD_MS*0.001f);\n      |               ^~~~~\ntests/native/fix5_observers.inc:152:36: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  152 |     TrendPush(error,TRACK_PERIOD_MS*0.001f);\ncc1: all warnings being treated as errors\n"
+    },
+    {
+      "variant": "track_error_trend_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_adaptive_speed_enable",
+      "unit": "harness",
+      "passed": false,
+      "exit": 1,
+      "output": "In file included from tests/native/harness.c:189:\ntests/native/fix5_observers.inc: In function \u2018Fix5_Config\u2019:\ntests/native/fix5_observers.inc:47:21: error: \u2018TRACK_MIN_FOLLOW_BASE_RPM\u2019 undeclared (first use in this function); did you mean \u2018TRACK_ALIGN_BASE_RPM\u2019?\n   47 |     case 10: return TRACK_MIN_FOLLOW_BASE_RPM;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_ALIGN_BASE_RPM\ntests/native/fix5_observers.inc:47:21: note: each undeclared identifier is reported only once for each function it appears in\ntests/native/fix5_observers.inc:48:21: error: \u2018TRACK_ADAPTIVE_START_RPM\u2019 undeclared (first use in this function); did you mean \u2018TRACK_EXIT_START_RPM\u2019?\n   48 |     case 11: return TRACK_ADAPTIVE_START_RPM;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_EXIT_START_RPM\ntests/native/fix5_observers.inc:49:21: error: \u2018TRACK_BASE_RISE_RPM_PER_TICK\u2019 undeclared (first use in this function); did you mean \u2018TRACK_PWM_RISE_PER_TICK\u2019?\n   49 |     case 12: return TRACK_BASE_RISE_RPM_PER_TICK;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_PWM_RISE_PER_TICK\ntests/native/fix5_observers.inc:50:21: error: \u2018TRACK_BASE_FALL_RPM_PER_TICK\u2019 undeclared (first use in this function); did you mean \u2018TRACK_PWM_FALL_PER_TICK\u2019?\n   50 |     case 13: return TRACK_BASE_FALL_RPM_PER_TICK;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_PWM_FALL_PER_TICK\ntests/native/fix5_observers.inc: In function \u2018Fix5_Base\u2019:\ntests/native/fix5_observers.inc:133:32: error: \u2018adaptive_base_rpm\u2019 undeclared (first use in this function)\n  133 | float Fix5_Base(void) { return adaptive_base_rpm; }\n      |                                ^~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_SetBase\u2019:\ntests/native/fix5_observers.inc:134:33: error: \u2018adaptive_base_rpm\u2019 undeclared (first use in this function)\n  134 | void Fix5_SetBase(float base) { adaptive_base_rpm=base; }\n      |                                 ^~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Adaptive\u2019:\ntests/native/fix5_observers.inc:136:10: error: implicit declaration of function \u2018AdaptiveStep\u2019; did you mean \u2018Native_Step\u2019? [-Wimplicit-function-declaration]\n  136 | { return AdaptiveStep(error,rate,TRACK_BASE_RPM); }\n      |          ^~~~~~~~~~~~\n      |          Native_Step\ntests/native/fix5_observers.inc:136:23: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  136 | { return AdaptiveStep(error,rate,TRACK_BASE_RPM); }\n      |                       ^~~~~\ntests/native/fix5_observers.inc:136:29: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  136 | { return AdaptiveStep(error,rate,TRACK_BASE_RPM); }\n      |                             ^~~~\nIn file included from <command-line>:\n/workspace/linecar_optimized/tests/native/fix5_matrix/track_adaptive_speed_enable/CarConfig_override.h:73:39: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n   73 | #define TRACK_BASE_RPM                60.0f /* \u771f\u5b9eRPM\uff0c44mm\u8f6e\u7ea6138mm/s\uff1b\u65e7\u8ba1\u6570\u4e0b20\u7ea6\u7b49\u4e8e75~80 */\n      |                                       ^~~~~\ntests/native/fix5_observers.inc:136:34: note: in expansion of macro \u2018TRACK_BASE_RPM\u2019\n  136 | { return AdaptiveStep(error,rate,TRACK_BASE_RPM); }\n      |                                  ^~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Sync\u2019:\ntests/native/fix5_observers.inc:138:3: error: implicit declaration of function \u2018AdaptiveSync\u2019 [-Wimplicit-function-declaration]\n  138 | { AdaptiveSync((TrackMotionMode)mode,left,right,(uint8_t)explicit_base,base); }\n      |   ^~~~~~~~~~~~\ntests/native/fix5_observers.inc:138:38: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  138 | { AdaptiveSync((TrackMotionMode)mode,left,right,(uint8_t)explicit_base,base); }\n      |                                      ^~~~\ntests/native/fix5_observers.inc:138:43: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  138 | { AdaptiveSync((TrackMotionMode)mode,left,right,(uint8_t)explicit_base,base); }\n      |                                           ^~~~~\ntests/native/fix5_observers.inc:138:72: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  138 | { AdaptiveSync((TrackMotionMode)mode,left,right,(uint8_t)explicit_base,base); }\n      |                                                                        ^~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_Base\u2019:\ntests/native/fix5_observers.inc:133:51: error: control reaches end of non-void function [-Werror=return-type]\n  133 | float Fix5_Base(void) { return adaptive_base_rpm; }\n      |                                                   ^\ncc1: all warnings being treated as errors\n"
+    },
+    {
+      "variant": "track_adaptive_speed_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_error_predict_enable",
+      "unit": "harness",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_error_predict_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_low_speed_zone_enable",
+      "unit": "harness",
+      "passed": false,
+      "exit": 1,
+      "output": "In file included from tests/native/harness.c:189:\ntests/native/fix5_observers.inc: In function \u2018Fix5_Config\u2019:\ntests/native/fix5_observers.inc:61:21: error: \u2018SPEED_VERY_LOW_RPM\u2019 undeclared (first use in this function)\n   61 |     case 18: return SPEED_VERY_LOW_RPM;\n      |                     ^~~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:61:21: note: each undeclared identifier is reported only once for each function it appears in\ntests/native/fix5_observers.inc:62:21: error: \u2018SPEED_LOW_RPM\u2019 undeclared (first use in this function)\n   62 |     case 19: return SPEED_LOW_RPM;\n      |                     ^~~~~~~~~~~~~\n"
+    },
+    {
+      "variant": "track_low_speed_zone_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_turn_continuity_enable",
+      "unit": "harness",
+      "passed": false,
+      "exit": 1,
+      "output": "In file included from tests/native/harness.c:189:\ntests/native/fix5_observers.inc: In function \u2018Fix5_Turn\u2019:\ntests/native/fix5_observers.inc:159:10: error: implicit declaration of function \u2018TurnRequested\u2019 [-Wimplicit-function-declaration]\n  159 | { return TurnRequested(degrees*0.01745329252f); }\n      |          ^~~~~~~~~~~~~\ntests/native/fix5_observers.inc:159:31: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  159 | { return TurnRequested(degrees*0.01745329252f); }\n      |                        ~~~~~~~^~~~~~~~~~~~~~~\ncc1: all warnings being treated as errors\n"
+    },
+    {
+      "variant": "track_turn_continuity_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "variant": "track_align_trend_enable",
+      "unit": "harness",
+      "passed": false,
+      "exit": 1,
+      "output": "In file included from tests/native/harness.c:189:\ntests/native/fix5_observers.inc: In function \u2018Fix5_Config\u2019:\ntests/native/fix5_observers.inc:65:21: error: \u2018TRACK_ALIGN_WORSEN_SAMPLES\u2019 undeclared (first use in this function); did you mean \u2018TRACK_ALIGN_TREND_ENABLE\u2019?\n   65 |     case 20: return TRACK_ALIGN_WORSEN_SAMPLES;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~\n      |                     TRACK_ALIGN_TREND_ENABLE\ntests/native/fix5_observers.inc:65:21: note: each undeclared identifier is reported only once for each function it appears in\ntests/native/fix5_observers.inc:66:21: error: \u2018TRACK_ALIGN_FLIP_WINDOW\u2019 undeclared (first use in this function)\n   66 |     case 21: return TRACK_ALIGN_FLIP_WINDOW;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:67:21: error: \u2018TRACK_ALIGN_FLIP_REQUIRED\u2019 undeclared (first use in this function)\n   67 |     case 22: return TRACK_ALIGN_FLIP_REQUIRED;\n      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_AlignReset\u2019:\ntests/native/fix5_observers.inc:166:3: error: implicit declaration of function \u2018AlignEnhanceReset\u2019 [-Wimplicit-function-declaration]\n  166 | { AlignEnhanceReset(error); fix5_align_base=TRACK_ALIGN_BASE_RPM; fix5_align_gain=TRACK_ALIGN_KP; }\n      |   ^~~~~~~~~~~~~~~~~\ntests/native/fix5_observers.inc:166:21: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  166 | { AlignEnhanceReset(error); fix5_align_base=TRACK_ALIGN_BASE_RPM; fix5_align_gain=TRACK_ALIGN_KP; }\n      |                     ^~~~~\ntests/native/fix5_observers.inc: In function \u2018Fix5_AlignFrame\u2019:\ntests/native/fix5_observers.inc:170:5: error: implicit declaration of function \u2018AlignEnhance\u2019 [-Wimplicit-function-declaration]\n  170 |     AlignEnhance(error,&fix5_align_base,&fix5_align_gain);\n      |     ^~~~~~~~~~~~\ntests/native/fix5_observers.inc:170:18: error: implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function [-Werror=double-promotion]\n  170 |     AlignEnhance(error,&fix5_align_base,&fix5_align_gain);\n      |                  ^~~~~\ncc1: all warnings being treated as errors\n"
+    },
+    {
+      "variant": "track_align_trend_enable",
+      "unit": "main",
+      "passed": true,
+      "exit": 0,
+      "output": ""
+    }
+  ]
+}

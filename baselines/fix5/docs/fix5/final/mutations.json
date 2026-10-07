@@ -1,0 +1,222 @@
+{
+  "flags": "GCC -O2 -Wall -Wextra -Wdouble-promotion -ffp-contract=off -Werror",
+  "features": {
+    "TRACK_TRACE_ENABLE": 1,
+    "TRACK_SENSOR_FILTER_ENABLE": 1,
+    "TRACK_NONLINEAR_FOLLOW_ENABLE": 1,
+    "TRACK_ERROR_TREND_ENABLE": 1,
+    "TRACK_ADAPTIVE_SPEED_ENABLE": 1,
+    "TRACK_LOW_SPEED_ZONE_ENABLE": 1,
+    "TRACK_TURN_CONTINUITY_ENABLE": 1,
+    "TRACK_ALIGN_TREND_ENABLE": 1,
+    "TRACK_ERROR_PREDICT_ENABLE": 0
+  },
+  "mutations": [
+    {
+      "mutation": "bypass_filter",
+      "test": "FilterFollowTests.test_02_single_frame_noise_does_not_change_line_error",
+      "reference": {
+        "passed": true,
+        "assertion_failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "detail": []
+      },
+      "mutant": {
+        "passed": false,
+        "assertion_failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "detail": [
+          "Traceback (most recent call last):\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 73, in checked\n    return function(self,*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 220, in test_02_single_frame_noise_does_not_change_line_error\n    self.assertEqual(fw.Fix5_Filtered(),0x30)\nAssertionError: 32 != 48\n"
+        ]
+      },
+      "killed": true
+    },
+    {
+      "mutation": "reverse_error_rate",
+      "test": "FilterFollowTests.test_06_same_error_outward_trend_slows_earlier",
+      "reference": {
+        "passed": true,
+        "assertion_failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "detail": []
+      },
+      "mutant": {
+        "passed": false,
+        "assertion_failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "detail": [
+          "Traceback (most recent call last):\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 73, in checked\n    return function(self,*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 302, in test_06_same_error_outward_trend_slows_earlier\n    self.assertGreater(rates[0],0.0); self.assertLess(rates[1],0.0)\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: -33.33333206176758 not greater than 0.0\n"
+        ]
+      },
+      "killed": true
+    },
+    {
+      "mutation": "one_side_target_bias",
+      "test": "FilterFollowTests.test_07_mirrored_logic_swaps_targets_and_negates_correction",
+      "reference": {
+        "passed": true,
+        "assertion_failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "detail": []
+      },
+      "mutant": {
+        "passed": false,
+        "assertion_failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "detail": [
+          "Traceback (most recent call last):\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 73, in checked\n    return function(self,*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 329, in test_07_mirrored_logic_swaps_targets_and_negates_correction\n    self.assertAlmostEqual(left[3],-right[3],delta=1e-4)\nAssertionError: 0.125 != -0.125 within 0.0001 delta (0.25 difference)\n"
+        ]
+      },
+      "killed": true
+    },
+    {
+      "mutation": "old_low_speed_dead_zone",
+      "test": "SpeedContinuityTests.test_08_nonzero_5_8_12_18rpm_never_becomes_zero",
+      "reference": {
+        "passed": true,
+        "assertion_failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "detail": []
+      },
+      "mutant": {
+        "passed": false,
+        "assertion_failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "detail": [
+          "Traceback (most recent call last):\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 377, in test_08_nonzero_5_8_12_18rpm_never_becomes_zero\n    self.assertGreater(sign*value,0)\nAssertionError: 0 not greater than 0\n"
+        ]
+      },
+      "killed": true
+    },
+    {
+      "mutation": "remove_first_cause",
+      "test": "TraceStopTests.test_18b_stop_is_idempotent_first_cause_and_frozen",
+      "reference": {
+        "passed": true,
+        "assertion_failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "detail": []
+      },
+      "mutant": {
+        "passed": false,
+        "assertion_failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "detail": [
+          "Traceback (most recent call last):\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 73, in checked\n    return function(self,*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 113, in test_18b_stop_is_idempotent_first_cause_and_frozen\n    self.assertEqual(fw.Native_StopReason(),2)\nAssertionError: 3 != 2\n"
+        ]
+      },
+      "killed": true
+    },
+    {
+      "mutation": "user_reason_aliases_fault",
+      "test": "TraceStopTests.test_18c_user_key_has_distinct_reason_and_restart_rearms",
+      "reference": {
+        "passed": true,
+        "assertion_failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "detail": []
+      },
+      "mutant": {
+        "passed": false,
+        "assertion_failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "detail": [
+          "Traceback (most recent call last):\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 73, in checked\n    return function(self,*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 124, in test_18c_user_key_has_distinct_reason_and_restart_rearms\n    self.assertNotIn(user,range(2,19))\nAssertionError: 2 unexpectedly found in range(2, 19)\n"
+        ]
+      },
+      "killed": true
+    },
+    {
+      "mutation": "restart_keeps_trace_frozen",
+      "test": "TraceStopTests.test_18c_user_key_has_distinct_reason_and_restart_rearms",
+      "reference": {
+        "passed": true,
+        "assertion_failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "detail": []
+      },
+      "mutant": {
+        "passed": false,
+        "assertion_failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "detail": [
+          "Traceback (most recent call last):\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 73, in checked\n    return function(self,*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 133, in test_18c_user_key_has_distinct_reason_and_restart_rearms\n    self.assertEqual(fw.Fix5_TraceCount(),0)\nAssertionError: 1 != 0\n"
+        ]
+      },
+      "killed": true
+    },
+    {
+      "mutation": "pivot_pollutes_adaptive_base",
+      "test": "TurnAlignHandoffTests.test_19b_spin_and_pivot_do_not_pollute_forward_base",
+      "reference": {
+        "passed": true,
+        "assertion_failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "detail": []
+      },
+      "mutant": {
+        "passed": false,
+        "assertion_failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "detail": [
+          "Traceback (most recent call last):\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 73, in checked\n    return function(self,*args,**kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/linecar_optimized/tests/test_fix5.py\", line 574, in test_19b_spin_and_pivot_do_not_pollute_forward_base\n    self.assertAlmostEqual(fw.Fix5_Base(),30.0,delta=1e-4)\nAssertionError: 0.0 != 30.0 within 0.0001 delta (30.0 difference)\n"
+        ]
+      },
+      "killed": true
+    }
+  ],
+  "killed": 8,
+  "total": 8,
+  "source_unchanged": true,
+  "workspace_status_unchanged": true,
+  "git_workspace_available": true,
+  "workspace_was_clean": false,
+  "source_sha256": {
+    "hardware/CarConfig.h": "cbec3f5f6dacd635ffef71de5d5e35cebf3652e1faa0dc464fea5ca1d81f0416",
+    "hardware/Encoder.c": "2b3423b69d38c35635e9ac7fc0bff6760cac3b620dbcb81bbe329210cc47e309",
+    "hardware/Encoder.h": "7d4eacf16d2bb6440a00c799163a3db69bd92462eee508e3a7289a7b16569899",
+    "hardware/GraySensor.c": "0b0395012eaba2252ba277f7adcdb11a9029393669ad1cef0ab1e724a571b0e4",
+    "hardware/GraySensor.h": "45d3bec5c08fcdef585e48caa3e62faa48a4529ff46995aaba67a71dbb56171a",
+    "hardware/KEY.c": "3d761ce4ac9593fb1187dcc4b68dad365a74bcfe5d3fc9f9ec69429d950e0ad5",
+    "hardware/KEY.h": "be208a64b7672e891b82e500a43c80988842a297604f191238daea6acebf0493",
+    "hardware/LED.c": "9bed1e69648df79a32862344d22c3533f2a4624a255db17eb198e0b319db700a",
+    "hardware/LED.h": "987a8abe167e100c8567132308cbbdda2030f22a0d28db76424115aa8c6ffd9e",
+    "hardware/Motor.c": "d4929eb0eef01253382bb95de9f3721daf88470b737c40a7beedea42abf0b6e2",
+    "hardware/Motor.h": "55567927efc98bc2444e73b19e84c25abf43bb154d6df2e1e9ec438cf9461c58",
+    "hardware/OLED.c": "540f0b261aabdfbd96868d6d21ea2fd3c2136b75fa9b528fec7fee87235c2d83",
+    "hardware/OLED.h": "7496bd2f20b64a63a1c7ba680ada160a3e15416cc84522ef454e9c88e384dc36",
+    "hardware/OLED_Font.h": "988a3bbefea57fef45daf20d34d5e18bdcec714c838be8bf0c87f18fbb612d70",
+    "hardware/Track.c": "22f7d8efda42c8fd247c934cce12cd54b5f83d9b6f81443bfdabce6fbadb7956",
+    "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+    "hardware/jiaodu.h": "604c2af4f310b6ddc16f39f2e38a8a63395080a1480de407e2c4cc1a77d75c92",
+    "hardware/pwm.c": "7c3104db97cd8cbd32681ed691fa1512299a1f4d5efa5b82e79ea88383f76ad9",
+    "hardware/pwm.h": "0e341b54f608aea1d89cd932dc5c1e06186c3bd8274a95ff30c0a0680b8babd5",
+    "system/Delay.c": "c65d0bf652abd2863727cbc1cdbd78d84b19e08566b3c3421f59610be2c2bba4",
+    "system/Delay.h": "f0bf8cbd91c797ef0e64860ae1d05dc310481fd97e72fc487401b131af1346ad",
+    "system/PID.c": "164e6dd34bbe229966413bebf0595ca269341b35dfe585da8c980d57170c3712",
+    "system/PID.h": "ac440ade5998e1e0164cfef2a0424862f602808e73b0560de8d1bca3b9b3eb9a",
+    "system/jiaodu.c": "c333da50d63b7feffa3477673b6e18d9d6f8f71c1657217b77b7ad036dfe6712",
+    "system/jy901s.c": "66e15ad5f7113eaac3bfc74c6b6b53f059802757c84585c6259f856879f3d8ff",
+    "system/jy901s.h": "3f814a14102ed399bc82c35ffa6693089671bb37e960fae8b0b23cd58a2c1c77",
+    "system/sys.c": "936177c7114441fbafc502310f6a9953d9cd794289a80a14d08e83382288317f",
+    "system/sys.h": "2be089da7f55ddcce5cb38cc089ecb70b807e9a0ae922edf2db4c78d38e6f06f",
+    "system/usart.c": "e0f1bc290a670231753b4a6f9ddfdaedc8ce71975bda33c3d4f35e0667bf0bc3",
+    "system/usart.h": "86d5b825712b3d869f088703946ccc9e631fceac901657c1854ecde9bef15344"
+  }
+}

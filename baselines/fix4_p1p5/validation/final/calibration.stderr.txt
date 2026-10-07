@@ -1,0 +1,17 @@
+test_01_measured_counts_and_bench_speed (__main__.CalibrationTests.test_01_measured_counts_and_bench_speed) ... ok
+test_02_bench_feedforward_matches_supplied_points (__main__.CalibrationTests.test_02_bench_feedforward_matches_supplied_points) ... ok
+test_03_axle_advance_uses_actual_wheel_distance (__main__.CalibrationTests.test_03_axle_advance_uses_actual_wheel_distance) ... ok
+test_04_rotation_uses_both_actual_counts_per_rev (__main__.CalibrationTests.test_04_rotation_uses_both_actual_counts_per_rev) ... ok
+test_05_wide_frames_with_one_missing_read_still_turn (__main__.CalibrationTests.test_05_wide_frames_with_one_missing_read_still_turn) ... ok
+test_06_isolated_wide_frames_do_not_accumulate_across_long_gap (__main__.CalibrationTests.test_06_isolated_wide_frames_do_not_accumulate_across_long_gap) ... ok
+test_07_short_central_wide_patch_does_not_change_line_width (__main__.CalibrationTests.test_07_short_central_wide_patch_does_not_change_line_width) ... ok
+test_08_speed_output_cuts_zero_and_excess_speed (__main__.CalibrationTests.test_08_speed_output_cuts_zero_and_excess_speed) ... ok
+test_09_stall_kick_escalates_then_releases_on_motion (__main__.CalibrationTests.test_09_stall_kick_escalates_then_releases_on_motion) ... ok
+test_10_speed_loop_regulates_two_different_fast_motors (__main__.CalibrationTests.test_10_speed_loop_regulates_two_different_fast_motors) ... ok
+test_11_load_compensation_survives_inner_stop_and_is_bounded (__main__.CalibrationTests.test_11_load_compensation_survives_inner_stop_and_is_bounded) ... ok
+test_12_overspeed_integral_is_not_saved_as_load (__main__.CalibrationTests.test_12_overspeed_integral_is_not_saved_as_load) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.009s
+
+OK

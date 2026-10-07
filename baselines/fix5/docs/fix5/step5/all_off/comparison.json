@@ -1,0 +1,24 @@
+{
+  "exit_codes": {
+    "units": 0,
+    "geometry": 0,
+    "random": 0
+  },
+  "comparisons": {
+    "units": {
+      "passed": true,
+      "records": 11293,
+      "float_tolerance": 0
+    },
+    "geometry": {
+      "passed": true,
+      "records": 70500,
+      "float_tolerance": 0
+    },
+    "random": {
+      "passed": true,
+      "records": 60534,
+      "float_tolerance": 0
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "calibration",
+  "command": "python3 tests/test_calibration.py",
+  "returncode": 0,
+  "elapsed_seconds": 0.675
+}

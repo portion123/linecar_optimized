@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python3",
+    "tests/test_geometry.py",
+    "--stress"
+  ],
+  "cwd": "/workspace/FIX4_baseline",
+  "returncode": 0,
+  "elapsed_seconds": 5.114432829999998
+}

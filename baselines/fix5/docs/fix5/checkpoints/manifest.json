@@ -1,0 +1,102 @@
+[
+  {
+    "tag": "fix4_baseline",
+    "commit": "89bafa2385fc0dfa512d89b6cce4209bab8fa6fc",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "661c3121c7f103f4d8c917e0b94b6123272eb822061c8483c7e103050141eb20",
+      "hardware/Track.c": "b6b2ef530a307edb6423e326e81412d1e2e41870b323fd53ffaa8a9f4a6d85d2",
+      "hardware/Track.h": "c1b889934791e4b3c6da8e6394e771af67db621404c0fc95e1e96c1d5f86393e",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_stage0",
+    "commit": "9410c8e143fcd4bb7f956f8905c5de0c7dc11ec8",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "661c3121c7f103f4d8c917e0b94b6123272eb822061c8483c7e103050141eb20",
+      "hardware/Track.c": "b6b2ef530a307edb6423e326e81412d1e2e41870b323fd53ffaa8a9f4a6d85d2",
+      "hardware/Track.h": "c1b889934791e4b3c6da8e6394e771af67db621404c0fc95e1e96c1d5f86393e",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_step1",
+    "commit": "1dd0f35402515714e6b73cef59575577922d0db5",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "248bef427eb896c28426d701f1a225edfb9b5d0fe39fac8dcf4380a1a134a19c",
+      "hardware/Track.c": "91e3897979a268b7fa78f3a482d9c83adb9ff5c2b92ba8cd0d85d00a2730cc31",
+      "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_step2",
+    "commit": "1b148637c910bd8ccee240286878416b761b3892",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "df7fe9075fd8580d24cf4f72fcd8d3d6195acfb26481c27be9e9bbb9bbeabe80",
+      "hardware/Track.c": "65f121e8e40ab440cd7e307fad2042afd4e0ee79fc32d3c0b1de7862bd6a4327",
+      "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_step3",
+    "commit": "9787c551cdb3c231092e0a0d615a1fdf3894b36c",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "8d546b7c5898121bac5dbfe378e93b876e5d3d47cdad326826b875ad21c5920d",
+      "hardware/Track.c": "380afec3dcce98511ad297519345477b8f385ed58a6f4c9b5aba5e9531c70d48",
+      "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_step4",
+    "commit": "f9729a7763d136826887388e641aea58b7db9ff0",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "3c4ad5b85db24522f22bf3769cb0d86cf7ac9eb3a304c37b6cf0bd09480c1b28",
+      "hardware/Track.c": "cab76fa64399c2abcfb82b8f73ff8de5e267599928b4c5d7bbb98b72cd41daa3",
+      "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_step5",
+    "commit": "019c11ba57cddc885cad0b41dcc6d5e2d2ab44e7",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "3f872d2ea54bba70a4b6743a6e1c58992a572b156f6fff1867345791881aa95a",
+      "hardware/Track.c": "89812e83455d279dc83fa747a9e5b35125bd606a5a5e2df008172c5980e93243",
+      "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_step6",
+    "commit": "4efbd1a4e46563a7930874d7cbaf8203161aab32",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "d2d3bb8a2abd4e4adb3392d82abb207cef0c7dbe82a0e639552c04869f2afe63",
+      "hardware/Track.c": "6b95dca60a3138d90f1b3a661a9b08f4bedcb7b233a86b0fdd8fd724fec7ec79",
+      "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_step7",
+    "commit": "430898d8a593a2cccae2c3e2fb96af8c24e5d9a8",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "666bb482404c3cecc6873a81a9fefc5fe36c907d7a1552eeb59f4cc125272e23",
+      "hardware/Track.c": "03c852cf7d434b91c4f688890d04c6fdb19b653b6217c1f3b4bcb66505f14906",
+      "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  },
+  {
+    "tag": "fix5_step8",
+    "commit": "b4b426b2ba39eaad857d9a704edad0d098db3396",
+    "controller_sha256": {
+      "hardware/CarConfig.h": "cbec3f5f6dacd635ffef71de5d5e35cebf3652e1faa0dc464fea5ca1d81f0416",
+      "hardware/Track.c": "a972e789aa1f8809e2dbfeb4683483ebae163be479be9eaf0545192c395a63f9",
+      "hardware/Track.h": "ccdc7f388ce73c4cd0ed6ae6d818c623fbd4019adf67e76f273fd0388025fd22",
+      "user/stm32f10x_it.c": "317179050a5070dbd5357385cc7eea92d309d92797e9b3e84f864776ea8dd51e"
+    }
+  }
+]

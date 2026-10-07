@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/FIX4_baseline/tests/test_fault_random.py", line 35, in <module>
+    main()
+  File "/workspace/FIX4_baseline/tests/test_fault_random.py", line 31, in main
+    assert all(result['ok'] for result in results), '存在失败场景'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 存在失败场景

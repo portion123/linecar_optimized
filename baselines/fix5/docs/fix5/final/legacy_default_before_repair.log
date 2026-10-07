@@ -1,0 +1,33 @@
+Summary preserved from the actual pre-repair default execution.
+Command: CONTROL_BUILD_TAG=fix5_legacy_default python3 -m unittest test_calibration test_control test_low_speed test_oled_buffer test_recovery test_safety_bounds test_turn_regression -v
+Result: Ran 94 tests; 89 passed; 5 failed; 0 errors; 0 skipped.
+
+FAIL test_calibration.CalibrationTests.test_11_load_compensation_survives_inner_stop_and_is_bounded
+  tests/test_calibration.py:134
+  self.assertEqual(fw.Native_LoadComp(i),0)
+  AssertionError: 12.0 != 0
+  Classification: real manual Track_Stop API regression; repaired by clearing direction/load compensation for USER_KEY only.
+
+FAIL test_control.ControlTests.test_11_encoder_fault_stops_not_infinite_boost
+  tests/test_control.py:116
+  self.assertEqual(fw.Native_State(), 9)
+  AssertionError: 8 != 9
+  Classification: deliberate unified CAR_STOP numeric ABI change, original assertion retained.
+
+FAIL test_control.ControlTests.test_14_forward_mode_motor_polarity_and_no_line_dependency
+  tests/test_control.py:140
+  self.assertEqual(fw.Native_State(),18)
+  AssertionError: 8 != 18
+  Classification: deliberate unified CAR_STOP numeric ABI change, original assertion retained.
+
+FAIL test_control.ControlTests.test_18_millisecond_wrap_and_large_gap
+  tests/test_control.py:180
+  self.assertEqual(fw.Native_State(),18)
+  AssertionError: 8 != 18
+  Classification: deliberate unified CAR_STOP numeric ABI change, original assertion retained.
+
+FAIL test_safety_bounds.SafetyBoundsTests.test_fault_stop_stays_latched_until_explicit_restart
+  tests/test_safety_bounds.py:30
+  self.assertEqual(fw.Native_State(),9)
+  AssertionError: 8 != 9
+  Classification: deliberate unified CAR_STOP numeric ABI change, original assertion retained.

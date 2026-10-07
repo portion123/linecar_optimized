@@ -1,0 +1,6 @@
+{
+  "name": "fault_random",
+  "command": "python3 tests/test_fault_random.py",
+  "returncode": 0,
+  "elapsed_seconds": 10.723
+}

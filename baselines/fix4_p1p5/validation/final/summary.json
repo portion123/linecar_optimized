@@ -1,0 +1,52 @@
+{
+  "stage": "final",
+  "commands": [
+    {
+      "name": "fault_matrix",
+      "command": "python3 tests/test_fault_matrix.py",
+      "returncode": 0,
+      "elapsed_seconds": 8.087,
+      "enc_stops": 0,
+      "lost_stops": 0
+    },
+    {
+      "name": "control",
+      "command": "python3 tests/test_control.py",
+      "returncode": 0,
+      "elapsed_seconds": 0.711
+    },
+    {
+      "name": "turn_regression",
+      "command": "python3 tests/test_turn_regression.py",
+      "returncode": 0,
+      "elapsed_seconds": 0.688
+    },
+    {
+      "name": "calibration",
+      "command": "python3 tests/test_calibration.py",
+      "returncode": 0,
+      "elapsed_seconds": 0.68
+    },
+    {
+      "name": "geometry",
+      "command": "python3 tests/test_geometry.py --stress",
+      "returncode": 0,
+      "elapsed_seconds": 5.239,
+      "passed": 34,
+      "total": 34,
+      "max_run_front_error_mm": 25.74
+    },
+    {
+      "name": "fault_random",
+      "command": "python3 tests/test_fault_random.py",
+      "returncode": 0,
+      "elapsed_seconds": 10.723
+    },
+    {
+      "name": "fault_details",
+      "command": "python3 tests/test_fault_details.py",
+      "returncode": 0,
+      "elapsed_seconds": 0.683
+    }
+  ]
+}

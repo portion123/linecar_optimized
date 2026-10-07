@@ -1,0 +1,6 @@
+units.log: exit=0
+units golden {"passed": true, "records": 11293, "float_tolerance": 0}
+geometry.log: exit=0
+geometry golden {"passed": true, "records": 70500, "float_tolerance": 0}
+random.log: exit=0
+random golden {"passed": true, "records": 60534, "float_tolerance": 0}

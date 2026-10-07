@@ -1,0 +1,6 @@
+{
+  "name": "fault_details",
+  "command": "python3 tests/test_fault_details.py",
+  "returncode": 0,
+  "elapsed_seconds": 0.683
+}

@@ -1,0 +1,23 @@
+{
+  "syntax_units": 18,
+  "project_references": 63,
+  "compile_only_variants": [
+    "debug",
+    "oled_off",
+    "corners_off",
+    "swapped",
+    "sensor_reversed",
+    "bench"
+  ],
+  "host_warning_exclusions": {
+    "hardware/OLED.c": [
+      "missing-braces (original font table)"
+    ],
+    "library_and_start": [
+      "int-to-pointer-cast",
+      "pointer-to-int-cast (32-bit MCU addresses on 64-bit host)"
+    ]
+  },
+  "calibration_and_mapping_unchanged": true,
+  "stm32_armcc_build": "NOT RUN"
+}

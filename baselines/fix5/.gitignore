@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+tests/native/*.so
+tests/native/variants/
+Objects/*
+Listings/*
+
+# Regenerated FIX5 profiles, binaries and replay outputs.
+tests/native/fix5_*/

@@ -1,0 +1,30 @@
+{
+  "total": 30,
+  "successes": 27,
+  "safety_stops": 3,
+  "uncontrolled": 0,
+  "max_run_front_error_mm": {
+    "min": 9.21,
+    "p50": 10.91,
+    "p90": 12.73,
+    "max": 13.8
+  },
+  "max_all_front_error_mm": {
+    "min": 191.65,
+    "p50": 199.225,
+    "p90": 200.67,
+    "max": 201.83
+  },
+  "time_s": {
+    "min": 9.46,
+    "p50": 42.82,
+    "p90": 43.86,
+    "max": 44.06
+  },
+  "straight_correction_sign_flips": {
+    "min": 9,
+    "p50": 50.0,
+    "p90": 59,
+    "max": 73
+  }
+}

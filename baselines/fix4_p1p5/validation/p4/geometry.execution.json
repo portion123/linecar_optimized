@@ -1,0 +1,9 @@
+{
+  "name": "geometry",
+  "command": "python3 tests/test_geometry.py",
+  "returncode": 0,
+  "elapsed_seconds": 4.796,
+  "passed": 34,
+  "total": 34,
+  "max_run_front_error_mm": 25.74
+}

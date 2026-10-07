@@ -1,0 +1,52 @@
+{
+  "compiler": "gcc (Debian 14.2.0-19) 14.2.0",
+  "build_command": [
+    "gcc",
+    "-std=c99",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wdouble-promotion",
+    "-Werror",
+    "-ffp-contract=off",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all",
+    "-fno-omit-frame-pointer",
+    "-fno-pie",
+    "-no-pie",
+    "-DUSE_STDPERIPH_DRIVER",
+    "-DSTM32F10X_HD",
+    "-Itests/native",
+    "-Istart",
+    "-Ilibrary",
+    "-Iuser",
+    "-Ihardware",
+    "-Isystem",
+    "-include",
+    "/workspace/linecar_optimized/tests/native/fix5_profiles/all_features/CarConfig_override.h",
+    "tests/fix5_sanitizer.c",
+    "-lm",
+    "-o",
+    "<temporary>/fix5_sanitizer"
+  ],
+  "build_exit_code": 0,
+  "build_stdout": "",
+  "build_stderr": "",
+  "purpose": "memory bounds and undefined behaviour only; no physics or timing metrics",
+  "run_exit_code": 0,
+  "run_stdout": "{\"status\":\"passed\",\"checked_periods\":40470,\"random_periods\":30000,\"trace_reads\":200,\"seed\":2447445413}\n",
+  "run_stderr": "",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=1:halt_on_error=1:abort_on_error=1",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "exercise": {
+    "status": "passed",
+    "checked_periods": 40470,
+    "random_periods": 30000,
+    "trace_reads": 200,
+    "seed": 2447445413
+  },
+  "status": "passed"
+}

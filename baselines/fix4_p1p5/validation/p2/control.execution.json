@@ -1,0 +1,6 @@
+{
+  "name": "control",
+  "command": "python3 tests/test_control.py",
+  "returncode": 0,
+  "elapsed_seconds": 0.727
+}

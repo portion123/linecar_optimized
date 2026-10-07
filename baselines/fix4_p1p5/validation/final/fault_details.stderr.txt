@@ -1,0 +1,20 @@
+test_01_stalled_wheels_identify_left_and_right_and_restart_clears_display (__main__.FaultDetailTests.test_01_stalled_wheels_identify_left_and_right_and_restart_clears_display) ... ok
+test_02_reverse_wheels_identify_left_and_right (__main__.FaultDetailTests.test_02_reverse_wheels_identify_left_and_right) ... ok
+test_03_manual_key5_keeps_fixed_30_with_no_pulses (__main__.FaultDetailTests.test_03_manual_key5_keeps_fixed_30_with_no_pulses) ... ok
+test_04_feedback_kick_can_rearm_after_one_moving_frame (__main__.FaultDetailTests.test_04_feedback_kick_can_rearm_after_one_moving_frame) ... ok
+test_05_kick_releases_at_motion_without_preloading_integral (__main__.FaultDetailTests.test_05_kick_releases_at_motion_without_preloading_integral) ... ok
+test_06_approach_yaw_feedback_has_correct_sign_and_limit (__main__.FaultDetailTests.test_06_approach_yaw_feedback_has_correct_sign_and_limit) ... ok
+test_07_corner_scan_preserves_approach_yaw_and_uses_original_heading (__main__.FaultDetailTests.test_07_corner_scan_preserves_approach_yaw_and_uses_original_heading) ... ok
+test_08_scan_requires_strict_first_frame_then_accepts_near_center (__main__.FaultDetailTests.test_08_scan_requires_strict_first_frame_then_accepts_near_center) ... ok
+test_09_scan_accepts_one_missing_frame (__main__.FaultDetailTests.test_09_scan_accepts_one_missing_frame) ... ok
+test_10_scan_rejects_two_missing_frames (__main__.FaultDetailTests.test_10_scan_rejects_two_missing_frames) ... ok
+test_11_scan_rejects_outer_and_separated_masks (__main__.FaultDetailTests.test_11_scan_rejects_outer_and_separated_masks) ... ok
+test_12_scan_reversal_drops_partial_center_confirmation (__main__.FaultDetailTests.test_12_scan_reversal_drops_partial_center_confirmation) ... ok
+test_13_approach_corner_and_search_timeouts_have_distinct_details (__main__.FaultDetailTests.test_13_approach_corner_and_search_timeouts_have_distinct_details) ... ok
+test_14_both_scan_sides_exhausted_have_distinct_details (__main__.FaultDetailTests.test_14_both_scan_sides_exhausted_have_distinct_details) ... ok
+test_15_edge_alignment_angle_and_timeout_have_distinct_details (__main__.FaultDetailTests.test_15_edge_alignment_angle_and_timeout_have_distinct_details) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.005s
+
+OK

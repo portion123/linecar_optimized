@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/小车循迹_FIX4_实测编码器修复版/tests/test_fault_matrix.py", line 83, in <module>
+    main()
+  File "/workspace/小车循迹_FIX4_实测编码器修复版/tests/test_fault_matrix.py", line 79, in main
+    assert passed == total, '存在失败场景'
+           ^^^^^^^^^^^^^^^
+AssertionError: 存在失败场景

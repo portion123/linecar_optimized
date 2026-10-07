@@ -1,0 +1,8 @@
+REQUIRED CHECKS: PASS
+ALL TESTS: FAIL / SKIPPED (see exact counts)
+ALL-OFF GOLDEN: PASS; records=142327/142327; original units 94/94
+DEFAULT ORIGINAL UNITS: 90/94; failed=4; skipped=0
+DEFAULT FIX5 UNITS: 17/31; skipped=14
+PRESSURE: 9/10; RANDOM: 27/30
+STM32 ARM firmware / physical car: NOT RUN
+Summary: docs/fix5/final/summary.json

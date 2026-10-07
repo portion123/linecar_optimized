@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-01",
+  "dimensions_mm": {
+    "wheel_diameter": 44,
+    "axle_track": 133,
+    "sensor_front_offset": 175
+  },
+  "reported_forward_10_revolutions": {
+    "left": [
+      2516,
+      2504
+    ],
+    "right": [
+      2656,
+      2651
+    ]
+  },
+  "reported_pps": {
+    "pwm30": {
+      "left": 2011,
+      "right": 2244
+    },
+    "pwm40": {
+      "left": 2866,
+      "right": 3130
+    }
+  },
+  "counts_per_rev": {
+    "left": 251.0,
+    "right": 265.35
+  },
+  "derived_bench_rpm": {
+    "left": {
+      "pwm30": 480.7171314741036,
+      "pwm40": 685.0996015936255
+    },
+    "right": {
+      "pwm30": 507.40531373657427,
+      "pwm40": 707.7444884115318
+    }
+  },
+  "initial_fit": {
+    "left": {
+      "pwm_per_rpm": 0.04892787524366472,
+      "offset_pwm": 6.479532163742686
+    },
+    "right": {
+      "pwm_per_rpm": 0.04991534988713319,
+      "offset_pwm": 4.672686230248306
+    }
+  },
+  "note": "用户给出的计数按正向读数处理；空转两点仅作前馈初值，低速起转和落地负载仍需实车确认。"
+}

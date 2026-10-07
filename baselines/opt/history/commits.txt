@@ -1,0 +1,7 @@
+b3faca7 baseline: preserve supplied FIX4 project
+015fa3a control: explicit motion modes, low speed feedback and signed encoder evidence
+0c3ece0 control: per phase RPM slopes and zero crossing on reversal
+6688777 track: confidence direction and continuous corner alignment states
+df69916 recovery: bounded search stages and persistent recovery budgets
+3675b6e debug: buffered OLED, reviewable snapshots and safer bounded boost ramps
+2a25b4e review: tighten recovery continuity, validate bounds and deliver Chinese report

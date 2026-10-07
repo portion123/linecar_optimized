@@ -1,0 +1,8 @@
+GCC syntax PASS: 18 Keil C units; 63 project references exist
+Compile-only PASS: debug
+Compile-only PASS: oled_off
+Compile-only PASS: corners_off
+Compile-only PASS: swapped
+Compile-only PASS: sensor_reversed
+Compile-only PASS: bench
+Calibration/sign macros and PF0..7 GraySensor source unchanged: PASS

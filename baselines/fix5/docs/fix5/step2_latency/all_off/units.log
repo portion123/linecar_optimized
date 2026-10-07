@@ -1,0 +1,565 @@
+test_01_measured_counts_and_bench_speed (test_calibration.CalibrationTests.test_01_measured_counts_and_bench_speed) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_02_bench_feedforward_matches_supplied_points (test_calibration.CalibrationTests.test_02_bench_feedforward_matches_supplied_points) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_03_axle_advance_uses_actual_wheel_distance (test_calibration.CalibrationTests.test_03_axle_advance_uses_actual_wheel_distance) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_04_rotation_uses_both_actual_counts_per_rev (test_calibration.CalibrationTests.test_04_rotation_uses_both_actual_counts_per_rev) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+test_05_wide_frames_with_one_missing_read_still_turn (test_calibration.CalibrationTests.test_05_wide_frames_with_one_missing_read_still_turn) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_06_isolated_wide_frames_do_not_accumulate_across_long_gap (test_calibration.CalibrationTests.test_06_isolated_wide_frames_do_not_accumulate_across_long_gap) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_07_short_central_wide_patch_does_not_change_line_width (test_calibration.CalibrationTests.test_07_short_central_wide_patch_does_not_change_line_width) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_08_speed_output_cuts_zero_and_excess_speed (test_calibration.CalibrationTests.test_08_speed_output_cuts_zero_and_excess_speed) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_09_start_boost_is_short_and_bounded (test_calibration.CalibrationTests.test_09_start_boost_is_short_and_bounded) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_10_speed_loop_regulates_two_different_fast_motors (test_calibration.CalibrationTests.test_10_speed_loop_regulates_two_different_fast_motors) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+OK
+test_11_load_compensation_survives_inner_stop_and_is_bounded (test_calibration.CalibrationTests.test_11_load_compensation_survives_inner_stop_and_is_bounded) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_12_overspeed_integral_is_not_saved_as_load (test_calibration.CalibrationTests.test_12_overspeed_integral_is_not_saved_as_load) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_01_all_256_sensor_masks_and_start (test_control.ControlTests.test_01_all_256_sensor_masks_and_start) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.013s
+
+OK
+test_02_physical_left_and_right_steering (test_control.ControlTests.test_02_physical_left_and_right_steering) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_03_separated_black_patches_not_false_center (test_control.ControlTests.test_03_separated_black_patches_not_false_center) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_04_all_black_then_white_waits_for_axle (test_control.ControlTests.test_04_all_black_then_white_waits_for_axle) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+test_05_single_sided_corner_direction (test_control.ControlTests.test_05_single_sided_corner_direction) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_06_crossbar_followed_by_straight_not_corner (test_control.ControlTests.test_06_crossbar_followed_by_straight_not_corner) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_07_one_wide_frame_is_not_corner (test_control.ControlTests.test_07_one_wide_frame_is_not_corner) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_08_one_missing_frame_does_not_pivot (test_control.ControlTests.test_08_one_missing_frame_does_not_pivot) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_09_no_early_exit_on_old_line_and_signed_angle (test_control.ControlTests.test_09_no_early_exit_on_old_line_and_signed_angle) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
+test_10_search_sweeps_both_sides_then_stops (test_control.ControlTests.test_10_search_sweeps_both_sides_then_stops) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
+test_11_encoder_fault_stops_not_infinite_boost (test_control.ControlTests.test_11_encoder_fault_stops_not_infinite_boost) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_12_speed_feedback_reduces_fast_wheel_drive (test_control.ControlTests.test_12_speed_feedback_reduces_fast_wheel_drive) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_13_manual_stop_all_moving_phases (test_control.ControlTests.test_13_manual_stop_all_moving_phases) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.010s
+
+OK
+test_14_forward_mode_motor_polarity_and_no_line_dependency (test_control.ControlTests.test_14_forward_mode_motor_polarity_and_no_line_dependency) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_15_nonblocking_button_debounce_and_stop_priority (test_control.ControlTests.test_15_nonblocking_button_debounce_and_stop_priority) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_16_encoder_phase_decode_and_atomic_pair (test_control.ControlTests.test_16_encoder_phase_decode_and_atomic_pair) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_17_real_clock_parameters_and_oled_bounds (test_control.ControlTests.test_17_real_clock_parameters_and_oled_bounds) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_18_millisecond_wrap_and_large_gap (test_control.ControlTests.test_18_millisecond_wrap_and_large_gap) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_19_normal_wide_line_and_far_single_probes (test_control.ControlTests.test_19_normal_wide_line_and_far_single_probes) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+test_20_tapered_corner_tail_keeps_direction_and_width (test_control.ControlTests.test_20_tapered_corner_tail_keeps_direction_and_width) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_nonzero_low_rpm_is_not_silently_stopped (test_low_speed.LowSpeedTests.test_nonzero_low_rpm_is_not_silently_stopped) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_normal_reversal_coast_does_not_fault (test_low_speed.LowSpeedTests.test_normal_reversal_coast_does_not_fault) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_positive_and_negative_speed_path_is_symmetric (test_low_speed.LowSpeedTests.test_positive_and_negative_speed_path_is_symmetric) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_reversal_does_not_inherit_other_direction_integral (test_low_speed.LowSpeedTests.test_reversal_does_not_inherit_other_direction_integral) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_reversal_grace_starts_after_actual_pwm_direction_change (test_low_speed.LowSpeedTests.test_reversal_grace_starts_after_actual_pwm_direction_change) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_sparse_reverse_counts_eventually_fault (test_low_speed.LowSpeedTests.test_sparse_reverse_counts_eventually_fault) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+test_zero_counts_preserve_reverse_evidence (test_low_speed.LowSpeedTests.test_zero_counts_preserve_reverse_evidence) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_insufficient_budget_and_clean_buffer_send_nothing (test_oled_buffer.OLEDBufferTests.test_insufficient_budget_and_clean_buffer_send_nothing) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_int32_min_render_does_not_overflow (test_oled_buffer.OLEDBufferTests.test_int32_min_render_does_not_overflow) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_invalid_positions_and_negative_char_are_bounded (test_oled_buffer.OLEDBufferTests.test_invalid_positions_and_negative_char_are_bounded) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_long_strings_and_invalid_number_lengths_have_bounded_work (test_oled_buffer.OLEDBufferTests.test_long_strings_and_invalid_number_lengths_have_bounded_work) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_one_slice_sends_one_eight_byte_tile (test_oled_buffer.OLEDBufferTests.test_one_slice_sends_one_eight_byte_tile) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_show_functions_only_touch_memory (test_oled_buffer.OLEDBufferTests.test_show_functions_only_touch_memory) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_01_center_line_has_no_bias (test_recovery.RecoveryTests.test_01_center_line_has_no_bias) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_02_left_right_gradual_inputs_are_mirrors_and_smooth (test_recovery.RecoveryTests.test_02_left_right_gradual_inputs_are_mirrors_and_smooth) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_03_clear_left_and_right_corners_select_correct_direction (test_recovery.RecoveryTests.test_03_clear_left_and_right_corners_select_correct_direction) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_04_ambiguous_corner_uses_valid_right_hint (test_recovery.RecoveryTests.test_04_ambiguous_corner_uses_valid_right_hint) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_05_expired_hint_is_not_used (test_recovery.RecoveryTests.test_05_expired_hint_is_not_used) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_06_one_or_two_center_reads_do_not_complete_turn (test_recovery.RecoveryTests.test_06_one_or_two_center_reads_do_not_complete_turn) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.009s
+
+OK
+test_07_correct_turn_align_exit_track (test_recovery.RecoveryTests.test_07_correct_turn_align_exit_track) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+OK
+test_08_exit_white_20_to_100ms_does_not_reverse_search (test_recovery.RecoveryTests.test_08_exit_white_20_to_100ms_does_not_reverse_search) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.010s
+
+OK
+test_09_permanent_loss_stops_in_finite_time (test_recovery.RecoveryTests.test_09_permanent_loss_stops_in_finite_time) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+OK
+test_10_false_recovery_does_not_renew_session (test_recovery.RecoveryTests.test_10_false_recovery_does_not_renew_session) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+test_11_full_corner_mirrors_state_transitions (test_recovery.RecoveryTests.test_11_full_corner_mirrors_state_transitions) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.011s
+
+OK
+test_12_stable_forward_track_clears_session (test_recovery.RecoveryTests.test_12_stable_forward_track_clears_session) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+OK
+test_13_attempt_exhaustion_cannot_reapply_pwm (test_recovery.RecoveryTests.test_13_attempt_exhaustion_cannot_reapply_pwm) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_14_session_time_budget_across_clock_wrap (test_recovery.RecoveryTests.test_14_session_time_budget_across_clock_wrap) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_15_session_total_angle_budget (test_recovery.RecoveryTests.test_15_session_total_angle_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_16_session_distance_budget (test_recovery.RecoveryTests.test_16_session_distance_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_17_oled_skips_control_deadline_margin (test_recovery.RecoveryTests.test_17_oled_skips_control_deadline_margin) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_18_motion_modes_are_explicit (test_recovery.RecoveryTests.test_18_motion_modes_are_explicit) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.009s
+
+OK
+test_19_single_corner_frame_is_not_confirmed (test_recovery.RecoveryTests.test_19_single_corner_frame_is_not_confirmed) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_20_continuous_all_black_has_exit_path (test_recovery.RecoveryTests.test_20_continuous_all_black_has_exit_path) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_21_exit_track_transition_does_not_drop_back_to_42rpm (test_recovery.RecoveryTests.test_21_exit_track_transition_does_not_drop_back_to_42rpm) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+OK
+test_22_manual_stop_in_all_added_phases (test_recovery.RecoveryTests.test_22_manual_stop_in_all_added_phases) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.014s
+
+OK
+test_23_bench_low_speed_limits_and_timeout (test_recovery.RecoveryTests.test_23_bench_low_speed_limits_and_timeout) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.011s
+
+OK
+test_24_turn_debug_uses_current_sensor_error_and_keeps_history (test_recovery.RecoveryTests.test_24_turn_debug_uses_current_sensor_error_and_keeps_history) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+OK
+test_encoder_irq_saturates_without_count_polarity_wrap (test_safety_bounds.SafetyBoundsTests.test_encoder_irq_saturates_without_count_polarity_wrap) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_extreme_raw_counts_cannot_escape_pwm_limits (test_safety_bounds.SafetyBoundsTests.test_extreme_raw_counts_cannot_escape_pwm_limits) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_fault_stop_stays_latched_until_explicit_restart (test_safety_bounds.SafetyBoundsTests.test_fault_stop_stays_latched_until_explicit_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_total_counts_saturate_instead_of_overflow (test_safety_bounds.SafetyBoundsTests.test_total_counts_saturate_instead_of_overflow) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+test_01_persistent_side_branch_overrides_stale_center (test_turn_regression.TurnRegressionTests.test_01_persistent_side_branch_overrides_stale_center) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_02_single_side_noise_does_not_pull_car_off_center (test_turn_regression.TurnRegressionTests.test_02_single_side_noise_does_not_pull_car_off_center) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_03_symmetric_side_patches_do_not_choose_a_branch (test_turn_regression.TurnRegressionTests.test_03_symmetric_side_patches_do_not_choose_a_branch) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_04_edge_line_creates_prompt_command_differential (test_turn_regression.TurnRegressionTests.test_04_edge_line_creates_prompt_command_differential) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_05_central_wide_patch_does_not_arm_axle_advance (test_turn_regression.TurnRegressionTests.test_05_central_wide_patch_does_not_arm_axle_advance) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_06_weak_wide_tail_returns_to_bend_control (test_turn_regression.TurnRegressionTests.test_06_weak_wide_tail_returns_to_bend_control) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_07_strong_corner_tail_keeps_axle_geometry (test_turn_regression.TurnRegressionTests.test_07_strong_corner_tail_keeps_axle_geometry) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_08_one_center_frame_inside_corner_keeps_memory (test_turn_regression.TurnRegressionTests.test_08_one_center_frame_inside_corner_keeps_memory) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_09_real_straight_after_crossbar_cancels_memory (test_turn_regression.TurnRegressionTests.test_09_real_straight_after_crossbar_cancels_memory) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_10_short_white_gap_keeps_bend_speed_ratio (test_turn_regression.TurnRegressionTests.test_10_short_white_gap_keeps_bend_speed_ratio) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_11_persistent_edge_enters_finite_alignment_on_correct_side (test_turn_regression.TurnRegressionTests.test_11_persistent_edge_enters_finite_alignment_on_correct_side) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+test_12_brief_edge_reads_do_not_force_alignment (test_turn_regression.TurnRegressionTests.test_12_brief_edge_reads_do_not_force_alignment) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_13_opposite_edges_reset_alignment_confirmation (test_turn_regression.TurnRegressionTests.test_13_opposite_edges_reset_alignment_confirmation) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_14_strong_corner_tail_does_not_align_before_axle_arrives (test_turn_regression.TurnRegressionTests.test_14_strong_corner_tail_does_not_align_before_axle_arrives) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+test_15_video_like_low_inner_wheel_cannot_stay_in_run_forever (test_turn_regression.TurnRegressionTests.test_15_video_like_low_inner_wheel_cannot_stay_in_run_forever) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_16_single_center_frame_does_not_erase_recent_turn_direction (test_turn_regression.TurnRegressionTests.test_16_single_center_frame_does_not_erase_recent_turn_direction) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_17_next_corner_rearms_on_stable_off_center_narrow_line (test_turn_regression.TurnRegressionTests.test_17_next_corner_rearms_on_stable_off_center_narrow_line) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+OK
+test_18_single_wide_frame_resets_old_edge_timeout (test_turn_regression.TurnRegressionTests.test_18_single_wide_frame_resets_old_edge_timeout) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK
+test_19_opposite_center_single_probe_does_not_replace_turn_hint (test_turn_regression.TurnRegressionTests.test_19_opposite_center_single_probe_does_not_replace_turn_hint) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_20_four_probe_patch_lost_keeps_differential_and_never_long_advances (test_turn_regression.TurnRegressionTests.test_20_four_probe_patch_lost_keeps_differential_and_never_long_advances) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+test_21_real_motor_model_scans_both_sides_of_missing_track_then_stops (test_turn_regression.TurnRegressionTests.test_21_real_motor_model_scans_both_sides_of_missing_track_then_stops) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.019s
+
+OK
+FIX5_UNITS_SUMMARY {"total": 94, "failed": 0, "errors": 0, "skipped": 0, "passed": 94}

@@ -1,0 +1,26 @@
+test_01_persistent_side_branch_overrides_stale_center (__main__.TurnRegressionTests.test_01_persistent_side_branch_overrides_stale_center) ... ok
+test_02_single_side_noise_does_not_pull_car_off_center (__main__.TurnRegressionTests.test_02_single_side_noise_does_not_pull_car_off_center) ... ok
+test_03_symmetric_side_patches_do_not_choose_a_branch (__main__.TurnRegressionTests.test_03_symmetric_side_patches_do_not_choose_a_branch) ... ok
+test_04_edge_line_creates_prompt_command_differential (__main__.TurnRegressionTests.test_04_edge_line_creates_prompt_command_differential) ... ok
+test_05_central_wide_patch_does_not_arm_axle_advance (__main__.TurnRegressionTests.test_05_central_wide_patch_does_not_arm_axle_advance) ... ok
+test_06_weak_wide_tail_returns_to_bend_control (__main__.TurnRegressionTests.test_06_weak_wide_tail_returns_to_bend_control) ... ok
+test_07_strong_corner_tail_keeps_axle_geometry (__main__.TurnRegressionTests.test_07_strong_corner_tail_keeps_axle_geometry) ... ok
+test_08_one_center_frame_inside_corner_keeps_memory (__main__.TurnRegressionTests.test_08_one_center_frame_inside_corner_keeps_memory) ... ok
+test_09_real_straight_after_crossbar_cancels_memory (__main__.TurnRegressionTests.test_09_real_straight_after_crossbar_cancels_memory) ... ok
+test_10_short_white_gap_keeps_bend_speed_ratio (__main__.TurnRegressionTests.test_10_short_white_gap_keeps_bend_speed_ratio) ... ok
+test_11_persistent_edge_enters_finite_alignment_on_correct_side (__main__.TurnRegressionTests.test_11_persistent_edge_enters_finite_alignment_on_correct_side) ... ok
+test_12_brief_edge_reads_do_not_force_alignment (__main__.TurnRegressionTests.test_12_brief_edge_reads_do_not_force_alignment) ... ok
+test_13_opposite_edges_reset_alignment_confirmation (__main__.TurnRegressionTests.test_13_opposite_edges_reset_alignment_confirmation) ... ok
+test_14_strong_corner_tail_does_not_align_before_axle_arrives (__main__.TurnRegressionTests.test_14_strong_corner_tail_does_not_align_before_axle_arrives) ... ok
+test_15_video_like_low_inner_wheel_cannot_stay_in_run_forever (__main__.TurnRegressionTests.test_15_video_like_low_inner_wheel_cannot_stay_in_run_forever) ... ok
+test_16_single_center_frame_does_not_erase_recent_turn_direction (__main__.TurnRegressionTests.test_16_single_center_frame_does_not_erase_recent_turn_direction) ... ok
+test_17_next_corner_rearms_on_stable_off_center_narrow_line (__main__.TurnRegressionTests.test_17_next_corner_rearms_on_stable_off_center_narrow_line) ... ok
+test_18_single_wide_frame_resets_old_edge_timeout (__main__.TurnRegressionTests.test_18_single_wide_frame_resets_old_edge_timeout) ... ok
+test_19_opposite_center_single_probe_does_not_replace_turn_hint (__main__.TurnRegressionTests.test_19_opposite_center_single_probe_does_not_replace_turn_hint) ... ok
+test_20_four_probe_patch_lost_keeps_differential_and_never_long_advances (__main__.TurnRegressionTests.test_20_four_probe_patch_lost_keeps_differential_and_never_long_advances) ... ok
+test_21_real_motor_model_scans_both_sides_of_missing_track_then_stops (__main__.TurnRegressionTests.test_21_real_motor_model_scans_both_sides_of_missing_track_then_stops) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.015s
+
+OK

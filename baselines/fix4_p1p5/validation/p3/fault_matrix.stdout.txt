@@ -1,0 +1,2 @@
+FAIL square heavyR dir+1 dropout0.04 seed1: 结束于 LOST，t=30.5s
+FAIL: 83/84 故障矩阵场景通过

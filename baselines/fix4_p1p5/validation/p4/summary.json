@@ -1,0 +1,40 @@
+{
+  "stage": "p4",
+  "commands": [
+    {
+      "name": "fault_matrix",
+      "command": "python3 tests/test_fault_matrix.py",
+      "returncode": 0,
+      "elapsed_seconds": 8.647,
+      "enc_stops": 0,
+      "lost_stops": 0
+    },
+    {
+      "name": "control",
+      "command": "python3 tests/test_control.py",
+      "returncode": 0,
+      "elapsed_seconds": 0.802
+    },
+    {
+      "name": "turn_regression",
+      "command": "python3 tests/test_turn_regression.py",
+      "returncode": 0,
+      "elapsed_seconds": 0.817
+    },
+    {
+      "name": "calibration",
+      "command": "python3 tests/test_calibration.py",
+      "returncode": 0,
+      "elapsed_seconds": 0.85
+    },
+    {
+      "name": "geometry",
+      "command": "python3 tests/test_geometry.py",
+      "returncode": 0,
+      "elapsed_seconds": 4.796,
+      "passed": 34,
+      "total": 34,
+      "max_run_front_error_mm": 25.74
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+all_off: PASS
+stable_on: PASS
+all_features_on: PASS
+track_trace_enable: PASS
+track_sensor_filter_enable: PASS
+track_nonlinear_follow_enable: PASS
+track_error_trend_enable: PASS
+track_adaptive_speed_enable: PASS
+track_error_predict_enable: PASS
+track_low_speed_zone_enable: PASS
+track_turn_continuity_enable: PASS
+track_align_trend_enable: PASS

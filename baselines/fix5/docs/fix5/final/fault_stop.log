@@ -1,0 +1,9 @@
+test_busfault_withdraws_only_motor_pwm_and_stays_latched (__main__.FaultStopTests.test_busfault_withdraws_only_motor_pwm_and_stays_latched) ... ok
+test_hardfault_withdraws_only_motor_pwm_and_stays_latched (__main__.FaultStopTests.test_hardfault_withdraws_only_motor_pwm_and_stays_latched) ... ok
+test_memmanage_withdraws_only_motor_pwm_and_stays_latched (__main__.FaultStopTests.test_memmanage_withdraws_only_motor_pwm_and_stays_latched) ... ok
+test_usagefault_withdraws_only_motor_pwm_and_stays_latched (__main__.FaultStopTests.test_usagefault_withdraws_only_motor_pwm_and_stays_latched) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.052s
+
+OK

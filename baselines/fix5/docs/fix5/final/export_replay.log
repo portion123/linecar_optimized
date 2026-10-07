@@ -1,0 +1,33 @@
+FIX5 verification: current C source, GCC host/models only; ARM/physical NOT RUN
+RUN build: python3 scripts/check_build.py
+build: exit=0 (docs/fix5/final/build.log)
+RUN compile_matrix: python3 scripts/fix5_matrix.py
+compile_matrix: exit=0 (docs/fix5/final/compile_matrix.log)
+RUN golden: python3 scripts/fix5_golden.py compare --output docs/fix5/final/all_off
+golden: exit=0 (docs/fix5/final/golden.log)
+RUN stage: python3 scripts/fix5_stage.py final --skip-golden
+stage: exit=0 (docs/fix5/final/stage.log)
+RUN logic_default: python3 tests/test_fix5.py
+logic_default: exit=0 (docs/fix5/final/logic_default.log)
+RUN logic_all_on: python3 tests/test_fix5.py
+logic_all_on: exit=0 (docs/fix5/final/logic_all_on.log)
+RUN legacy_default: python3 tests/fix5_units.py --manifest docs/fix5/baseline/unit_manifest.json
+legacy_default: exit=1 (docs/fix5/final/legacy_default.log)
+RUN fault_stop: python3 tests/test_fault_stop.py
+fault_stop: exit=0 (docs/fix5/final/fault_stop.log)
+RUN mutations: python3 tests/run_fix5_mutations.py --output docs/fix5/final/mutations.json
+mutations: exit=0 (docs/fix5/final/mutations.log)
+RUN sanitizer_default: python3 tests/run_fix5_sanitizer.py --output docs/fix5/final/sanitizer_default.json
+sanitizer_default: exit=0 (docs/fix5/final/sanitizer_default.log)
+RUN sanitizer_all_off: python3 tests/run_fix5_sanitizer.py --output docs/fix5/final/sanitizer_all_off.json --config-header tests/native/fix5_profiles/all_off/CarConfig_override.h
+sanitizer_all_off: exit=0 (docs/fix5/final/sanitizer_all_off.log)
+RUN sanitizer_all_features: python3 tests/run_fix5_sanitizer.py --output docs/fix5/final/sanitizer_all_features.json --config-header tests/native/fix5_profiles/all_features/CarConfig_override.h
+sanitizer_all_features: exit=0 (docs/fix5/final/sanitizer_all_features.log)
+REQUIRED CHECKS: PASS
+ALL TESTS: FAIL / SKIPPED (see exact counts)
+ALL-OFF GOLDEN: PASS; records=142327/142327; original units 94/94
+DEFAULT ORIGINAL UNITS: 90/94; failed=4; skipped=0
+DEFAULT FIX5 UNITS: 17/31; skipped=14
+PRESSURE: 9/10; RANDOM: 27/30
+STM32 ARM firmware / physical car: NOT RUN
+Summary: docs/fix5/final/summary.json

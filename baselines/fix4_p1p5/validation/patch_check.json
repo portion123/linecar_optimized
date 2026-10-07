@@ -1,0 +1,18 @@
+{
+  "patch_check_returncode": 0,
+  "patch_apply_returncode": 0,
+  "base": "original uploaded ZIP",
+  "normalized_content_matches": [
+    "hardware/Track.c",
+    "hardware/CarConfig.h",
+    "tests/test_calibration.py",
+    "tests/test_fault_matrix.py",
+    "tests/test_fault_random.py",
+    "tests/test_fault_details.py",
+    "tests/fault_matrix_extraction.md",
+    "FIX4_修复与验证报告.md",
+    "实车测试清单.md",
+    "先看这里_FIX4_实测版说明.md"
+  ],
+  "patch_includes_new_matrix_and_random": true
+}

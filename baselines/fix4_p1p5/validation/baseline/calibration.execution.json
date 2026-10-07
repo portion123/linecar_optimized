@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python3",
+    "tests/test_calibration.py"
+  ],
+  "cwd": "/workspace/FIX4_baseline",
+  "returncode": 0,
+  "elapsed_seconds": 0.716004871000024
+}

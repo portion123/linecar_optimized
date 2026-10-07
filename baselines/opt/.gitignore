@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+tests/native/*.so
+tests/native/variants/
+Objects/*
+Listings/*

@@ -1,0 +1,5 @@
+{
+  "command": "python3 tests/test_fault_matrix.py",
+  "returncode": 1,
+  "elapsed_seconds": 3.468
+}

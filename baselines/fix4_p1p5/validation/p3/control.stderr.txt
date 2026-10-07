@@ -1,0 +1,25 @@
+test_01_all_256_sensor_masks_and_start (__main__.ControlTests.test_01_all_256_sensor_masks_and_start) ... ok
+test_02_physical_left_and_right_steering (__main__.ControlTests.test_02_physical_left_and_right_steering) ... ok
+test_03_separated_black_patches_not_false_center (__main__.ControlTests.test_03_separated_black_patches_not_false_center) ... ok
+test_04_all_black_then_white_waits_for_axle (__main__.ControlTests.test_04_all_black_then_white_waits_for_axle) ... ok
+test_05_single_sided_corner_direction (__main__.ControlTests.test_05_single_sided_corner_direction) ... ok
+test_06_crossbar_followed_by_straight_not_corner (__main__.ControlTests.test_06_crossbar_followed_by_straight_not_corner) ... ok
+test_07_one_wide_frame_is_not_corner (__main__.ControlTests.test_07_one_wide_frame_is_not_corner) ... ok
+test_08_one_missing_frame_does_not_pivot (__main__.ControlTests.test_08_one_missing_frame_does_not_pivot) ... ok
+test_09_no_early_exit_on_old_line_and_signed_angle (__main__.ControlTests.test_09_no_early_exit_on_old_line_and_signed_angle) ... ok
+test_10_search_sweeps_both_sides_then_stops (__main__.ControlTests.test_10_search_sweeps_both_sides_then_stops) ... ok
+test_11_encoder_fault_stops_not_infinite_boost (__main__.ControlTests.test_11_encoder_fault_stops_not_infinite_boost) ... ok
+test_12_speed_feedback_reduces_fast_wheel_drive (__main__.ControlTests.test_12_speed_feedback_reduces_fast_wheel_drive) ... ok
+test_13_manual_stop_all_moving_phases (__main__.ControlTests.test_13_manual_stop_all_moving_phases) ... ok
+test_14_forward_mode_motor_polarity_and_no_line_dependency (__main__.ControlTests.test_14_forward_mode_motor_polarity_and_no_line_dependency) ... ok
+test_15_nonblocking_button_debounce_and_stop_priority (__main__.ControlTests.test_15_nonblocking_button_debounce_and_stop_priority) ... ok
+test_16_encoder_phase_decode_and_atomic_pair (__main__.ControlTests.test_16_encoder_phase_decode_and_atomic_pair) ... ok
+test_17_real_clock_parameters_and_oled_bounds (__main__.ControlTests.test_17_real_clock_parameters_and_oled_bounds) ... ok
+test_18_millisecond_wrap_and_large_gap (__main__.ControlTests.test_18_millisecond_wrap_and_large_gap) ... ok
+test_19_normal_wide_line_and_far_single_probes (__main__.ControlTests.test_19_normal_wide_line_and_far_single_probes) ... ok
+test_20_tapered_corner_tail_keeps_direction_and_width (__main__.ControlTests.test_20_tapered_corner_tail_keeps_direction_and_width) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.004s
+
+OK

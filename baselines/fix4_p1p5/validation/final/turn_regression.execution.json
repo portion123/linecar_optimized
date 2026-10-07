@@ -1,0 +1,6 @@
+{
+  "name": "turn_regression",
+  "command": "python3 tests/test_turn_regression.py",
+  "returncode": 0,
+  "elapsed_seconds": 0.688
+}
