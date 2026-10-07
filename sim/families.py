@@ -18,6 +18,7 @@ SQ2_MIN_YAW_TURNS = 1.95   # 8 corners; 18 deg tolerance for the final heading w
 MAX_S = 200
 TRACK_ERROR_LIMIT_M = 0.035
 SQUARE = [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0)]
+START_WINDOW_BEGIN, START_WINDOW_END = 0.265, 0.33  # probe array at start: 0.12 + 0.175 m along edge 0
 
 def _orig_motors(rng):
     s = SquareConfig()
@@ -85,6 +86,12 @@ def make(family, seed_index, side):
         arcs = {2: rng.uniform(.20, .30)}
         gaps = [(i, rng.uniform(.05, .3), rng.uniform(.004, .010)) for i in range(4)]
         sensor['dropout'] = .005
+    if gaps:
+        # Construction fix (2026-10-07, before any candidate was evaluated): a gap under the
+        # start position made 4 MIX runs unstartable for every firmware (NO_LINE at KEY1).
+        # Only a gap overlapping the start window on edge 0 is moved just past it.
+        gaps = [(e, max(s, START_WINDOW_END) if e == 0 and s < START_WINDOW_END and s + l > START_WINDOW_BEGIN else s, l)
+                for e, s, l in gaps]
     track = polygon_track(vertices, stubs=stubs, gaps=gaps, arcs=arcs)
     if side < 0:
         track = track.mirrored(); sensor['thresholds'] = sensor['thresholds'][::-1]
